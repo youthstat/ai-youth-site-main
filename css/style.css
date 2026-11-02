@@ -247,31 +247,28 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .is-visible .bar-fill, .bar-fill.is-filled { width: var(--w, 0%); }
 
 /* ========== 8. PROGRAMME ========== */
-.days {
-  position: relative;
-  display: flex; gap: 16px; align-items: stretch;
-  overflow-x: auto; overflow-y: hidden;
-  scroll-snap-type: x mandatory; scroll-padding-inline: 4px;
-  overscroll-behavior-x: contain; scrollbar-width: thin;
-  padding: 8px 4px 40px;
-}
-.days > .day { flex: 0 0 min(340px, 86%); scroll-snap-align: start; }
-
+/* Programme days: carousel moved only by buttons (no dragging / scrollbar) */
 .days-carousel { position: relative; }
-.days-btn {
-  display: none; position: absolute; top: calc(50% - 20px); z-index: 3;
-  width: 44px; height: 44px; place-items: center; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--surface-solid); color: var(--text);
-  font-size: 1.6rem; line-height: 1; box-shadow: var(--shadow);
+.days {
+  display: flex; gap: 16px; align-items: stretch; position: relative;
+  overflow: hidden;                         /* nothing to drag: only the buttons move it */
+  padding: 10px 14px 28px;
 }
-.days-btn:hover:not(:disabled) { background: var(--blue); color: #fff; border-color: var(--blue); }
-.days-btn:disabled { opacity: .35; cursor: default; }
-.days-prev { left: -12px; }
-.days-next { right: -12px; }
-.days-dots { display: flex; justify-content: center; gap: 8px; margin-top: 4px; }
+.days > .day { flex: 0 0 100%; min-width: 0; }
+@media (min-width: 700px)  { .days > .day { flex-basis: calc((100% - 16px) / 2); } }
+@media (min-width: 1100px) { .days > .day { flex-basis: calc((100% - 32px) / 3); } }
+
+.days-nav { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.days-btn {
+  flex: none; display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface-solid); color: var(--text);
+  font-size: 1.7rem; line-height: 1; box-shadow: var(--shadow); transition: background .2s, color .2s, transform .2s;
+}
+.days-btn:hover:not(:disabled) { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-2px); }
+.days-btn:disabled { opacity: .35; cursor: default; box-shadow: none; }
+.days-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .days-dot { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 999px; background: var(--grey-block); transition: width .25s, background .25s; }
-.days-dot.is-active { width: 26px; background: var(--blue); }
-@media (min-width: 768px) { .days-btn { display: grid; } }
+.days-dot.is-active { width: 24px; background: var(--blue); }
 .day { position: relative; display: grid; gap: 8px; padding: 20px 20px 20px 26px; align-content: start; }
 .day::before { content: ""; position: absolute; left: 0; top: 20px; bottom: 20px; width: 4px; border-radius: 4px; background: linear-gradient(var(--blue), var(--cyan)); }
 .day-top { display: flex; align-items: center; gap: 12px; }
