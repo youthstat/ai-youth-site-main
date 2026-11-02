@@ -406,6 +406,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .partner { display: grid; place-items: center; min-height: 84px; padding: 14px; text-align: center; font-family: var(--font-head); font-weight: 700; letter-spacing: .02em; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); }
 .partner:has(img) { background: #fff; } /* logos have white backgrounds: keep the tile white in dark theme too */
 .partner img { max-height: 96px; max-width: 100%; width: auto; object-fit: contain; }
+.partner-link { padding: 0; transition: transform .2s ease, box-shadow .2s ease; }
+.partner-link a { display: grid; place-items: center; width: 100%; height: 100%; min-height: 84px; padding: 14px; color: inherit; text-decoration: none; border-radius: inherit; }
+.partner-link:hover, .partner-link:focus-within { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+.partner-link a:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
 .contacts { display: grid; gap: 14px; }
 .contact h4 { margin: 0 0 10px; font-size: 1.2rem; }
 .contact a { display: block; padding: 6px 0; font-weight: 500; overflow-wrap: anywhere; }
