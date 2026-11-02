@@ -60,52 +60,45 @@ window.SITE_DATA = {
   // photos: optional manual list, e.g. ["a.jpg","b.jpg"]; otherwise photo-1.jpg, photo-2.jpg... are auto-detected.
   days: [
     {
-      id: 1, date: "26 August", title: "Foundation Building", countries: ["Georgia", "Poland"], icon: "🧭",
-      description: "We built a safe space and agreed shared rules for the whole group.",
-      aim: "To create a safe and inclusive group atmosphere and to surface first thoughts about AI.",
-      activities: ["Set up a safe space", "Icebreakers", "Group rules", "Expectations & Fears Wall"],
+      id: 1, date: "26 August", title: "Ice-Breaking & Group Agreement", countries: [], icon: "🧭",
+      description: "We got to know each other, learned about the project, agreed on the rules together and tried Mission Impossible: AI edition.",
+      activities: ["Ice-breaking and getting to know each other", "Intro to the project & Code of Conduct", "Fears & expectations, learning agreement", "Mission Impossible: AI edition", "Speed dating"],
       youtube: "", photoFolder: "images/days/day1/", photoMax: 30
     },
     {
-      id: 2, date: "27 August", title: "Demystifying AI", countries: ["Moldova", "Jordan"], icon: "🤖",
-      description: "We explored what AI is, how it is prompted and where bias comes from.",
-      aim: "To explain algorithms and machine learning with everyday examples, practise prompting and spot AI bias.",
-      activities: ["AI in My Pocket", "Engineering Lab: prompt engineering and AI bias", "Introduction to Youthpass"],
+      id: 2, date: "27 August", title: "AI Detective & AI Boundaries", countries: ["Romania", "Moldova"], icon: "🕵️",
+      description: "We investigated AI together, discussed where its boundaries should be and shared our cultures on the first Cultural Night.",
+      activities: ["AI Detective (investigate your buddy)", "AI corners", "World Café: AI boundaries (laws created by country)", "AI community", "Cultural Night: Romania, Moldova"],
       youtube: "", photoFolder: "images/days/day2/", photoMax: 30
     },
     {
-      id: 3, date: "28 August", title: "Critical Thinking & Digital Safety", countries: ["Poland", "Ukraine"], icon: "🔍",
-      description: "We learned to verify information and to stay safe online.",
-      aim: "To practise verifying information with tools such as Hugging Face, TinEye and GPTZero.",
-      activities: ["Digital Detective Lab: fact-checking, Hugging Face, GPTZero", "Game: The Verification Challenge"],
+      id: 3, date: "28 August", title: "Fake News & Algorithmic Bias", countries: ["Ukraine", "Poland"], icon: "📰",
+      description: "We investigated fake news, looked at AI in our own countries and held a court role-play on algorithmic bias.",
+      activities: ["Fake News Investigation", "AI in your country", "Role-play on algorithmic bias (court)", "Cultural Night: Ukraine, Poland"],
       youtube: "", photoFolder: "images/days/day3/", photoMax: 30
     },
     {
-      id: 4, date: "29 August", title: "Local Community & Intercultural Dialogue", countries: ["Romania"], icon: "🏘️",
-      description: "We met the local community and prepared for the intercultural evening.",
-      aim: "To meet local people, learn by teaching online safety and prepare the intercultural evening.",
-      activities: ["Quest: Tech in My Town", "Online safety workshop for local students", "Preparation for the intercultural evening"],
+      id: 4, date: "29 August", title: "Study Visit & Cultural Night", countries: ["Jordan", "Georgia"], icon: "🚌",
+      description: "We went on a study visit, reflected on the day and shared Jordan and Georgia on the Cultural Night.",
+      activities: ["Study visit", "Reflection", "Cultural Night: Jordan, Georgia"],
       youtube: "", photoFolder: "images/days/day4/", photoMax: 30
     },
     {
-      id: 5, date: "30 August", title: "Sustainability & Creative Expression", countries: ["Romania"], icon: "🌲",
-      description: "We linked technology with the planet and turned our ideas into educational videos.",
-      aim: "To reflect on the environmental impact of technology and to script and film educational videos.",
-      activities: ["Hike: AI & Our Planet", "Content Creation Challenge (educational videos)"],
+      id: 5, date: "30 August", title: "AI Literacy Toolkit & Videos", countries: [], icon: "🧰",
+      description: "We created the AI Literacy Toolkit and the educational videos, and presented the videos to the group.",
+      activities: ["AI Literacy Toolkit creation", "Video materials creation", "Video material presentation", "Oscar night"],
       youtube: "", photoFolder: "images/days/day5/", photoMax: 30
     },
     {
-      id: 6, date: "31 August", title: "Ethical Reasoning & Synthesis", countries: ["Moldova", "Ukraine"], icon: "⚖️",
-      description: "We weighed the ethics of AI and brought the ideas of the week together.",
-      aim: "To debate algorithmic bias, finish the videos and write a shared vision of ethical AI.",
-      activities: ["Role play: Algorithmic Court", "Finalised the videos", "Wrote the YOUth AI Manifesto"],
+      id: 6, date: "31 August", title: "Trip & Rest Day", countries: [], icon: "🏞️",
+      description: "We went on a trip together, then reflected on the week and had time to socialise and rest.",
+      activities: ["Trip", "Reflection", "Socialising / rest"],
       youtube: "", photoFolder: "images/days/day6/", photoMax: 30
     },
     {
-      id: 7, date: "1 September", title: "Empowerment & Forward Planning", countries: ["Georgia", "Romania"], icon: "🚀",
-      description: "We looked ahead, reflected on the week and received our certificates.",
-      aim: "To turn ideas into local action plans, launch the network and look back on the week.",
-      activities: ["Forum: Spotlight on Tomorrow", "Project Lab", "Final reflection", "Youthpass certificates awarded"],
+      id: 7, date: "1 September", title: "Follow-up, Evaluation & Farewell", countries: [], icon: "🎉",
+      description: "We talked about Erasmus+ and Youthpass, planned the follow-up, evaluated the exchange and said goodbye at the farewell party.",
+      activities: ["Erasmus+ & Youthpass", "Follow-up & dissemination strategy", "Reflect & Grow: final evaluation", "Final feedback and reflections", "Farewell party"],
       youtube: "", photoFolder: "images/days/day7/", photoMax: 30
     }
   ],
@@ -230,7 +223,7 @@ window.SITE_DATA = {
         text: "More detailed information about the project for participants.",
         link: "infopack", buttonText: "Open Infopack" },
       { icon: "🗓️", title: "Reuse the programme",
-        text: "Revisit the seven days and their activities, such as the Digital Detective Lab or the Algorithmic Court, as ideas for your own sessions.",
+        text: "Revisit the seven days and their activities, such as the AI Detective, the World Café on AI boundaries or the algorithmic bias court role-play, as ideas for your own sessions.",
         link: "#programme", buttonText: "See the programme" },
       { icon: "🎬", title: "Share the educational videos",
         text: "Short videos created by participants during the exchange.",
