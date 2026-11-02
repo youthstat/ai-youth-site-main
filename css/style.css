@@ -356,7 +356,23 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .video-frame.is-vertical { aspect-ratio: 9 / 16; }
 .video { padding: 0; overflow: hidden; }
 .video-frame { position: relative; aspect-ratio: 16 / 9; background: var(--grey-block); }
+.video-stage { position: absolute; inset: 0; }
 .video-frame iframe, .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-expand {
+  position: absolute; top: 10px; right: 10px; z-index: 2; width: 36px; height: 36px; display: grid; place-items: center; padding: 0;
+  border: 0; border-radius: 50%; color: #fff; background: rgba(11, 31, 58, .72); cursor: pointer; transition: background .2s, transform .2s;
+}
+.video-expand:hover, .video-expand:focus-visible { background: var(--blue); transform: scale(1.08); }
+/* expanded player */
+.vd-panel { position: relative; display: grid; justify-items: center; gap: 10px; max-width: 100%; }
+.vd-panel .dialog-close { top: -6px; right: -6px; background: var(--surface-solid); color: var(--text); }
+.vd-stage {
+  position: relative; background: #000; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+  aspect-ratio: 16 / 9; width: min(1100px, calc(100vw - 24px), calc((100vh - 96px) * 16 / 9));
+}
+.vd-stage.is-vertical { aspect-ratio: 9 / 16; width: min(calc(100vw - 24px), calc((100vh - 96px) * 9 / 16)); }
+.vd-stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.vd-title { margin: 0; color: #E8EEFB; font-weight: 600; text-align: center; }
 .video-poster { padding: 0; background: var(--grey-block); display: block; }
 .video-poster img { width: 100%; height: 100%; object-fit: cover; }
 .play {
@@ -535,7 +551,7 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
 .gallery:not(.has-photos) { min-height: 200px; }
 /* round spinner on top of anything that is still loading */
 .carousel-slide:has(img.is-loading)::after, .gallery-item:has(img.is-loading)::before, .video-frame.is-loading::after,
-.media-skel::after, .gallery-skel::after, .lightbox.is-loading::after {
+.media-skel::after, .gallery-skel::after, .lightbox.is-loading::after, .vd-stage.is-loading::after {
   content: ""; position: absolute; top: 50%; left: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%;
   border: 3px solid rgba(47, 107, 255, .25); border-top-color: var(--blue); animation: spin .8s linear infinite; pointer-events: none;
 }
