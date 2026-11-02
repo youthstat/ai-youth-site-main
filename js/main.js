@@ -500,38 +500,52 @@
   const modalBody = $('#modal-body');
   let renderToken = 0;
 
-  /** Programme days: ONE horizontal strip (Day 1 → Day 7). Swipe, mouse wheel, arrows, dots, ← → keys. */
+  /** Programme days: a carousel moved ONLY by the buttons (no dragging, no wheel): Day 1 -> Day 7, one after another. */
   const initDaysCarousel = () => {
     const list = $('#days');
     if (!list || list.parentElement.classList.contains('days-carousel')) return;
-    const box = h('div', { class: 'days-carousel' });
-    list.before(box);
-    box.append(list);
-    list.setAttribute('tabindex', '0');
-    list.setAttribute('aria-label', 'Programme days: scroll sideways');
-
     const cards = $$('.day', list);
     if (!cards.length) return;
+
+    const box = h('div', { class: 'days-carousel', role: 'region', 'aria-roledescription': 'carousel', 'aria-label': 'Programme days' });
+    list.before(box);
+    box.append(list);
+
     const prev = h('button', { class: 'days-btn days-prev', type: 'button', 'aria-label': 'Previous day' }, '‹');
     const next = h('button', { class: 'days-btn days-next', type: 'button', 'aria-label': 'Next day' }, '›');
     const dots = h('div', { class: 'days-dots', role: 'group', 'aria-label': 'Choose a day' },
       cards.map((_, i) => h('button', { class: 'days-dot', type: 'button', 'aria-label': `Day ${i + 1}`, onclick: () => goTo(i) })));
-    box.append(prev, next, dots);
+    box.append(h('div', { class: 'days-nav' }, prev, dots, next));
 
+    let idx = 0;                                                    // first visible card
     const step = () => (cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].offsetWidth);
-    const index = () => Math.round(list.scrollLeft / step());
-    const goTo = (i) => list.scrollTo({ left: i * step(), behavior: reduceMotion ? 'auto' : 'smooth' });
-    prev.addEventListener('click', () => goTo(Math.max(0, index() - 1)));
-    next.addEventListener('click', () => goTo(Math.min(cards.length - 1, index() + 1)));
+    const perView = () => Math.max(1, Math.round((list.clientWidth + 16) / step()));
+    const maxIdx = () => Math.max(0, cards.length - perView());
 
     const update = () => {
-      const atEnd = list.scrollLeft + list.clientWidth >= list.scrollWidth - 4;
-      prev.disabled = list.scrollLeft <= 4;
-      next.disabled = atEnd;
-      $$('.days-dot', dots).forEach((d, k) => d.classList.toggle('is-active', k === (atEnd ? cards.length - 1 : index())));
+      idx = Math.min(Math.max(idx, 0), maxIdx());
+      prev.disabled = idx <= 0;
+      next.disabled = idx >= maxIdx();
+      $$('.days-dot', dots).forEach((d, k) => d.classList.toggle('is-active', k >= idx && k < idx + perView()));
     };
-    list.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    const goTo = (i, animate = true) => {
+      idx = Math.min(Math.max(i, 0), maxIdx());
+      list.scrollTo({ left: idx * step(), behavior: animate && !reduceMotion ? 'smooth' : 'auto' });
+      update();
+    };
+    prev.addEventListener('click', () => goTo(idx - 1));
+    next.addEventListener('click', () => goTo(idx + 1));
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(idx - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(idx + 1); }
+    });
+    // if keyboard focus moves into a hidden card, bring that card into view
+    list.addEventListener('focusin', (e) => {
+      const c = e.target.closest('.day');
+      const i = cards.indexOf(c);
+      if (i >= 0 && (i < idx || i >= idx + perView())) goTo(i, false);
+    });
+    window.addEventListener('resize', () => goTo(idx, false));
     update();
   };
 
