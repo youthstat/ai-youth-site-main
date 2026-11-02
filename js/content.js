@@ -244,10 +244,10 @@ window.SITE_DATA = {
   // To show a logo instead of the name: put the file in images/logos/ and add logo:"images/logos/partner-xxx.png"
   partners: [
     { name: "BMN", logo: "images/logos/partner-bmn.png", url: "https://www.instagram.com/bmnngo" },
-    { name: "SEMINARIUM", logo: "images/logos/partner-seminarium.png", url: "https://www.instagram.com/support_youth_leaders" },
+    { name: "SEMINARIUM", logo: "images/logos/partner-seminarium.png", },
     { name: "JEF Moldova", logo: "images/logos/partner-jef-moldova.png", url: "https://www.instagram.com/jef_moldova" },
     { name: "Informational Hub", logo: "images/logos/partner-info-hub.png", url: "https://www.instagram.com/ngo_informhub" },
-    { name: "AL-EMAD ALKABEER", logo: "images/logos/partner-al-emad-alkabeer.png" },
+    { name: "AL-EMAD ALKABEER", logo: "images/logos/partner-al-emad-alkabeer.png" url: "https://www.instagram.com/support_youth_leaders" },
     { name: "Impact Makers", logo: "images/logos/partner-impact-makers.png", url: "https://www.instagram.com/impactmakers_pl" }
   ],
   contactsLead: "If you have any questions, feel free to reach out.",
