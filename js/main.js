@@ -907,8 +907,7 @@
   const renderContacts = () => {
     $('#contacts-lead').textContent = D.contactsLead;
     const list = $('#partners');
-     D.partners.forEach((p) => {
-      // з url — клікабельне посилання <a>, без url — звичайна плитка <li>
+    D.partners.forEach((p) => {
       const li = h('li', { class: 'partner' + (p.url ? ' partner-link' : '') });
       const inner = p.url
         ? h('a', { href: p.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${p.name} — Instagram`, title: p.name })
