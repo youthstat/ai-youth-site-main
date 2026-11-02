@@ -504,7 +504,7 @@
   const DAYS_CSS = `
 .days-carousel { position: relative; }
 .days-carousel .days {
-  display: flex !important; grid-template-columns: none !important; gap: 16px; align-items: stretch; position: relative;
+  display: flex !important; grid-template-columns: none !important; gap: 16px; align-items: center !important; position: relative;
   overflow: hidden !important; padding: 10px 14px 28px;
 }
 .days-carousel .days > .day { flex: 0 0 100%; min-width: 0; }
