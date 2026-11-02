@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI and Young People: Balancing Technology and Humanity | Erasmus+ Youth Exchange</title>
+  <meta name="description" content="Erasmus+ Youth Exchange “AI and Young People: Balancing Technology and Humanity”, Vatra Dornei, Romania, 25 August – 2 September 2026.">
+  <meta name="theme-color" content="#0B1F3A">
+
+  <!-- Open Graph. NOTE: for social previews replace the relative path below with the full https:// URL of your site -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI and Young People: Balancing Technology and Humanity">
+  <meta property="og:description" content="Erasmus+ Youth Exchange | Vatra Dornei, Romania | 25 August – 2 September 2026. Report and portfolio.">
+  <meta property="og:image" content="images/hero/hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" href="images/logos/favicon.png">
+
+  <!-- Structured data (schema.org Event) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "AI and Young People: Balancing Technology and Humanity",
+    "startDate": "2026-08-25",
+    "endDate": "2026-09-02",
+    "location": {
+      "@type": "Place",
+      "name": "Vatra Dornei, Romania",
+      "address": { "@type": "PostalAddress", "addressLocality": "Vatra Dornei", "addressCountry": "RO" }
+    },
+    "description": "Erasmus+ Youth Exchange that equipped young people with critical thinking, the ethical use of AI and the ability to recognise disinformation.",
+    "organizer": { "@type": "Organization", "name": "Asociatia Bradul, Muntele si Neagra" }
+  }
+  </script>
+
+  <!-- Set theme + js flag before first paint (prevents flash) -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      d.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#about">Skip to content</a>
+
+  <!-- ========== 0. HEADER / NAVIGATION ========== -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#home" aria-label="AI &amp; Youth Ambassadors Network — back to top">
+        <img class="brand-mark" src="images/logos/logo-youth-emblem.png" alt="" width="40" height="40" decoding="async">
+        <span class="brand-text">AI &amp; Youth Ambassadors</span>
+      </a>
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <a href="#home" data-spy="home">Home</a>
+        <a href="#about" data-spy="about">About</a>
+        <a href="#programme" data-spy="programme">Programme</a>
+        <a href="#participants" data-spy="participants">Participants</a>
+        <a href="#impact" data-spy="impact">Impact</a>
+        <a href="#local-impact" data-spy="local-impact">Local Impact</a>
+        <a href="#gallery" data-spy="gallery">Gallery</a>
+        <a href="#videos" data-spy="videos">Videos</a>
+        <a href="#network" data-spy="network">Network</a>
+        <a href="#contacts" data-spy="contacts">Contacts</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        </button>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+          <span class="burger-bars" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== 1. HERO (Airport Dashboard) ========== -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-media" id="hero-media" aria-hidden="true">
+        <!-- ADD PHOTO: put images/hero/hero.jpg (optional). Without it the gradient mesh is shown. -->
+        <canvas id="hero-canvas"></canvas>
+      </div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-badge mono" id="hero-badge"></p>
+          <p class="eyebrow mono" id="hero-eyebrow"></p>
+          <h1 id="hero-title"></h1>
+          <p class="hero-sub mono" id="hero-sub"></p>
+          <p class="hero-desc" id="hero-desc"></p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#about">Learn more</a>
+            <a class="btn btn-ghost" href="#impact">View results</a>
+          </div>
+        </div>
+        <aside class="flags-card" aria-labelledby="flags-title">
+          <h2 class="flags-title mono" id="flags-title">Participating countries</h2>
+          <ul class="flag-list" id="flag-list"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ========== 2. ABOUT THE PROJECT ========== -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <h2 id="about-title">About the project</h2>
+          <p class="lead" id="about-lead"></p>
+        </header>
+        <div class="about-grid">
+          <div class="about-text reveal" id="about-text"></div>
+          <aside class="card erasmus-card reveal" id="erasmus-card"></aside>
+        </div>
+        <ul class="facts" id="about-facts"></ul>
+        <h3 class="sub-title reveal">Objectives achieved</h3>
+        <ul class="goals" id="goals"></ul>
+      </div>
+    </section>
+
+    <!-- ========== 3. PLANNED vs ACHIEVED ========== -->
+    <section class="section section-alt" id="planned" aria-labelledby="planned-title">
+      <div class="container">
+        <header class="section-head reveal">
+
+          <h2 id="planned-title">Planned vs Achieved</h2>
+        </header>
+        <div class="card progress-card reveal" id="progress-list"></div>
+      </div>
+    </section>
+
+    <!-- ========== 4. PROGRAMME — 7 DAYS ========== -->
+    <section class="section" id="programme" aria-labelledby="programme-title">
+      <div class="container">
+        <header class="section-head reveal">
+        
+          <h2 id="programme-title">What we did: seven days, seven steps</h2>
+          <p class="lead">A short summary of each day, with photos.</p>
+          <p class="schedule-dl">
+            <a class="btn btn-primary" href="files/Schedule_AI_and_Young_People.xlsx" download>⬇ Download schedule (XLSX)</a>
+          </p>
+        </header>
+        <!-- ADD PHOTOS: see images/days/day1 ... day7 (photo-1.jpg, photo-2.jpg ...) -->
+        <!-- ADD YOUTUBE ID у js/content.js (days[i].youtube) -->
+        <ol class="days" id="days"></ol>
+      </div>
+    </section>
+
+    <!-- ========== 5. PARTICIPANTS & INCLUSION ========== -->
+    <section class="section section-alt" id="participants" aria-labelledby="participants-title">
+      <div class="container">
+        <header class="section-head reveal">
+         
+          <h2 id="participants-title">Participants &amp; Inclusion</h2>
+        </header>
+        <div class="participants-grid">
+          <div class="card donut-card reveal" id="donut-card"></div>
+          <div class="card people-card reveal" id="people-card"></div>
+        </div>
+        <div class="card competences reveal" id="competences"></div>
+      </div>
+    </section>
+
+    <!-- ========== 6. IMPACT DASHBOARD ========== -->
+    <section class="section" id="impact" aria-labelledby="impact-title">
+      <div class="container">
+        <header class="section-head reveal">
+      
+          <h2 id="impact-title">Impact Dashboard</h2>
+        </header>
+        <div class="bento" id="stats"></div>
+      </div>
+    </section>
+
+    <!-- ========== 7. LOCAL IMPACT ACROSS EUROPE ========== -->
+    <section class="section section-alt" id="local-impact" aria-labelledby="local-title">
+      <div class="container">
+        <header class="section-head reveal">
+         
+          <h2 id="local-title">Local Impact Across Europe</h2>
+          <p class="lead" id="local-intro"></p>
+        </header>
+        <div class="country-switch reveal" id="country-switch" role="group" aria-label="Jump to a country"></div>
+        <!-- ADD PHOTOS: see images/countries/<country>/ -->
+        <!-- ADD YOUTUBE ID у js/content.js (countries[i].youtube) -->
+        <div class="countries" id="countries"></div>
+      </div>
+    </section>
+
+    <!-- ========== 8. GALLERY ========== -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <header class="section-head reveal">
+  
+          <h2 id="gallery-title">Gallery</h2>
+        </header>
+        <!-- ADD PHOTOS: put photo-1.jpg, photo-2.jpg ... into images/gallery/ -->
+        <div class="gallery" id="gallery-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ========== 9. VIDEOS ========== -->
+    <section class="section section-alt" id="videos" aria-labelledby="videos-title">
+      <div class="container">
+        <header class="section-head reveal">
+        
+          <h2 id="videos-title">Participant-Created Educational Videos</h2>
+        </header>
+        <!-- ADD YOUTUBE ID у js/content.js (videos[i].youtube) -->
+        <div class="videos-layout">
+          <div class="videos" id="videos-grid"></div>
+          <div class="shorts" id="shorts-grid" aria-label="Vertical videos"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 10. AI & YOUTH AMBASSADORS NETWORK (this website) ========== -->
+    <section class="section" id="network" aria-labelledby="network-title">
+      <div class="container">
+        <header class="section-head reveal">
+     
+          <h2 id="network-title"></h2>
+          <p class="lead" id="network-lead"></p>
+        </header>
+        <div class="network-grid">
+          <div class="card reveal">
+            <h3 id="help-title"></h3>
+            <ul class="help-list" id="help-list"></ul>
+          </div>
+          <div class="card next-card reveal" id="next-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 11. PARTNERS & CONTACTS ========== -->
+    <section class="section section-alt" id="contacts" aria-labelledby="contacts-title">
+      <div class="container">
+        <header class="section-head reveal">
+        
+          <h2 id="contacts-title">Partners &amp; Contacts</h2>
+          <p class="lead" id="contacts-lead"></p>
+        </header>
+        <h3 class="sub-title reveal">Partners</h3>
+        <ul class="partners" id="partners"></ul>
+        <h3 class="sub-title reveal">Contacts</h3>
+        <div class="contacts" id="contacts-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== 12. FOOTER ========== -->
+  <footer class="site-footer" id="footer">
+    <div class="container footer-grid">
+      <div class="footer-logo">
+        <img id="erasmus-logo" src="images/logos/eu-cofunded.png" alt="Co-funded by the European Union" width="243" height="52" decoding="async">
+        <span class="logo-fallback mono" id="erasmus-fallback" hidden>Erasmus+</span>
+      </div>
+      <p class="disclaimer" id="disclaimer"></p>
+      <div class="footer-links">
+        <a class="btn btn-ghost-light" href="#home">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== DIALOG: day / country details ========== -->
+  <div class="dialog" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="dialog-panel">
+      <button class="dialog-close" type="button" data-close aria-label="Close dialog">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ========== DIALOG: lightbox ========== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lb-btn lb-close" type="button" data-close aria-label="Close photo viewer">✕</button>
+    <button class="lb-btn lb-prev" id="lb-prev" type="button" aria-label="Previous photo">‹</button>
+    <figure class="lb-figure">
+      <img id="lb-img" alt="" decoding="async">
+      <figcaption class="lb-count mono" id="lb-count" aria-live="polite"></figcaption>
+    </figure>
+    <button class="lb-btn lb-next" id="lb-next" type="button" aria-label="Next photo">›</button>
+  </div>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
