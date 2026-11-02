@@ -417,7 +417,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .logo-fallback { display: inline-block; padding: 10px 18px; border-radius: 10px; background: #fff; color: #0B1F3A; font-weight: 700; font-size: 1.1rem; }
 .disclaimer { font-size: .88rem; color: #B9C8E4; margin: 0; max-width: 820px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 12px; }
-
+.copyright { grid-column: 1 / -1; margin: 8px 0 0; font-size: .72rem; color: #D4DFF5; opacity: .35; text-align: center; }
 /* ========== 17. DIALOG (modal) ========== */
 .dialog {
   position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 12px;
