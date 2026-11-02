@@ -203,7 +203,7 @@
   });
 
   // close on backdrop click / [data-close]
-  [$('#modal'), $('#lightbox')].forEach((dlg) => {
+  [$('#modal'), $('#lightbox'), $('#video-dialog')].forEach((dlg) => {
     dlg.addEventListener('click', (e) => {
       if (e.target === dlg || e.target.closest('[data-close]')) closeDialog(dlg);
     });
@@ -285,8 +285,30 @@
   };
 
   /* ========== 6. YOUTUBE (iframe only after click) ========== */
+  const embedUrl = (id) => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+  const makeIframe = (id, title) => h('iframe', {
+    src: embedUrl(id), title, allow: 'accelerometer; autoplay; encrypted-media; fullscreen; picture-in-picture',
+    allowfullscreen: true, referrerpolicy: 'strict-origin-when-cross-origin'
+  });
+
+  /** Big player in a dialog (landscape or vertical). The YouTube player inside also has its own fullscreen button. */
+  const videoDialog = $('#video-dialog');
+  const openVideoDialog = (id, title, vertical, opener) => {
+    const stage = $('#vd-stage');
+    stage.className = `vd-stage is-loading${vertical ? ' is-vertical' : ''}`;
+    const iframe = makeIframe(id, title);
+    iframe.addEventListener('load', () => stage.classList.remove('is-loading'), { once: true });
+    stage.replaceChildren(iframe);
+    $('#vd-title').textContent = title;
+    openDialog(videoDialog, opener);
+  };
+  videoDialog.addEventListener('dialog:closed', () => { $('#vd-stage').replaceChildren(); });   // stops playback
+
+  const EXPAND_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>';
+
   const buildVideo = (id, title, vertical = false) => {
     const frame = h('div', { class: `video-frame is-loading${vertical ? ' is-vertical' : ''}` });
+    const stage = h('div', { class: 'video-stage' });
     // maxres thumbnails have no black bars; if one does not exist, fall back to the standard one
     const thumb = h('img', { src: `https://img.youtube.com/vi/${id}/${vertical ? 'maxresdefault' : 'hqdefault'}.jpg`, alt: `Video preview: ${title}`, loading: 'lazy', decoding: 'async' });
     const ready = () => frame.classList.remove('is-loading');
@@ -302,16 +324,20 @@
     const poster = h('button', { class: 'video-poster', type: 'button', 'aria-label': `Play video: ${title}` },
       thumb, h('span', { class: 'play', 'aria-hidden': 'true' }, '▶'));
     poster.addEventListener('click', () => {
-      const iframe = h('iframe', {
-        src: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`,
-        title, allow: 'accelerometer; autoplay; encrypted-media; picture-in-picture', allowfullscreen: true, referrerpolicy: 'strict-origin-when-cross-origin'
-      });
+      const iframe = makeIframe(id, title);
       frame.classList.add('is-loading');                 // spinner until the player has loaded
       iframe.addEventListener('load', () => frame.classList.remove('is-loading'), { once: true });
-      frame.replaceChildren(iframe);
+      stage.replaceChildren(iframe);
       iframe.focus();
     });
-    frame.append(poster);
+    const expand = h('button', { class: 'video-expand', type: 'button', 'aria-label': `Expand video: ${title}`, title: 'Expand', html: EXPAND_ICON });
+    expand.addEventListener('click', () => {
+      stage.replaceChildren(poster);                     // stop the small player so two videos never play at once
+      ready();
+      openVideoDialog(id, title, vertical, expand);
+    });
+    stage.append(poster);
+    frame.append(stage, expand);
     return frame;
   };
 
