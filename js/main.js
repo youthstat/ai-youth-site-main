@@ -907,9 +907,17 @@
   const renderContacts = () => {
     $('#contacts-lead').textContent = D.contactsLead;
     const list = $('#partners');
-    D.partners.forEach((p) => {
-      const li = h('li', { class: 'partner' });
-      if (p.logo) { li.setAttribute('aria-label', p.name); li.title = p.name; li.append(safeImg(p.logo, `${p.name} logo`, true)); } else li.textContent = p.name;
+     D.partners.forEach((p) => {
+      // з url — клікабельне посилання <a>, без url — звичайна плитка <li>
+      const li = h('li', { class: 'partner' + (p.url ? ' partner-link' : '') });
+      const inner = p.url
+        ? h('a', { href: p.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${p.name} — Instagram`, title: p.name })
+        : li;
+      if (p.logo) {
+        if (!p.url) { li.setAttribute('aria-label', p.name); li.title = p.name; }
+        inner.append(safeImg(p.logo, `${p.name} logo`, true));
+      } else inner.textContent = p.name;
+      if (p.url) li.append(inner);
       list.append(li);
     });
     $('#contacts-grid').append(...D.contacts.map((c) => h('article', { class: 'card contact reveal' },
