@@ -827,28 +827,98 @@
 
   const renderGallery = () => {
     const grid = $('#gallery-grid');
-    const photos = [];   // the gallery array: site photos first, then photos added with the button
-    let searching = true;  // while true, empty grid shows loading tiles instead of text
+    const more = $('#gallery-more');
+    const toggleBtn = $('#gallery-toggle');
+    const toggleText = $('#gallery-toggle-text');
+    const countEl = $('#gallery-count');
+    const photos = [];
+    let searching = true;
+    let expanded = false;
+
+    // The bento layout in CSS is built for exactly 7 tiles (desktop) and 5 tiles (phone)
+    const BENTO_DESKTOP = 7;
+    const BENTO_MOBILE = 5;
+    const mqMobile = window.matchMedia('(max-width: 640px)');
+    const bentoCount = () => (mqMobile.matches ? BENTO_MOBILE : BENTO_DESKTOP);
+
+    // smooth "morph" between the mosaic and the full grid (modern browsers); others get a simple fade-in
+    const canVT = typeof document.startViewTransition === 'function' && !reduceMotion;
 
     const placeholder = () => h('div', { class: 'placeholder' }, h('span', { 'aria-hidden': 'true' }, '📷'), h('strong', { text: 'Photos coming soon' }), h('span', { class: 'note', text: 'The exchange photos will appear here.' }));
 
-    const draw = () => {
+    const draw = (animateFrom = -1) => {
       grid.replaceChildren();
+      more.hidden = true;
+
       if (!photos.length) {
-        grid.classList.remove('has-photos');
+        grid.classList.remove('has-photos', 'is-bento');
         if (searching) grid.append(...[1.5, 0.75, 1.5, 1.5, 0.75, 1.5, 1.5, 0.75].map((r) => h('div', { class: 'gallery-skel', 'aria-hidden': 'true', style: `aspect-ratio:${r}` })));
         else grid.append(placeholder());
         return;
       }
+
+      const count = bentoCount();
+      const collapsible = photos.length > count;
+      const bento = collapsible && !expanded;
+      const visible = bento ? photos.slice(0, count) : photos;
+
       grid.classList.add('has-photos');
-      photos.forEach((src, i) => {
-        const btn = h('button', { class: 'gallery-item', type: 'button', 'aria-label': `Open photo ${i + 1} of ${photos.length}` },
-          safeImg(src, `${ALT_PREFIX} - Gallery - Photo ${i + 1}`, true));
-        btn.addEventListener('click', () => lightbox.open(photos, i, btn));
+      grid.classList.toggle('is-bento', bento);
+
+      visible.forEach((src, i) => {
+        const isLast = bento && i === count - 1;
+        const btn = h('button', {
+          class: 'gallery-item',
+          type: 'button',
+          'aria-label': isLast ? `Show all ${photos.length} photos` : `Open photo ${i + 1} of ${photos.length}`
+        }, safeImg(src, `${ALT_PREFIX} - Gallery - Photo ${i + 1}`, true));
+
+        if (canVT) btn.style.viewTransitionName = `gal-${i}`;
+        if (!canVT && animateFrom >= 0 && i >= animateFrom) {
+          btn.classList.add('is-new');
+          btn.style.setProperty('--d', `${Math.min((i - animateFrom) * 45, 700)}ms`);
+        }
+
+        if (isLast) {
+          // the last mosaic tile carries the "+N more photos" counter and expands the gallery
+          btn.classList.add('has-more');
+          btn.append(h('span', { class: 'gallery-overlay', 'aria-hidden': 'true' },
+            h('strong', { text: `+${photos.length - count}` }),
+            h('span', { text: 'more photos' })));
+          btn.addEventListener('click', () => setExpanded(true, true));
+        } else {
+          btn.addEventListener('click', () => lightbox.open(photos, i, btn));
+        }
         grid.append(btn);
       });
+
+      if (collapsible) {
+        more.hidden = false;
+        more.classList.toggle('is-expanded', expanded);
+        toggleBtn.setAttribute('aria-expanded', String(expanded));
+        toggleText.textContent = expanded ? 'Show fewer' : `View all ${photos.length} photos`;
+        countEl.textContent = `Showing ${visible.length} of ${photos.length}`;
+      }
     };
     draw();
+
+    const setExpanded = (value, fromTile = false) => {
+      expanded = value;
+      const apply = () => draw(!canVT && expanded ? bentoCount() : -1);
+      const t = canVT ? document.startViewTransition(apply) : (apply(), null);
+      if (fromTile) toggleBtn.focus({ preventScroll: true });   // the clicked tile no longer exists
+      if (!expanded) {
+        const go = () => $('#gallery').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        if (t) t.updateCallbackDone.then(go); else go();
+      }
+    };
+
+    toggleBtn.addEventListener('click', () => setExpanded(!expanded));
+
+    // phone <-> desktop switch changes the number of mosaic tiles
+    const onBreakpoint = () => { if (!expanded && photos.length) draw(); };
+    if (mqMobile.addEventListener) mqMobile.addEventListener('change', onBreakpoint);
+    else if (mqMobile.addListener) mqMobile.addListener(onBreakpoint);
 
     const start = async () => {
       const found = await loadPhotos(D.gallery.folder, D.gallery.photoMax, D.gallery.photos);
