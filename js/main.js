@@ -500,12 +500,47 @@
   const modalBody = $('#modal-body');
   let renderToken = 0;
 
+  /** Programme days: ONE horizontal strip (Day 1 → Day 7). Swipe, mouse wheel, arrows, dots, ← → keys. */
+  const initDaysCarousel = () => {
+    const list = $('#days');
+    if (!list || list.parentElement.classList.contains('days-carousel')) return;
+    const box = h('div', { class: 'days-carousel' });
+    list.before(box);
+    box.append(list);
+    list.setAttribute('tabindex', '0');
+    list.setAttribute('aria-label', 'Programme days: scroll sideways');
+
+    const cards = $$('.day', list);
+    if (!cards.length) return;
+    const prev = h('button', { class: 'days-btn days-prev', type: 'button', 'aria-label': 'Previous day' }, '‹');
+    const next = h('button', { class: 'days-btn days-next', type: 'button', 'aria-label': 'Next day' }, '›');
+    const dots = h('div', { class: 'days-dots', role: 'group', 'aria-label': 'Choose a day' },
+      cards.map((_, i) => h('button', { class: 'days-dot', type: 'button', 'aria-label': `Day ${i + 1}`, onclick: () => goTo(i) })));
+    box.append(prev, next, dots);
+
+    const step = () => (cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].offsetWidth);
+    const index = () => Math.round(list.scrollLeft / step());
+    const goTo = (i) => list.scrollTo({ left: i * step(), behavior: reduceMotion ? 'auto' : 'smooth' });
+    prev.addEventListener('click', () => goTo(Math.max(0, index() - 1)));
+    next.addEventListener('click', () => goTo(Math.min(cards.length - 1, index() + 1)));
+
+    const update = () => {
+      const atEnd = list.scrollLeft + list.clientWidth >= list.scrollWidth - 4;
+      prev.disabled = list.scrollLeft <= 4;
+      next.disabled = atEnd;
+      $$('.days-dot', dots).forEach((d, k) => d.classList.toggle('is-active', k === (atEnd ? cards.length - 1 : index())));
+    };
+    list.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  };
+
   /** Programme: one small card per day = date, title, short description, aim, activities and a small photo slider */
   const renderDays = () => {
     const wrap = $('#days');
     D.days.forEach((d) => {
       const media = h('div', { class: 'day-media' });
-      const li = h('li', { class: 'card day reveal' },
+      const li = h('li', { class: 'card day' },
         h('div', { class: 'day-top' },
           h('span', { class: 'day-n' }, `Day ${d.id} · ${d.date}`),
           h('span', { class: 'day-icon', 'aria-hidden': 'true' }, d.icon)),
@@ -522,6 +557,7 @@
         if (photos.length) media.append(buildCarousel(photos, `Day ${d.id}`));
       });
     });
+    initDaysCarousel();
   };
 
   const modalHead = (metaText, title, meta2) => h('header', { class: 'modal-head' },
@@ -830,7 +866,7 @@
     const more = $('#gallery-more');
     const toggleBtn = $('#gallery-toggle');
     const toggleText = $('#gallery-toggle-text');
-    const countEl = $('#gallery-count');
+    const countEl = $('#gallery-count');   // optional: the counter line may be absent in index.html
     const photos = [];
     let searching = true;
     let expanded = false;
@@ -897,7 +933,7 @@
         more.classList.toggle('is-expanded', expanded);
         toggleBtn.setAttribute('aria-expanded', String(expanded));
         toggleText.textContent = expanded ? 'Show fewer' : `View all ${photos.length} photos`;
-        countEl.textContent = `Showing ${visible.length} of ${photos.length}`;
+        if (countEl) countEl.textContent = `Showing ${visible.length} of ${photos.length}`;
       }
     };
     draw();
@@ -991,8 +1027,8 @@
     });
     $('#contacts-grid').append(...D.contacts.map((c) => h('article', { class: 'card contact reveal' },
       h('h4', { text: c.name }),
-      h('a', { href: `mailto:${c.email}` }, `✉ ${c.email}`),
-      h('a', { href: `tel:${c.phone}` }, `☎ ${c.phoneText || c.phone}`))));
+      c.email ? h('a', { href: `mailto:${c.email}` }, `✉ ${c.email}`) : null,
+      c.phone ? h('a', { href: `tel:${c.phone}` }, `☎ ${c.phoneText || c.phone}`) : null)));
   };
 
   const renderFooter = () => {
