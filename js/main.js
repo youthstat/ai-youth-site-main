@@ -510,6 +510,15 @@
 .days-carousel .days > .day { flex: 0 0 100%; min-width: 0; }
 @media (min-width: 700px)  { .days-carousel .days > .day { flex-basis: calc((100% - 16px) / 2); } }
 @media (min-width: 1100px) { .days-carousel .days > .day { flex-basis: calc((100% - 32px) / 3); } }
+.days-carousel .day { align-content: start; height: auto; }
+/* photo inside a day: full card width, frame takes the shape of the photo itself (no empty space), card grows/shrinks with it */
+.days-carousel .day-media { width: 100%; max-width: none; margin: 8px 0 0; }
+.days-carousel .day-media .carousel { width: 100%; max-width: none; margin: 0; border-radius: 12px; max-height: 460px; }
+.days-carousel .day-media .carousel { aspect-ratio: var(--ar, 3 / 2); transition: aspect-ratio .35s ease; }
+.days-carousel .day-media .carousel-track { height: 100%; }
+.days-carousel .day-media .carousel-slide { aspect-ratio: auto; height: 100%; display: block; }
+.days-carousel .day-media .carousel-slide img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.days-carousel .day-media .media-skel { max-width: none; }
 .days-nav { display: flex; align-items: center; justify-content: center; gap: 18px; }
 .days-btn {
   flex: none; display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border-radius: 50%;
