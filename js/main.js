@@ -500,6 +500,29 @@
   const modalBody = $('#modal-body');
   let renderToken = 0;
 
+  /** Styles of the programme carousel live here, so it works even if style.css has no carousel rules (or still has the old grid rule). */
+  const DAYS_CSS = `
+.days-carousel { position: relative; }
+.days-carousel .days {
+  display: flex !important; grid-template-columns: none !important; gap: 16px; align-items: stretch; position: relative;
+  overflow: hidden !important; padding: 10px 14px 28px;
+}
+.days-carousel .days > .day { flex: 0 0 100%; min-width: 0; }
+@media (min-width: 700px)  { .days-carousel .days > .day { flex-basis: calc((100% - 16px) / 2); } }
+@media (min-width: 1100px) { .days-carousel .days > .day { flex-basis: calc((100% - 32px) / 3); } }
+.days-nav { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.days-btn {
+  flex: none; display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface-solid); color: var(--text);
+  font-size: 1.7rem; line-height: 1; box-shadow: var(--shadow); cursor: pointer; transition: background .2s, color .2s, transform .2s;
+}
+.days-btn:hover:not(:disabled) { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-2px); }
+.days-btn:disabled { opacity: .35; cursor: default; box-shadow: none; }
+.days-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.days-dot { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 999px; background: var(--grey-block); cursor: pointer; transition: width .25s, background .25s; }
+.days-dot.is-active { width: 24px; background: var(--blue); }
+`;
+
   /** Programme days: a carousel moved ONLY by the buttons (no dragging, no wheel): Day 1 -> Day 7, one after another. */
   const initDaysCarousel = () => {
     const list = $('#days');
@@ -507,6 +530,7 @@
     const cards = $$('.day', list);
     if (!cards.length) return;
 
+    if (!$('#days-carousel-style')) document.head.append(h('style', { id: 'days-carousel-style' }, DAYS_CSS));
     const box = h('div', { class: 'days-carousel', role: 'region', 'aria-roledescription': 'carousel', 'aria-label': 'Programme days' });
     list.before(box);
     box.append(list);
