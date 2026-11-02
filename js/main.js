@@ -938,22 +938,19 @@
 
   /* ========== 20. INIT ========== */
   const init = () => {
-    initTheme();
-    initNav();
-    renderHero();
-    renderAbout();
-    renderProgress();
-    renderDays();
-    renderParticipants();
-    renderImpact();
-    renderCountries();
-    renderGallery();
-    renderVideos();
-    renderNetwork();
-    renderContacts();
-    renderFooter();
-    observeReveal();
-    initDownloads();
+    // each block is isolated: if one fails, the rest of the page still renders
+    // (the real error is printed in the browser console: F12 -> Console)
+    [initTheme, initNav, renderHero, renderAbout, renderProgress, renderDays,
+      renderParticipants, renderImpact, renderCountries, renderGallery, renderVideos,
+      renderNetwork, renderContacts, renderFooter, observeReveal, initDownloads
+    ].forEach((fn) => {
+      try { fn(); } catch (err) { console.error('[site] ' + (fn.name || 'block') + ' failed:', err); }
+    });
+    // safety net: never leave content hidden if the reveal observer did not run
+    setTimeout(() => $$('.reveal:not(.is-visible)').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) el.classList.add('is-visible');
+    }), 1500);
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
