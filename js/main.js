@@ -92,22 +92,28 @@
 
   /* ========== 3. PHOTO LOADER (auto-detect photo-1.jpg, photo-2.jpg ...) ========== */
   const EXTS = ['.jpg', '.jpeg', '.png', '.webp'];
-  const GAP_TOLERANCE = 3;          // stop after this many consecutive missing numbers (once photos were found)
   const photoCache = new Map();     // folder -> Promise<string[]>
   const extMemory = new Map();      // folder -> extension that worked last
 
-  const probe = (src) => new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = src;
-  });
+  const IS_HTTP = /^https?:$/.test(location.protocol);
+  /** Does this file exist? On a real site a HEAD request is used (nothing is downloaded); on file:// the image is loaded. */
+  const probe = (src) => {
+    if (IS_HTTP && window.fetch) {
+      return fetch(src, { method: 'HEAD', cache: 'force-cache' })
+        .then((r) => r.ok && /^image\//i.test(r.headers.get('content-type') || 'image/'))
+        .catch(() => false);
+    }
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = src;
+    });
+  };
 
-  /** Tries extensions one after another (remembered extension first) to avoid extra 404s */
-  const findPhoto = async (folder, n) => {
-    const pref = extMemory.get(folder);
-    const order = pref ? [pref, ...EXTS.filter((e) => e !== pref)] : EXTS;
-    for (const ext of order) {
+  /** Checks one photo number with the given file formats (one after another) */
+  const tryExts = async (folder, n, exts) => {
+    for (const ext of exts) {
       const src = `${folder}photo-${n}${ext}`;
       if (await probe(src)) { extMemory.set(folder, ext); return src; }
     }
@@ -117,26 +123,35 @@
   /**
    * loadPhotos(folder, max, manual)
    * - manual: optional array of file names/paths; if present, auto-search is skipped
-   * - a missing number in the middle is skipped; the search stops after GAP_TOLERANCE misses in a row
-   *   (or after 2 misses if nothing was found yet) or when N > max
+   * - otherwise photo-1, photo-2 ... are looked for FAST: the file format is learned from photo-1/2,
+   *   then groups of 10 numbers are checked at the same time (only that format), until a group is empty.
+   *   Nothing is downloaded while searching (HEAD requests), so 50+ photos are found in a moment.
    */
+  const BATCH = 10;
   const loadPhotos = (folder, max = 30, manual = null) => {
     if (Array.isArray(manual) && manual.length) {
       return Promise.resolve(manual.map((p) => (p.includes('/') ? p : folder + p)));
     }
+    if (!folder || max === 0) return Promise.resolve([]);   // no folder / photoMax: 0 = no photos, no probing at all
     if (photoCache.has(folder)) return photoCache.get(folder);
     const job = (async () => {
-      const found = [];
-      let misses = 0;
-      for (let n = 1; n <= max; n += 1) {
-        const src = await findPhoto(folder, n);
-        if (src) { found.push(src); misses = 0; }
-        else {
-          misses += 1;
-          if (misses >= (found.length ? GAP_TOLERANCE : 2)) break;
-        }
+      const byNum = new Map();
+      // 1) photo-1 and photo-2 in every format: tells us whether the folder has photos and which format they use
+      const first = await Promise.all([1, 2].filter((n) => n <= max).map(async (n) => [n, await tryExts(folder, n, EXTS)]));
+      first.forEach(([n, src]) => { if (src) byNum.set(n, src); });
+      if (!byNum.size) return [];
+      const main = extMemory.get(folder);
+      const others = EXTS.filter((e) => e !== main);
+      // 2) the rest, 10 numbers at a time, in the folder's own format
+      for (let start = 3; start <= max; start += BATCH) {
+        const nums = [];
+        for (let n = start; n < start + BATCH && n <= max; n += 1) nums.push(n);
+        let res = await Promise.all(nums.map((n) => tryExts(folder, n, [main])));
+        if (!res.some(Boolean)) break;                      // a whole group without photos = the end
+        res = await Promise.all(res.map((src, i) => src || tryExts(folder, nums[i], others)));   // gaps: try other formats
+        nums.forEach((n, i) => { if (res[i]) byNum.set(n, res[i]); });
       }
-      return found;
+      return [...byNum.entries()].sort((x, y) => x[0] - y[0]).map((e) => e[1]);
     })();
     photoCache.set(folder, job);
     return job;
