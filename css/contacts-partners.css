@@ -1,6 +1,6 @@
 /* =====================================================================
    contacts-partners.css — тільки #contacts + .partners.
-   Підключати ОСТАННІМ. Кольори бере з --vsc-* (style.css).
+   3 кольори: orange / blue / green. Без градієнтів.
    ===================================================================== */
 
 /* ---------- змінні #contacts ---------- */
@@ -10,15 +10,13 @@
   --cp-line: var(--vsc-border);
   --cp-text: var(--vsc-text);
   --cp-muted: var(--vsc-muted);
-  --cp-a: var(--vsc-keyword);   /* дефолтний акцент */
-  --cp-b: var(--vsc-type);
+  --cp-a: var(--c-blue);          /* дефолтний акцент */
   --cp-on: #FFFFFF;
-  --cp-glow: rgba(86,156,214,.14);
+  --cp-glow: rgba(59,130,246,.14);
   --cp-shadow: 0 14px 34px rgba(0,0,0,.16);
 }
 :root[data-theme="dark"] #contacts {
-  --cp-on: #1E1E1E;
-  --cp-glow: rgba(78,201,176,.18);
+  --cp-glow: rgba(96,165,250,.20);
   --cp-shadow: 0 14px 34px rgba(0,0,0,.5);
 }
 
@@ -81,15 +79,6 @@
 }
 :root[data-theme="dark"] #contacts .partner img { filter: grayscale(1) brightness(1.6) opacity(.75); }
 
-#contacts .partner::after {
-  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%;
-  pointer-events: none;
-  background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
-  transform: skewX(-18deg); opacity: 0;
-}
-:root[data-theme="dark"] #contacts .partner::after {
-  background: linear-gradient(100deg, transparent, rgba(255,255,255,.12), transparent);
-}
 #contacts .partner:hover,
 #contacts .partner:focus-within {
   transform: translateY(-6px);
@@ -98,9 +87,11 @@
 }
 #contacts .partner:hover img,
 #contacts .partner:focus-within img { filter: none; transform: scale(1.07); }
-#contacts .partner:hover::after { opacity: 1; animation: cp-sweep .9s ease forwards; }
-@keyframes cp-sweep { to { left: 130%; } }
-#contacts .partner a:focus-visible { outline: 2px solid var(--cp-a); outline-offset: -4px; border-radius: 16px; }
+#contacts .partner a:focus-visible {
+  outline: 2px solid var(--cp-a);
+  outline-offset: -4px;
+  border-radius: 16px;
+}
 
 /* ---------- CONTACTS ---------- */
 #contacts .contacts {
@@ -108,25 +99,19 @@
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 }
 
-@property --cp-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 #contacts .contact {
-  /* FIX: padding 0 + overflow hidden — щоб .term-bar прилипав до рамки */
   padding: 0;
   overflow: hidden;
   display: block;
-  background:
-    linear-gradient(var(--cp-bg), var(--cp-bg)) padding-box,
-    conic-gradient(from var(--cp-angle),
-      var(--cp-line) 0 70%, var(--cp-b) 85%, var(--cp-a) 95%, var(--cp-line)) border-box;
-  border: 1.5px solid transparent;
+  background: var(--cp-bg);
+  border: 1.5px solid var(--cp-line);
 }
 #contacts .contact:hover,
 #contacts .contact:focus-within {
   transform: translateY(-6px);
+  border-color: var(--cp-a);
   box-shadow: var(--cp-shadow);
-  animation: cp-spin 3.2s linear infinite;
 }
-@keyframes cp-spin { to { --cp-angle: 360deg; } }
 
 /* ---------- TERMINAL (contact.json) ---------- */
 #contacts .term-bar {
@@ -148,11 +133,9 @@
 #contacts .code { white-space: pre; }
 
 #contacts .tok-p { color: var(--vsc-punct); }
-#contacts .tok-k { color: var(--vsc-keyword); }
-#contacts .tok-s { color: var(--vsc-string); }
+#contacts .tok-k { color: var(--c-orange); }
+#contacts .tok-s { color: var(--c-green); }
 
-/* FIX: email/phone всередині JSON-рядка — inline, без обрізання рядка.
-   Перебиває style.css .contact a { display:block; padding:6px 0; ... } */
 #contacts .term-body a {
   display: inline;
   padding: 0;
@@ -168,7 +151,7 @@
 }
 #contacts .term-body a:hover,
 #contacts .term-body a:focus-visible {
-  color: var(--vsc-keyword-2);
+  color: var(--c-blue);
   outline: none;
 }
 
@@ -179,18 +162,18 @@
 @keyframes cp-blink { 50% { opacity: 0; } }
 
 /* =====================================================================
-   MULTICOLOR — 4 кольори синтаксису VS Code по колу
+   РОТАЦІЯ 3 КОЛЬОРІВ — без градієнтів, тверді акценти
    ===================================================================== */
 
-#contacts .contacts > .contact:nth-child(4n+1) { --cp-a: var(--vsc-keyword);  --cp-b: var(--vsc-string);   }
-#contacts .contacts > .contact:nth-child(4n+2) { --cp-a: var(--vsc-type);     --cp-b: var(--vsc-function); }
-#contacts .contacts > .contact:nth-child(4n+3) { --cp-a: var(--vsc-variable); --cp-b: var(--vsc-constant); }
-#contacts .contacts > .contact:nth-child(4n+4) { --cp-a: var(--vsc-number);   --cp-b: var(--vsc-keyword);  }
+/* контакти: 3 кольори по колу */
+#contacts .contacts > .contact:nth-child(3n+1) { --cp-a: var(--c-blue);   }
+#contacts .contacts > .contact:nth-child(3n+2) { --cp-a: var(--c-orange); }
+#contacts .contacts > .contact:nth-child(3n)   { --cp-a: var(--c-green);  }
 
-#contacts .partners > .partner:nth-child(4n+1) { --cp-a: var(--vsc-keyword);  }
-#contacts .partners > .partner:nth-child(4n+2) { --cp-a: var(--vsc-type);     }
-#contacts .partners > .partner:nth-child(4n+3) { --cp-a: var(--vsc-function); }
-#contacts .partners > .partner:nth-child(4n+4) { --cp-a: var(--vsc-string);   }
+/* партнери: 3 кольори по колу */
+#contacts .partners > .partner:nth-child(3n+1) { --cp-a: var(--c-blue);   }
+#contacts .partners > .partner:nth-child(3n+2) { --cp-a: var(--c-orange); }
+#contacts .partners > .partner:nth-child(3n)   { --cp-a: var(--c-green);  }
 
 /* ---------- no-JS / reduced motion ---------- */
 html:not(.js) #contacts .contact,
@@ -200,7 +183,6 @@ html:not(.js) #contacts .partner { opacity: 1; }
   .js #contacts .partner.is-visible { animation: none; }
   #contacts .contact:hover,
   #contacts .contact:focus-within { animation: none; }
-  #contacts .partner:hover::after { animation: none; }
   #contacts .contact,
   #contacts .partner,
   #contacts .partner img { transition: none; }
