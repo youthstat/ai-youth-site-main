@@ -1,5 +1,5 @@
 /* =====================================================================
-   content.js — THE ONLY PLACE TO EDIT TEXTS, LINKS, VIDEO IDs AND NUMBERS
+   content.js - THE ONLY PLACE TO EDIT TEXTS, LINKS, VIDEO IDs AND NUMBERS
    Loaded as a plain script (window.SITE_DATA) so it also works on file://
    The site is a report, so texts are written in the past tense.
    ===================================================================== */
@@ -37,7 +37,8 @@ window.SITE_DATA = {
       { icon: "🎭", label: "Cultural evening", value: "Every team presented its country in a creative way" }
     ]
   },
-  // done:true shows a green tick
+
+  /* done:true shows a green tick */
   goals: [
     { title: "AI literacy and critical thinking", text: "Equipped 42 participants and group leaders with practical skills to question AI, recognise AI-generated disinformation and use AI ethically.", done: true },
     { title: "Local initiatives", text: "Ran 9 local events in all 6 countries that reached 259 people (goal: 240).", done: true },
@@ -54,10 +55,10 @@ window.SITE_DATA = {
     { label: "AI & Youth Ambassadors Network", done: true, text: "Founded: this website" }
   ],
 
-  /* ========== 4. PROGRAMME (7 DAYS) ========== */
-  // date: activity days ran from 26 August to 1 September (25 Aug and 2 Sep were travel days)
-  // youtube: 11-character video ID (the part after v=). Empty = video block hidden.
-  // photos: optional manual list, e.g. ["a.jpg","b.jpg"]; otherwise photo-1.jpg, photo-2.jpg... are auto-detected.
+  /* ========== 4. PROGRAMME (7 DAYS) ==========
+     date: activity days ran from 26 August to 1 September (25 Aug and 2 Sep were travel days)
+     youtube: 11-character video ID (the part after v=). Empty = video block hidden.
+     photos: optional manual list, e.g. ["a.jpg","b.jpg"]; otherwise photo-1.jpg, photo-2.jpg... are auto-detected. */
   days: [
     {
       id: 1, date: "26 August", title: "Ice-Breaking & Group Agreement", countries: [], icon: "🧭",
@@ -125,8 +126,8 @@ window.SITE_DATA = {
   ],
   youthpassText: "Learning outcomes were recognised through Youthpass.",
 
-  /* ========== 6. IMPACT DASHBOARD ========== */
-  // NOTE: keep 6 items here. The dashboard layout (6 cards + the downloads card) is built for that number.
+  /* ========== 6. IMPACT DASHBOARD ==========
+     NOTE: keep 6 items here. The dashboard layout (6 cards + the downloads card) is built for that number. */
   stats: [
     { value: 42, label: "Participants & leaders" },
     { value: 259, label: "People reached by local events" },
@@ -137,10 +138,10 @@ window.SITE_DATA = {
   ],
   downloadsCard: { label: "AI Literacy Toolkit downloads", target: 1200, targetText: "Target: 1200+" },
 
-  /* ========== 7. LOCAL IMPACT ACROSS EUROPE ========== */
-  // people (country) must equal the sum of people in its events: main.js prints a console warning if not.
-  // summary (optional): short text on the country card when a country had more than one event.
-  // postUrl (optional): "View post" button. Empty = no button.
+  /* ========== 7. LOCAL IMPACT ACROSS EUROPE ==========
+     people (country) must equal the sum of people in its events: main.js prints a console warning if not.
+     summary (optional): short text on the country card when a country had more than one event.
+     postUrl (optional): "View post" button. Empty = no button. */
   localIntro:
     "After the exchange, every national team took the project home. Between 16 September and 20 October 2026 the teams ran nine local events in six countries. About 259 young people took part. Posts and stories from all countries reached about 15,000 views. Every partner organisation also published a post on its own channels, and participants shared the results on social media.",
   countries: [
@@ -149,10 +150,14 @@ window.SITE_DATA = {
       postUrl: "https://www.instagram.com/p/DbneSvROYxB/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
       summary: "Two sessions, in Bucharest and Suceava, for about 55 people. The team presented the toolkit and the participant videos and discussed AI ethics.",
       events: [
-        { place: "AHA Center, Bucharest", people: 30,
-          text: "About 30 NGO volunteers, youth workers, students and trainers took part. The team presented the toolkit and the participant videos. A discussion followed on AI ethics, over-use and how to make AI safer and more inclusive for vulnerable young people." },
-        { place: "Faculty of Forestry, Ștefan cel Mare University, Suceava", people: 25,
-          text: "About 25 students of the Faculty of Forestry took part. The team presented the toolkit and the videos and discussed safe and inclusive use of AI." }
+        {
+          place: "AHA Center, Bucharest", people: 30,
+          text: "About 30 NGO volunteers, youth workers, students and trainers took part. The team presented the toolkit and the participant videos. A discussion followed on AI ethics, over-use and how to make AI safer and more inclusive for vulnerable young people."
+        },
+        {
+          place: "Faculty of Forestry, Ștefan cel Mare University, Suceava", people: 25,
+          text: "About 25 students of the Faculty of Forestry took part. The team presented the toolkit and the videos and discussed safe and inclusive use of AI."
+        }
       ],
       youtube: "", photoFolder: "images/countries/romania/", photoMax: 30
     },
@@ -160,8 +165,10 @@ window.SITE_DATA = {
       id: "moldova", name: "Moldova", flag: "🇲🇩", people: 50,
       postUrl: "https://www.instagram.com/p/DdRdnrIjQtY/",
       events: [
-        { place: "Prometeu-ProTalent Theoretical Lyceum, Chișinău", people: 50,
-          text: "JEF Moldova presented the exchange to 50 students. The session covered debates on AI, critical thinking and intercultural learning. It also introduced Erasmus+ youth exchanges, training courses, the European Solidarity Corps and summer schools." }
+        {
+          place: "Prometeu-ProTalent Theoretical Lyceum, Chișinău", people: 50,
+          text: "JEF Moldova presented the exchange to 50 students. The session covered debates on AI, critical thinking and intercultural learning. It also introduced Erasmus+ youth exchanges, training courses, the European Solidarity Corps and summer schools."
+        }
       ],
       youtube: "", photoFolder: "images/countries/moldova/", photoMax: 30
     },
@@ -169,8 +176,10 @@ window.SITE_DATA = {
       id: "jordan", name: "Jordan", flag: "🇯🇴", people: 30,
       postUrl: "",
       events: [
-        { place: "SYL Office, Amman", people: 30,
-          text: "University students and young professionals took part in three activities from the exchange: Poster Rotation (4 groups), the “Real or Fake Challenge: AI Edition” (Fake News Quiz) and the debate “Agree, Disagree, or In Between”. The team also screened the winning film from Oscar Night." }
+        {
+          place: "SYL Office, Amman", people: 30,
+          text: "University students and young professionals took part in three activities from the exchange: Poster Rotation (4 groups), the “Real or Fake Challenge: AI Edition” (Fake News Quiz) and the debate “Agree, Disagree, or In Between”. The team also screened the winning film from Oscar Night."
+        }
       ],
       youtube: "", photoFolder: "images/countries/jordan/", photoMax: 30
     },
@@ -179,19 +188,25 @@ window.SITE_DATA = {
       postUrl: "https://www.instagram.com/p/Ddgew-uDi37/",
       summary: "Two events: an info session in Chernihiv for 13 people and a session with a focus on cybersecurity at a youth centre in Lviv for 28 people.",
       events: [
-        { place: "Shelter of T.H. Shevchenko National University “Chernihiv Colehium”", people: 13,
-          text: "Andrii presented the project to 13 students and teachers. The info session covered Erasmus+ youth exchanges, trainings, volunteering and how to write a strong application. He also shared his own experience from Vatra Dornei. The Faculty of Philology published a post about the session." },
-        { place: "Youth Centre, Lviv", people: 28,
-  text: "The Digital Safety Lab project taught 28 young people about password security, phishing, privacy, and safe online responses. Participants took part in practical exercises and AI-assisted scenario activities, exploring how AI can both support and threaten cybersecurity." }
-],
+        {
+          place: "Shelter of T.H. Shevchenko National University “Chernihiv Colehium”", people: 13,
+          text: "Andrii presented the project to 13 students and teachers. The info session covered Erasmus+ youth exchanges, trainings, volunteering and how to write a strong application. He also shared his own experience from Vatra Dornei. The Faculty of Philology published a post about the session."
+        },
+        {
+          place: "Youth Centre, Lviv", people: 28,
+          text: "The Digital Safety Lab project taught 28 young people about password security, phishing, privacy, and safe online responses. Participants took part in practical exercises and AI-assisted scenario activities, exploring how AI can both support and threaten cybersecurity."
+        }
+      ],
       youtube: "", photoFolder: "images/countries/ukraine/", photoMax: 30
     },
     {
       id: "georgia", name: "Georgia", flag: "🇬🇪", people: 50,
       postUrl: "https://www.instagram.com/p/DdDgj9LjFfA/?obrf=NzFzZGpjd2kxNG4w",
       events: [
-        { place: "Public School No. 55, Tbilisi (Vake)", people: 50,
-          text: "11th-grade students learned about Erasmus+, youth exchanges, how to apply and the benefits of taking part. The team showed photos from Vatra Dornei and answered questions. Seven participants also posted about the exchange in the Youth For The World Facebook group." }
+        {
+          place: "Public School No. 55, Tbilisi (Vake)", people: 50,
+          text: "11th-grade students learned about Erasmus+, youth exchanges, how to apply and the benefits of taking part. The team showed photos from Vatra Dornei and answered questions. Seven participants also posted about the exchange in the Youth For The World Facebook group."
+        }
       ],
       youtube: "", photoFolder: "images/countries/georgia/", photoMax: 30
     },
@@ -200,10 +215,14 @@ window.SITE_DATA = {
       postUrl: "https://www.instagram.com/p/Ddt94dggJUT/",
       summary: "An online meetup for 11 people and an open-air offline event for 22 people.",
       events: [
-        { place: "Online meetup, 20.09.2026", people: 11,
-          text: "Eleven people joined an online meeting with slides, a film and personal stories about what Erasmus+ offers." },
-        { place: "Unplugged: AI Under the Open Sky (offline, open-air event), 17.10.2026", people: 22,
-          text: "Twenty-two people met outdoors for an offline event. The unplugged format fitted the topic of balancing technology and humanity. Five participants also published posts on Facebook and Reddit." }
+        {
+          place: "Online meetup, 20.09.2026", people: 11,
+          text: "Eleven people joined an online meeting with slides, a film and personal stories about what Erasmus+ offers."
+        },
+        {
+          place: "Unplugged: AI Under the Open Sky (offline, open-air event), 17.10.2026", people: 22,
+          text: "Twenty-two people met outdoors for an offline event. The unplugged format fitted the topic of balancing technology and humanity. Five participants also published posts on Facebook and Reddit."
+        }
       ],
       youtube: "", photoFolder: "images/countries/poland/", photoMax: 30
     }
@@ -212,15 +231,15 @@ window.SITE_DATA = {
   /* ========== 8. GALLERY ========== */
   gallery: { folder: "images/gallery/", photoMax: 60 },
 
-  /* ========== 9. VIDEOS ========== */
-  // youtube: 11-character video ID or a full link (watch / youtu.be / shorts). Empty = "Coming soon" card.
-  // format: "short" = vertical 9:16 video; leave out for normal 16:9 videos.
+  /* ========== 9. VIDEOS ==========
+     youtube: 11-character video ID or a full link (watch / youtu.be / shorts). Empty = "Coming soon" card.
+     format: "short" = vertical 9:16 video; leave out for normal 16:9 videos. */
   videos: [
     { title: "Satalana", youtube: "5wi6rBr9bAI" },
     { title: "Son Șans, The Last Chance", youtube: "uPIBVGhg9t8" },
     { title: "Life Without AI: Back to Reality", youtube: "R1HsZIn1kZc" },
     { title: "404: Truth Not Found", youtube: "dK5HrWnF_7M" },
-    // vertical video (YouTube Shorts): format "short" shows it in a tall 9:16 frame next to the others
+    /* vertical video (YouTube Shorts): format "short" shows it in a tall 9:16 frame next to the others */
     { title: "She", youtube: "n00DWmTaV2Y", format: "short" },
     { title: "Future With AI", youtube: "tneI0Ay-AcI", format: "short" }
   ],
@@ -231,23 +250,33 @@ window.SITE_DATA = {
     lead:
       "Establishing the AI & Youth Ambassadors Network was one of the objectives of the project. This website is that network: a long-term, open space where every participant can find what we learned, what we created and how to carry it forward.",
     helpTitle: "How ambassadors can use this site",
-    // link: "infopack" | "brochure" | "#section-id"
+    /* link: "infopack" | "brochure" | "#section-id" */
     help: [
-      { icon: "🧰", title: "Use the AI Literacy Toolkit",
+      {
+        icon: "🧰", title: "Use the AI Literacy Toolkit",
         text: "A free toolkit for young people and youth workers on critical and ethical use of AI.",
-        link: "brochure", buttonText: "Download the toolkit" },
-      { icon: "📖", title: "Read the Infopack",
+        link: "brochure", buttonText: "Download the toolkit"
+      },
+      {
+        icon: "📖", title: "Read the Infopack",
         text: "More detailed information about the project for participants.",
-        link: "infopack", buttonText: "Open Infopack" },
-      { icon: "🗓️", title: "Reuse the programme",
+        link: "infopack", buttonText: "Open Infopack"
+      },
+      {
+        icon: "🗓️", title: "Reuse the programme",
         text: "Revisit the seven days and their activities, such as the AI Detective, the World Café on AI boundaries or the algorithmic bias court role-play, as ideas for your own sessions.",
-        link: "#programme", buttonText: "See the programme" },
-      { icon: "🎬", title: "Share the educational videos",
+        link: "#programme", buttonText: "See the programme"
+      },
+      {
+        icon: "🎬", title: "Share the educational videos",
         text: "Short videos created by participants during the exchange.",
-        link: "#videos", buttonText: "Watch videos" },
-      { icon: "🌍", title: "Get ideas from local events",
+        link: "#videos", buttonText: "Watch videos"
+      },
+      {
+        icon: "🌍", title: "Get ideas from local events",
         text: "See how each national team brought the project to its own community.",
-        link: "#local-impact", buttonText: "See local events" }
+        link: "#local-impact", buttonText: "See local events"
+      }
     ],
     nextTitle: "What we will continue to do",
     next: [
@@ -257,11 +286,11 @@ window.SITE_DATA = {
     ]
   },
 
-  /* ========== 11. PARTNERS & CONTACTS ========== */
-  // To show a logo instead of the name: put the file in images/logos/ and add logo:"images/logos/partner-xxx.png"
+  /* ========== 11. PARTNERS & CONTACTS ==========
+     To show a logo instead of the name: put the file in images/logos/ and add logo:"images/logos/partner-xxx.png" */
   partners: [
     { name: "BMN", logo: "images/logos/partner-bmn.png", url: "https://www.instagram.com/bmnngo" },
-    { name: "Youth For The World (YFW) ", logo: "images/logos/partner-seminarium.png"  , url: "https://www.instagram.com/p/DdDgj9LjFfA/?obrf=NzFzZGpjd2kxNG4w"},
+    { name: "Youth For The World (YFW)", logo: "images/logos/partner-seminarium.png", url: "https://www.instagram.com/p/DdDgj9LjFfA/?obrf=NzFzZGpjd2kxNG4w" },
     { name: "JEF Moldova", logo: "images/logos/partner-jef-moldova.png", url: "https://www.instagram.com/jef_moldova" },
     { name: "Informational Hub", logo: "images/logos/partner-info-hub.png", url: "https://www.instagram.com/ngo_informhub" },
     { name: "AL-EMAD ALKABEER", logo: "images/logos/partner-al-emad-alkabeer.png", url: "https://www.instagram.com/support_youth_leaders" },
@@ -282,7 +311,7 @@ window.SITE_DATA = {
     disclaimer:
       "Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Education and Culture Executive Agency (EACEA). Neither the European Union nor EACEA can be held responsible for them."
   },
-  // firebaseUrl example: "https://your-project-default-rtdb.europe-west1.firebasedatabase.app"  (no trailing slash)
-  // Empty = fallback mode (counter visible only in the current browser).
+  /* firebaseUrl example: "https://your-project-default-rtdb.europe-west1.firebasedatabase.app"  (no trailing slash)
+     Empty = fallback mode (counter visible only in the current browser). */
   downloads: { startValue: 378, firebaseUrl: "" }
 };
