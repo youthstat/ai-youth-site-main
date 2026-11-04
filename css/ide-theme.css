@@ -14,17 +14,17 @@
    hover стрілок, точки каруселі, підписи днів тощо) — міняємо в одному місці. */
 :root,
 :root[data-theme="dark"] {
-  --blue: var(--c-orange);
-  --link: var(--c-orange);
-  --glow: 0 0 0 1.5px var(--c-orange), 0 14px 38px rgba(249,115,22,.26);
-  accent-color: var(--c-orange);
+  --blue: var(--c-blue);
+  --link: var(--c-blue);
+  --glow: 0 0 0 1.5px var(--c-blue), 0 14px 38px rgba(249,115,22,.26);
+  accent-color: var(--c-blue);
 }
 ::selection { background: rgba(249,115,22,.32); color: inherit; }
 
 /* ---------- 1. NAV ---------- */
 .site-nav a[aria-current="true"] {
   background: rgba(249,115,22,.16);
-  color: var(--c-orange);
+  color: var(--c-blue);
 }
 .site-nav a:hover { background: var(--bg-alt); }
 
@@ -80,13 +80,13 @@
 .stat-dl .stat-label { color: #D4D4D4; }
 .dl-target { color: #A0A0A0; }
 
-.dl-bar .bar-fill { background: var(--c-orange); }
-.bar-fill         { background: var(--c-orange); }
+.dl-bar .bar-fill { background: var(--c-blue); }
+.bar-fill         { background: var(--c-blue); }
 .bar-fill.is-done { background: var(--c-green); }
-.day::before      { background: var(--c-orange); }
-.day-n, .fact-label, .prog-val { color: var(--c-orange); }
+.day::before      { background: var(--c-blue); }
+.day-n, .fact-label, .prog-val { color: var(--c-blue); }
 
-.donut-seg.seg-a { stroke: var(--c-orange); }
+.donut-seg.seg-a { stroke: var(--c-blue); }
 .donut-seg.seg-b { stroke: var(--c-green); }
 .donut-seg.seg-c { stroke: var(--c-green); }
 
@@ -101,7 +101,7 @@
 
 .video-expand, .play {
   background: rgba(30,30,30,.82);
-  color: var(--c-orange);
+  color: var(--c-blue);
 }
 .video-expand:hover, .video-expand:focus-visible,
 .video-poster:hover .play { background: var(--c-green); color: #052E16; }
