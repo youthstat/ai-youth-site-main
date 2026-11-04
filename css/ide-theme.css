@@ -1,182 +1,93 @@
-/* ---------- TOKENS ---------- */
-:root {
-  /* IDE chrome — нейтральний VS Code */
-  --navy: #1E1E1E;
-  --blue: #8E4B8A;
-  --cyan: #267F99;
-  --green: #098658;
-  --amber: #795E26;
-
-  /* VS Code Light+ — палітра синтаксису */
-  --vsc-bg:        #FFFFFF;
-  --vsc-bg-alt:    #F3F3F3;
-  --vsc-border:    #E5E5E5;
-  --vsc-text:      #000000;
-  --vsc-muted:     #6E6E6E;
-  --vsc-punct:     #000000;
-
-  --vsc-keyword:   #AF00DB;
-  --vsc-keyword-2: #0000FF;
-  --vsc-type:      #267F99;
-  --vsc-function:  #795E26;
-  --vsc-string:    #A31515;
-  --vsc-number:    #098658;
-  --vsc-variable:  #001080;
-  --vsc-constant:  #0070C1;
-  --vsc-comment:   #008000;
-  --vsc-error:     #CD3131;
-  --vsc-warning:   #BF8803;
-  --vsc-info:      #1A85FF;
-  --vsc-git-add:   #587C0C;
-
-  /* базові токени сторінки */
-  --bg: #F7F4F8; --bg-alt: #EEE9F1;
-  --surface: rgba(255,255,255,.82); --surface-solid: #FFFFFF;
-  --text: #1F1B24; --muted: #5E5668;
-  --border: rgba(31,27,36,.13); --shadow: 0 10px 30px rgba(31,27,36,.10);
-  --glow: 0 0 0 1.5px var(--cyan), 0 14px 38px rgba(38,127,153,.24);
-  --link: #001080; --grey-block: #E8E5EC;
-}
-
-:root[data-theme="dark"] {
-  --blue: #8E4B8A;
-  --cyan: #4EC9B0;
-  --amber: #DCDCAA;
-
-  --vsc-bg:        #1E1E1E;
-  --vsc-bg-alt:    #252526;
-  --vsc-border:    #3C3C3C;
-  --vsc-text:      #D4D4D4;
-  --vsc-muted:     #858585;
-  --vsc-punct:     #808080;
-
-  --vsc-keyword:   #C586C0;
-  --vsc-keyword-2: #569CD6;
-  --vsc-type:      #4EC9B0;
-  --vsc-function:  #DCDCAA;
-  --vsc-string:    #CE9178;
-  --vsc-number:    #B5CEA8;
-  --vsc-variable:  #9CDCFE;
-  --vsc-constant:  #4FC1FF;
-  --vsc-comment:   #6A9955;
-  --vsc-error:     #F44747;
-  --vsc-warning:   #CCA700;
-  --vsc-info:      #3794FF;
-  --vsc-git-add:   #81B88B;
-
-  --bg: #1E1E1E; --bg-alt: #252526;
-  --surface: rgba(255,255,255,.05); --surface-solid: #2D2D30;
-  --text: #D4D4D4; --muted: #858585;
-  --border: rgba(255,255,255,.10); --shadow: 0 10px 30px rgba(0,0,0,.45);
-  --glow: 0 0 0 1.5px var(--cyan), 0 14px 38px rgba(78,201,176,.28);
-  --link: #9CDCFE; --grey-block: #333337;
-}
-
-html {
-  accent-color: var(--vsc-keyword-2);
-  scrollbar-color: var(--vsc-punct) transparent;
-}
-::selection { background: rgba(86,156,214,.35); color: inherit; }
-
 /* =====================================================================
-   ide-theme.css — IDE-хром + кольори синтаксису VS Code для UI.
-   Підключати ПІСЛЯ style.css і ПЕРЕД contacts-partners.css.
-   Контакти/партнери — у contacts-partners.css.
+   ide-theme.css — IDE-хром + 3-колірна палітра (orange / blue / green).
+   Без градієнтів. Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
 
 /* ---------- 1. NAV ---------- */
 .site-nav a[aria-current="true"] {
-  background: rgba(86,156,214,.16);
-  color: var(--vsc-keyword-2);
+  background: rgba(59,130,246,.16);
+  color: var(--c-blue);
 }
 .site-nav a:hover { background: var(--bg-alt); }
 
 /* ---------- 2. КНОПКИ ---------- */
 .btn-primary {
-  background: linear-gradient(135deg, var(--vsc-keyword), var(--vsc-type));
+  background: var(--c-blue);
   color: #FFFFFF;
-  box-shadow: 0 8px 22px rgba(175,0,219,.28);
+  box-shadow: 0 8px 22px rgba(59,130,246,.28);
 }
-:root[data-theme="dark"] .btn-primary {
-  color: #1E1E1E;
-  box-shadow: 0 8px 22px rgba(197,134,192,.28);
-}
+.btn-primary:hover { background: #2563EB; }
+:root[data-theme="dark"] .btn-primary { color: #0B1220; }
+:root[data-theme="dark"] .btn-primary:hover { background: #3B82F6; }
+
 .btn-outline:hover, .card-btn:hover {
-  background: rgba(78,201,176,.14);
-  border-color: var(--vsc-type);
+  background: rgba(34,197,94,.12);
+  border-color: var(--c-green);
 }
 
-/* ---------- 3. HERO ---------- */
+/* ---------- 3. HERO (без градієнтів) ---------- */
 .hero {
-  background:
-    radial-gradient(60% 55% at 12% 18%, rgba(197,134,192,.34), transparent 70%), /* keyword  */
-    radial-gradient(50% 50% at 88% 28%, rgba(78,201,176,.26),  transparent 70%), /* type     */
-    radial-gradient(45% 55% at 60% 98%, rgba(220,220,170,.12), transparent 70%), /* function */
-    radial-gradient(35% 45% at 25% 95%, rgba(206,145,120,.12), transparent 70%), /* string   */
-    linear-gradient(160deg, #1E1E1E 0%, #111112 100%);
+  background: #111418;
 }
 .hero-media::after {
-  background: linear-gradient(180deg, rgba(20,20,21,.55), rgba(20,20,21,.88));
+  background: rgba(15,17,23,.65);
 }
 .hero-desc { color: #D4D4D4; }
+
 .flags-card {
-  background: rgba(30,30,30,.66);
-  border-color: rgba(78,201,176,.28);
-  box-shadow: 0 20px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(78,201,176,.08);
+  background: rgba(30,30,30,.72);
+  border-color: rgba(59,130,246,.35);
+  box-shadow: 0 20px 50px rgba(0,0,0,.45);
 }
 .flag-item { background: rgba(255,255,255,.06); }
 
 /* ---------- 4. КАРТКИ / СТАТИСТИКА ---------- */
 .next-card {
-  background: linear-gradient(145deg, rgba(197,134,192,.14), rgba(206,145,120,.08));
+  background: rgba(59,130,246,.08);
+  border-color: rgba(59,130,246,.35);
 }
-.erasmus-card { border-left-color: var(--vsc-type); }
+.erasmus-card { border-left-color: var(--c-green); }
 
 .stat-num {
-  background: linear-gradient(135deg, var(--vsc-function), var(--vsc-string));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-:root:not([data-theme="dark"]) .stat-num {
-  background: linear-gradient(135deg, var(--vsc-function), var(--vsc-keyword));
-  -webkit-background-clip: text; background-clip: text;
+  color: var(--c-orange);
 }
 .stat-dl {
-  background: linear-gradient(145deg, #1E1E1E, #2A2A2C);
-  border-color: rgba(78,201,176,.28);
+  background: #1A1D22;
+  border-color: rgba(249,115,22,.35);
 }
-.stat-dl .stat-num {
-  background: linear-gradient(135deg, var(--vsc-function), var(--vsc-string));
-  -webkit-background-clip: text; background-clip: text;
-}
+.stat-dl .stat-num { color: var(--c-orange); }
 .stat-dl .stat-label { color: #D4D4D4; }
 .dl-target { color: #A0A0A0; }
 
-.dl-bar .bar-fill { background: linear-gradient(90deg, var(--vsc-keyword), var(--vsc-function)); }
-.bar-fill         { background: linear-gradient(90deg, var(--vsc-type),    var(--vsc-variable)); }
-.bar-fill.is-done { background: linear-gradient(90deg, var(--vsc-git-add), var(--vsc-number)); }
-.day::before      { background: linear-gradient(var(--vsc-keyword), var(--vsc-type)); }
+.dl-bar .bar-fill { background: var(--c-orange); }
+.bar-fill         { background: var(--c-blue); }
+.bar-fill.is-done { background: var(--c-green); }
+.day::before      { background: var(--c-blue); }
 
-.donut-seg.seg-a { stroke: var(--vsc-keyword); }
-.donut-seg.seg-b { stroke: var(--vsc-type); }
-.donut-seg.seg-c { stroke: var(--vsc-function); }
-.donut-seg.seg-d { stroke: var(--vsc-string); }
+.donut-seg.seg-a { stroke: var(--c-orange); }
+.donut-seg.seg-b { stroke: var(--c-blue); }
+.donut-seg.seg-c { stroke: var(--c-green); }
+.donut-seg.seg-d { stroke: var(--c-blue); }
 
 /* ---------- 5. ГАЛЕРЕЯ / ВІДЕО / ДІАЛОГИ ---------- */
 .gallery-overlay {
-  background: linear-gradient(145deg, rgba(30,30,30,.86), rgba(78,201,176,.42));
+  background: rgba(15,23,42,.78);
+  color: #fff;
 }
-.gallery-overlay span { color: var(--vsc-function); }
+.gallery-overlay strong { color: var(--c-orange); }
+.gallery-overlay span   { color: var(--c-green); }
 .gallery-item.has-more:hover .gallery-overlay {
-  background: linear-gradient(145deg, rgba(30,30,30,.68), rgba(78,201,176,.55));
+  background: rgba(15,23,42,.58);
 }
-.video-expand, .play { background: rgba(30,30,30,.78); }
-.play svg, .video-expand svg { color: var(--vsc-string); }
-.car-btn { background: rgba(30,30,30,.72); }
+
+.video-expand, .play { background: rgba(30,30,30,.82); }
+.play svg, .video-expand svg { color: var(--c-orange); }
+.car-btn { background: rgba(30,30,30,.76); }
 .dialog { background: rgba(14,14,15,.78); }
 .lightbox { background: rgba(14,14,15,.95); }
 .vd-title, .lb-count { color: var(--vsc-text); }
 .dialog-panel {
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(78,201,176,.14);
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(59,130,246,.16);
 }
 
 .carousel-slide:has(img.is-loading)::after,
@@ -184,18 +95,14 @@ html {
 .video-frame.is-loading::after,
 .media-skel::after, .gallery-skel::after,
 .vd-stage.is-loading::after {
-  border-color: rgba(78,201,176,.25);
-  border-top-color: var(--vsc-type);
+  border-color: rgba(59,130,246,.25);
+  border-top-color: var(--c-blue);
 }
 
 /* ---------- 6. ФУТЕР ---------- */
 .site-footer {
   background: var(--vsc-bg);
   color: var(--vsc-text);
-  border-top: 1px solid rgba(106,153,85,.35); /* comment-green */
+  border-top: 1px solid rgba(34,197,94,.35);
 }
 .disclaimer { color: var(--vsc-muted); }
-
-
-
-
