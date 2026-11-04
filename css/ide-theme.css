@@ -1,46 +1,50 @@
 /* =====================================================================
-   ide-theme.css — IDE-хром + палітра: BLUE (акцент) + MUTED GREEN.
-   ЖОДНОГО оранжевого. Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
+   ide-theme.css — IDE-хром. Все ЗЕЛЕНЕ, крім відео-плей (бежевий).
+   Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
 
-/* ---------- 00. ПРИГЛУШЕНИЙ ЗЕЛЕНИЙ ---------- */
-:root                    { --c-green: #2BA85A; --c-blue: #2BA85A; --c-num: #3B82F6; }
-:root[data-theme="dark"] { --c-green: #4ABF75; --c-blue: #4ABF75; --c-num: #60A5FA; }
-
-/* ---------- 0. ГОЛОВНИЙ АКЦЕНТ (синій) ---------- */
+/* ---------- 0. ФІНАЛЬНЕ ЗАКРІПЛЕННЯ ТОКЕНІВ ---------- */
 :root,
 :root[data-theme="dark"] {
-  --blue: var(--c-blue);
-  --link: var(--c-blue);
-  --glow: 0 0 0 1.5px var(--c-blue), 0 14px 38px rgba(59,130,246,.26);
-  accent-color: var(--c-blue);
+  --c-btn: var(--c-accent);   /* кнопки = зелений (як і все інше) */
+  --blue:  var(--c-accent);
+  --link:  var(--c-accent);
+  accent-color: var(--c-accent);
 }
-::selection { background: rgba(59,130,246,.32); color: inherit; }
 
 /* ---------- 1. NAV ---------- */
 .site-nav a[aria-current="true"] {
-  background: rgba(59,130,246,.16);
-  color: var(--c-blue);
+  background: rgba(43,168,90,.16);
+  color: var(--c-accent);
 }
 .site-nav a:hover { background: var(--bg-alt); }
 
-/* ---------- 2. КНОПКИ ---------- */
+/* ---------- 2. КНОПКИ — ЗЕЛЕНІ ---------- */
 .btn-primary {
-  background: var(--c-green);
+  background: var(--c-accent);
   color: #052E16;
   box-shadow: 0 8px 22px rgba(43,168,90,.30);
 }
 .btn-primary:hover { background: #228C4A; }
-:root[data-theme="dark"] .btn-primary { color: #052E16; }
 :root[data-theme="dark"] .btn-primary:hover { background: #389E5D; }
 
 .btn-outline,
-.card-btn { color: var(--c-green); border-color: var(--c-green); }
+.card-btn {
+  color: var(--c-accent);
+  border-color: var(--c-accent);
+}
 .btn-outline:hover,
 .card-btn:hover {
   background: rgba(43,168,90,.12);
-  border-color: var(--c-green);
+  border-color: var(--c-accent);
 }
+
+.btn-solid   { background: var(--c-accent); color: #052E16; }
+.skip-link   { background: var(--c-accent); color: #052E16; }
+
+.car-btn:hover            { background: var(--c-accent); color: #052E16; }
+.days-btn:hover:not(:disabled) { background: var(--c-accent); color: #052E16; border-color: var(--c-accent); }
+.lb-btn:hover             { background: var(--c-accent); color: #052E16; }
 
 /* ---------- 3. HERO ---------- */
 .hero { background: #1E1E1E; }
@@ -49,17 +53,17 @@
 
 .flags-card {
   background: rgba(30,30,30,.72);
-  border-color: rgba(59,130,246,.35);
+  border-color: rgba(43,168,90,.35);
   box-shadow: 0 20px 50px rgba(0,0,0,.45);
 }
 .flag-item { background: rgba(255,255,255,.06); }
 
 /* ---------- 4. КАРТКИ / СТАТИСТИКА ---------- */
 .next-card {
-  background: rgba(59,130,246,.08);
-  border-color: rgba(59,130,246,.35);
+  background: rgba(43,168,90,.08);
+  border-color: rgba(43,168,90,.35);
 }
-.erasmus-card { border-left-color: var(--c-green); }
+.erasmus-card { border-left-color: var(--c-accent); }
 
 .stat-num,
 .stat-dl .stat-num {
@@ -67,47 +71,39 @@
   -webkit-background-clip: border-box;
   background-clip: border-box;
   -webkit-text-fill-color: currentColor;
-  color: var(--c-num);
+  color: var(--c-accent);
 }
 .stat-dl {
   background: #1E1E1E;
-  border-color: rgba(59,130,246,.35);
+  border-color: rgba(43,168,90,.35);
 }
 .stat-dl .stat-label { color: #D4D4D4; }
 .dl-target { color: #A0A0A0; }
 
-.dl-bar .bar-fill { background: var(--c-blue); }
-.bar-fill         { background: var(--c-blue); }
-.bar-fill.is-done { background: var(--c-green); }
-.day::before      { background: var(--c-blue); }
-.day-n, .fact-label, .prog-val { color: var(--c-blue); }
+.dl-bar .bar-fill { background: var(--c-accent); }
+.bar-fill         { background: var(--c-accent); }
+.bar-fill.is-done { background: var(--c-accent); }
+.day::before      { background: var(--c-accent); }
+.day-n, .fact-label, .prog-val { color: var(--c-accent); }
 
-.donut-seg.seg-a { stroke: var(--c-blue); }
-.donut-seg.seg-b { stroke: var(--c-green); }
-.donut-seg.seg-c { stroke: var(--c-green); }
+.donut-seg.seg-a { stroke: var(--c-accent); }
+.donut-seg.seg-b { stroke: var(--c-accent); }
+.donut-seg.seg-c { stroke: var(--c-accent); }
 
-/* ---------- 5. ГАЛЕРЕЯ / ВІДЕО / ДІАЛОГИ ---------- */
+/* ---------- 5. ГАЛЕРЕЯ / ДІАЛОГИ ---------- */
 .gallery-overlay {
   background: rgba(30,30,30,.82);
   color: #fff;
 }
-.gallery-overlay strong { color: var(--c-num); }
-.gallery-overlay span   { color: var(--c-green); }
+.gallery-overlay strong { color: var(--c-accent); }
+.gallery-overlay span   { color: var(--c-accent); }
 .gallery-item.has-more:hover .gallery-overlay { background: rgba(30,30,30,.62); }
 
-.video-expand, .play {
-  background: rgba(30,30,30,.82);
-  color: var(--c-blue);
-}
-.video-expand:hover, .video-expand:focus-visible,
-.video-poster:hover .play { background: var(--c-green); color: #052E16; }
-.car-btn { background: rgba(30,30,30,.76); }
-.car-btn:hover { background: var(--c-green); color: #052E16; }
 .dialog { background: rgba(14,14,15,.78); }
 .lightbox { background: rgba(14,14,15,.95); }
 .vd-title, .lb-count { color: #D4D4D4; }
 .dialog-panel {
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(59,130,246,.18);
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(43,168,90,.18);
 }
 
 .carousel-slide:has(img.is-loading)::after,
@@ -115,8 +111,41 @@
 .video-frame.is-loading::after,
 .media-skel::after, .gallery-skel::after,
 .vd-stage.is-loading::after {
-  border-color: rgba(59,130,246,.25);
-  border-top-color: var(--c-blue);
+  border-color: rgba(43,168,90,.25);
+  border-top-color: var(--c-accent);
+}
+
+/* =====================================================
+   ВІДЕО-КОНТРОЛІ — БЕЖЕВІ (видно на темному прев'ю)
+   ===================================================== */
+.play {
+  background: #E8D5A8;
+  color: #1E1E1E;
+  font-weight: 700;
+  box-shadow:
+    0 0 0 6px rgba(232,213,168,.30),
+    0 8px 24px rgba(0,0,0,.55);
+}
+.video-poster:hover .play {
+  background: #F2E0BE;
+  color: #1E1E1E;
+  transform: scale(1.1);
+  box-shadow:
+    0 0 0 8px rgba(232,213,168,.42),
+    0 10px 30px rgba(0,0,0,.6);
+}
+
+.video-expand {
+  background: #E8D5A8;
+  color: #1E1E1E;
+  box-shadow: 0 4px 14px rgba(0,0,0,.4);
+}
+.video-expand:hover,
+.video-expand:focus-visible {
+  background: #F2E0BE;
+  color: #1E1E1E;
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,.5);
 }
 
 /* ---------- 6. ФУТЕР ---------- */
