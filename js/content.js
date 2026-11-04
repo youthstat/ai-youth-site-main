@@ -137,12 +137,14 @@ window.SITE_DATA = {
   downloadsCard: { label: "AI Literacy Toolkit downloads", target: 1200, targetText: "Target: 1200+" },
 
  /* ========== 7. LOCAL IMPACT ACROSS EUROPE ========== */
+ /* ========== 7. LOCAL IMPACT ACROSS EUROPE ========== */
   localIntro:
-    "After the exchange, every national team took the project home. Between 16 September and 20 October 2026 the teams ran nine local events in six countries. About 259 young people took part. Every partner organisation also published a post on its own channels, and participants shared the results on social media.",
+    "After the exchange, every national team took the project home. Between 16 September and 20 October 2026 the teams ran nine local events in six countries. About 259 young people took part. Posts and stories from all countries reached about 15,000 views. Every partner organisation also published a post on its own channels, and participants shared the results on social media.",
   countries: [
     {
       id: "romania", name: "Romania", flag: "🇷🇴", people: 55,
       postUrl: "https://www.instagram.com/p/DbneSvROYxB/",
+      summary: "Two sessions, in Bucharest and Suceava, for about 55 people. The team presented the toolkit and the participant videos and discussed AI ethics.",
       events: [
         { place: "AHA Center, Bucharest", people: 30,
           text: "About 30 NGO volunteers, youth workers, students and trainers took part. The team presented the toolkit and the participant videos. A discussion followed on AI ethics, over-use and how to make AI safer and more inclusive for vulnerable young people." },
@@ -172,6 +174,7 @@ window.SITE_DATA = {
     {
       id: "ukraine", name: "Ukraine", flag: "🇺🇦", people: 41,
       postUrl: "https://www.instagram.com/p/Ddgew-uDi37/",
+      summary: "Two events: an info session in Chernihiv for 13 people and a session with a focus on cybersecurity at a youth centre in Lviv for 28 people.",
       events: [
         { place: "Shelter of T.H. Shevchenko National University “Chernihiv Colehium”", people: 13,
           text: "Andrii presented the project to 13 students and teachers. The info session covered Erasmus+ youth exchanges, trainings, volunteering and how to write a strong application. He also shared his own experience from Vatra Dornei. The Faculty of Philology published a post about the session." },
@@ -192,6 +195,7 @@ window.SITE_DATA = {
     {
       id: "poland", name: "Poland", flag: "🇵🇱", people: 33,
       postUrl: "https://www.instagram.com/p/Ddt94dggJUT/",
+      summary: "An online meetup for 11 people and an open-air offline event for 22 people.",
       events: [
         { place: "Online meetup, 20.09.2026", people: 11,
           text: "Eleven people joined an online meeting with slides, a film and personal stories about what Erasmus+ offers." },
@@ -200,9 +204,7 @@ window.SITE_DATA = {
       ],
       youtube: "", photoFolder: "images/countries/poland/", photoMax: 30
     }
-  ],
-${c.postUrl ? `<a class="btn" href="${c.postUrl}" target="_blank" rel="noopener noreferrer">View post ↗</a>` : ""}
-  /* ========== 8. GALLERY ========== */
+  ],  /* ========== 8. GALLERY ========== */
   gallery: { folder: "images/gallery/", photoMax: 60 },
 
   /* ========== 9. VIDEOS ========== */
