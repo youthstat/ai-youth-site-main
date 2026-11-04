@@ -404,24 +404,33 @@
   };
 
   /* ========== 9. HERO ========== */
+  /* CHANGED: every hero element is optional; if it is removed from index.html the page still renders. */
   const renderHero = () => {
-    $('#hero-eyebrow').textContent = D.event.subtitle;
-    $('#hero-title').textContent = D.event.title;
-    $('#hero-sub').textContent = `${D.event.subtitle} | ${D.event.place} | ${D.event.dates}`;
-    $('#hero-desc').textContent = D.event.description;
-    $('#hero-badge').textContent = 'Home of the AI & Youth Ambassadors Network';
+    // helper: only set text if the element exists, so removing any hero line never breaks the page
+    const setText = (sel, text) => { const el = $(sel); if (el) el.textContent = text; };
+    setText('#hero-eyebrow', D.event.subtitle);
+    setText('#hero-title', D.event.title);
+    setText('#hero-sub', `${D.event.subtitle} | ${D.event.place} | ${D.event.dates}`);
+    setText('#hero-desc', D.event.description);
+    setText('#hero-badge', 'Home of the AI & Youth Ambassadors Network');
+
+    // participating countries list (only if the block is present in HTML)
     const list = $('#flag-list');
-    D.countries.forEach((c) => {
-      list.append(h('li', { class: 'flag-item' }, flag(c.id), h('span', { class: 'flag-name' }, c.name)));
-    });
+    if (list) {
+      D.countries.forEach((c) => {
+        list.append(h('li', { class: 'flag-item' }, flag(c.id), h('span', { class: 'flag-name' }, c.name)));
+      });
+    }
 
     // optional hero photo: only added when the file really exists
     const media = $('#hero-media');
-    probe('images/hero/hero.jpg').then((ok) => {
-      if (!ok) return;
-      media.insertBefore(h('img', { class: 'hero-bg-img', src: 'images/hero/hero.jpg', alt: '', decoding: 'async' }), media.firstChild);
-      media.classList.add('has-image');
-    });
+    if (media) {
+      probe('images/hero/hero.jpg').then((ok) => {
+        if (!ok) return;
+        media.insertBefore(h('img', { class: 'hero-bg-img', src: 'images/hero/hero.jpg', alt: '', decoding: 'async' }), media.firstChild);
+        media.classList.add('has-image');
+      });
+    }
 
     initNetwork();
   };
@@ -429,6 +438,8 @@
   /** Light "neural network" canvas animation */
   const initNetwork = () => {
     const canvas = $('#hero-canvas');
+    /* CHANGED: bail out gracefully if the canvas is missing */
+    if (!canvas) return;
     const ctx = canvas.getContext && canvas.getContext('2d');
     if (!ctx) return;
     let w = 0; let ht = 0; let dots = []; let raf = 0; let visible = true;
