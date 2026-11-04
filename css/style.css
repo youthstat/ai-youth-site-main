@@ -688,4 +688,40 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
   .js .reveal { opacity: 1; transform: none; }
   .flag-item { opacity: 1; transform: none; }
 }
-.video-frame.is-loading .video-poster { background: transparent; }
+.video-frame.is-loading .video-poster { background: transparent; } 
+/* ============================================================
+   ENSURE Alpha Lyrae on every heading / title
+   ============================================================ */
+h1, h2, h3, h4, h5, h6,
+.hero h1,
+.hero-title,
+.hero-title span,
+.section-head h2,
+.sub-title,
+.modal-head h2,
+.modal-section h3,
+.brand,
+.brand-text,
+.flag-name,
+.day h3,
+.country h3,
+.event h4,
+.help-main h4,
+.contact h4,
+.goal h4,
+.erasmus-card h3,
+.network-grid h3,
+.competences h3,
+.people-card h3,
+.donut-card h3,
+.video-title,
+.vd-title,
+.stat-num,
+.country-people,
+.gallery-overlay strong,
+.partner,
+.donut-center strong,
+.people-stat strong,
+.logo-fallback {
+  font-family: var(--font-head);
+}
