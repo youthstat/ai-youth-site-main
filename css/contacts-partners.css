@@ -11,7 +11,7 @@
   --cp-line:  var(--vsc-border);
   --cp-text:  var(--vsc-text);
   --cp-muted: var(--vsc-muted);
-  --cp-a:     var(--c-blue);          /* дефолтний акцент */
+  --cp-a:     var(--c-orange);          /* дефолтний акцент */
   --cp-glow:  rgba(59,130,246,.14);
   --cp-shadow: 0 14px 34px rgba(0,0,0,.16);
 }
@@ -196,3 +196,17 @@ html:not(.js) #contacts .partner { opacity: 1; }
   #contacts .partner img { transition: none; }
   #contacts .cursor { animation: none; }
 }
+
+/* ---------- ЛОГОТИПИ ПАРТНЕРІВ: завжди яскраві (останнє слово) ---------- */
+#contacts .partners .partner img,
+#contacts .partners .partner:hover img,
+#contacts .partners .partner:focus-within img,
+:root[data-theme="dark"] #contacts .partners .partner img {
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  background: none !important;       /* прибирає сіре shimmer-тло від .is-loading */
+  animation: none !important;
+}
+#contacts .partners .partner:has(img) { background: #FFFFFF !important; }
