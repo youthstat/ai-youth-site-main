@@ -239,3 +239,34 @@ html:not(.js) #contacts .partner { opacity: 1; }
 /* картинка всередині не масштабується окремо */
 #contacts .partners .partner:hover img,
 #contacts .partners .partner:focus-within img { transform: none; }
+
+/* ---------- БЕЗ СИНЬОЇ ПІДСВІТКИ; підсвічується тільки РАМКА ---------- */
+#contacts,
+#contacts * {
+  -webkit-tap-highlight-color: transparent;   /* прибирає синє заливання при дотику/кліку */
+}
+#contacts .partner,
+#contacts .partner a,
+#contacts .partner img {
+  -webkit-user-select: none;
+  user-select: none;                          /* без синього виділення при подвійному кліку */
+  -webkit-user-drag: none;
+  outline: none;
+}
+#contacts .partner a:focus,
+#contacts .partner a:focus-visible,
+#contacts .partner a:active { outline: none; background: transparent; }
+#contacts .partner ::selection { background: transparent; }
+
+/* синє світіння на картках контактів теж прибране */
+#contacts .contact::before { display: none; }
+
+/* натискання: тільки оранжева рамка, фон плитки не змінюється */
+#contacts .partners .partner:active,
+#contacts .partners .partner:has(a:active),
+#contacts .partners .partner:has(a:focus-visible) {
+  transform: scale(1.06);
+  border-color: var(--c-orange);
+  box-shadow: 0 0 0 1px var(--c-orange);      /* потовщує саму рамку */
+  background: #FFFFFF !important;
+}
