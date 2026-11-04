@@ -574,3 +574,20 @@ html body section h2,
   font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   font-weight: 500 !important;
 }
+/* About-параграфи → залишити в Inter, як було */
+#about-text,
+#about-text *,
+.about-text,
+.about-text *,
+#about-text p,
+.about-text p {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 400 !important;
+}
+#about-text, #about-text *,
+.about-text, .about-text *,
+#about-text p, .about-text p,
+#about-lead {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 400 !important;
+}
