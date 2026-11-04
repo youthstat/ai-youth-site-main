@@ -10,26 +10,76 @@
 }
 
 /* ========== 0. TOKENS ========== */
+/* ---------- TOKENS ---------- */
 :root {
-  --navy: #0B1F3A; --blue: #2F6BFF; --cyan: #22D3EE; --green: #10B981; --amber: #FFB347;
-  --bg: #F4F7FD; --bg-alt: #E9EFFB;
-  --surface: rgba(255,255,255,0.82); --surface-solid: #FFFFFF;
-  --text: #0B1F3A; --muted: #44587A;
-  --border: rgba(11,31,58,0.12); --shadow: 0 10px 30px rgba(11,31,58,0.10);
-  --glow: 0 0 0 1.5px var(--cyan), 0 14px 38px rgba(47,107,255,0.28);
-  --link: #1D4ED8; --grey-block: #D5DCEA;
-  --radius: 24px; --radius-sm: 14px; --header-h: 68px;
-  --font-head: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: "Space Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-mono: "Space Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* 3 кольори — вся палітра акцентів */
+  --c-orange: #F97316;
+  --c-blue:   #3B82F6;
+  --c-green:  #22C55E;
+
+  /* IDE chrome */
+  --navy:  #1E1E1E;
+  --blue:  var(--c-blue);
+  --cyan:  var(--c-green);
+  --green: var(--c-green);
+  --amber: var(--c-orange);
+
+  /* VS Code-сумісні змінні — усі мапляться на 3 кольори */
+  --vsc-bg:        #FFFFFF;
+  --vsc-bg-alt:    #F3F3F3;
+  --vsc-border:    #E5E5E5;
+  --vsc-text:      #000000;
+  --vsc-muted:     #6E6E6E;
+  --vsc-punct:     #6E6E6E;
+
+  --vsc-keyword:   var(--c-orange);
+  --vsc-keyword-2: var(--c-blue);
+  --vsc-type:      var(--c-green);
+  --vsc-function:  var(--c-orange);
+  --vsc-string:    var(--c-green);
+  --vsc-number:    var(--c-blue);
+  --vsc-variable:  var(--c-blue);
+  --vsc-constant:  var(--c-blue);
+  --vsc-comment:   var(--c-green);
+  --vsc-error:     var(--c-orange);
+  --vsc-warning:   var(--c-orange);
+  --vsc-info:      var(--c-blue);
+  --vsc-git-add:   var(--c-green);
+
+  /* базові токени сторінки */
+  --bg: #F7F4F8; --bg-alt: #EEE9F1;
+  --surface: rgba(255,255,255,.82); --surface-solid: #FFFFFF;
+  --text: #1F1B24; --muted: #5E5668;
+  --border: rgba(31,27,36,.13); --shadow: 0 10px 30px rgba(31,27,36,.10);
+  --glow: 0 0 0 1.5px var(--c-blue), 0 14px 38px rgba(59,130,246,.24);
+  --link: var(--c-blue); --grey-block: #E8E5EC;
 }
+
 :root[data-theme="dark"] {
-  --bg: #06122A; --bg-alt: #0A1B38;
-  --surface: rgba(255,255,255,0.06); --surface-solid: #0F2447;
-  --text: #E8EEFB; --muted: #A7B6D1;
-  --border: rgba(255,255,255,0.13); --shadow: 0 10px 30px rgba(0,0,0,0.38);
-  --link: #8DB8FF; --grey-block: #1B2E52;
+  --c-orange: #FB923C;
+  --c-blue:   #60A5FA;
+  --c-green:  #4ADE80;
+
+  --vsc-bg:        #1E1E1E;
+  --vsc-bg-alt:    #252526;
+  --vsc-border:    #3C3C3C;
+  --vsc-text:      #D4D4D4;
+  --vsc-muted:     #858585;
+  --vsc-punct:     #808080;
+
+  --bg: #1E1E1E; --bg-alt: #252526;
+  --surface: rgba(255,255,255,.05); --surface-solid: #2D2D30;
+  --text: #D4D4D4; --muted: #858585;
+  --border: rgba(255,255,255,.10); --shadow: 0 10px 30px rgba(0,0,0,.45);
+  --glow: 0 0 0 1.5px var(--c-blue), 0 14px 38px rgba(96,165,250,.28);
+  --link: var(--c-blue); --grey-block: #333337;
 }
+
+html {
+  accent-color: var(--c-blue);
+  scrollbar-color: var(--vsc-punct) transparent;
+}
+::selection { background: rgba(59,130,246,.30); color: inherit; }
 
 /* ========== 1. BASE ========== */
 *, *::before, *::after { box-sizing: border-box; }
