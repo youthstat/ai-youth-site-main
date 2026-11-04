@@ -1,27 +1,27 @@
 /* =====================================================================
-   ide-theme.css — IDE-хром. Все ЗЕЛЕНЕ, крім відео-плей (бежевий).
+   ide-theme.css — усе ЗЕЛЕНЕ (жодного синього), відео-плей — БЕЖЕВИЙ.
    Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
 
-/* ---------- 0. ФІНАЛЬНЕ ЗАКРІПЛЕННЯ ТОКЕНІВ ---------- */
+/* ---------- 0. ФІНАЛЬНІ АЛІАСИ: усе, що було --blue/--link/--amber → зелений ---------- */
 :root,
 :root[data-theme="dark"] {
-  --c-btn: var(--c-accent);   /* кнопки = зелений (як і все інше) */
-  --blue:  var(--c-accent);
-  --link:  var(--c-accent);
-  accent-color: var(--c-accent);
+  --blue:  var(--c-green);
+  --link:  var(--c-green);
+  --amber: var(--c-green);
+  accent-color: var(--c-green);
 }
 
 /* ---------- 1. NAV ---------- */
 .site-nav a[aria-current="true"] {
   background: rgba(43,168,90,.16);
-  color: var(--c-accent);
+  color: var(--c-green);
 }
 .site-nav a:hover { background: var(--bg-alt); }
 
 /* ---------- 2. КНОПКИ — ЗЕЛЕНІ ---------- */
 .btn-primary {
-  background: var(--c-accent);
+  background: var(--c-green);
   color: #052E16;
   box-shadow: 0 8px 22px rgba(43,168,90,.30);
 }
@@ -30,21 +30,21 @@
 
 .btn-outline,
 .card-btn {
-  color: var(--c-accent);
-  border-color: var(--c-accent);
+  color: var(--c-green);
+  border-color: var(--c-green);
 }
 .btn-outline:hover,
 .card-btn:hover {
   background: rgba(43,168,90,.12);
-  border-color: var(--c-accent);
+  border-color: var(--c-green);
 }
 
-.btn-solid   { background: var(--c-accent); color: #052E16; }
-.skip-link   { background: var(--c-accent); color: #052E16; }
+.btn-solid   { background: var(--c-green); color: #052E16; }
+.skip-link   { background: var(--c-green); color: #052E16; }
 
-.car-btn:hover            { background: var(--c-accent); color: #052E16; }
-.days-btn:hover:not(:disabled) { background: var(--c-accent); color: #052E16; border-color: var(--c-accent); }
-.lb-btn:hover             { background: var(--c-accent); color: #052E16; }
+.car-btn:hover                 { background: var(--c-green); color: #052E16; }
+.days-btn:hover:not(:disabled) { background: var(--c-green); color: #052E16; border-color: var(--c-green); }
+.lb-btn:hover                  { background: var(--c-green); color: #052E16; }
 
 /* ---------- 3. HERO ---------- */
 .hero { background: #1E1E1E; }
@@ -63,7 +63,7 @@
   background: rgba(43,168,90,.08);
   border-color: rgba(43,168,90,.35);
 }
-.erasmus-card { border-left-color: var(--c-accent); }
+.erasmus-card { border-left-color: var(--c-green); }
 
 .stat-num,
 .stat-dl .stat-num {
@@ -71,7 +71,7 @@
   -webkit-background-clip: border-box;
   background-clip: border-box;
   -webkit-text-fill-color: currentColor;
-  color: var(--c-accent);
+  color: var(--c-green);
 }
 .stat-dl {
   background: #1E1E1E;
@@ -80,23 +80,20 @@
 .stat-dl .stat-label { color: #D4D4D4; }
 .dl-target { color: #A0A0A0; }
 
-.dl-bar .bar-fill { background: var(--c-accent); }
-.bar-fill         { background: var(--c-accent); }
-.bar-fill.is-done { background: var(--c-accent); }
-.day::before      { background: var(--c-accent); }
-.day-n, .fact-label, .prog-val { color: var(--c-accent); }
+.dl-bar .bar-fill { background: var(--c-green); }
+.bar-fill         { background: var(--c-green); }
+.bar-fill.is-done { background: var(--c-green); }
+.day::before      { background: var(--c-green); }
+.day-n, .fact-label, .prog-val { color: var(--c-green); }
 
-.donut-seg.seg-a { stroke: var(--c-accent); }
-.donut-seg.seg-b { stroke: var(--c-accent); }
-.donut-seg.seg-c { stroke: var(--c-accent); }
+.donut-seg.seg-a { stroke: var(--c-green); }
+.donut-seg.seg-b { stroke: var(--c-green); }
+.donut-seg.seg-c { stroke: var(--c-green); }
 
 /* ---------- 5. ГАЛЕРЕЯ / ДІАЛОГИ ---------- */
-.gallery-overlay {
-  background: rgba(30,30,30,.82);
-  color: #fff;
-}
-.gallery-overlay strong { color: var(--c-accent); }
-.gallery-overlay span   { color: var(--c-accent); }
+.gallery-overlay { background: rgba(30,30,30,.82); color: #fff; }
+.gallery-overlay strong { color: var(--c-green); }
+.gallery-overlay span   { color: var(--c-green); }
 .gallery-item.has-more:hover .gallery-overlay { background: rgba(30,30,30,.62); }
 
 .dialog { background: rgba(14,14,15,.78); }
@@ -112,11 +109,11 @@
 .media-skel::after, .gallery-skel::after,
 .vd-stage.is-loading::after {
   border-color: rgba(43,168,90,.25);
-  border-top-color: var(--c-accent);
+  border-top-color: var(--c-green);
 }
 
 /* =====================================================
-   ВІДЕО-КОНТРОЛІ — БЕЖЕВІ (видно на темному прев'ю)
+   ВІДЕО-КОНТРОЛІ — БЕЖЕВІ (добре видно на темному прев'ю)
    ===================================================== */
 .play {
   background: #E8D5A8;
@@ -134,7 +131,6 @@
     0 0 0 8px rgba(232,213,168,.42),
     0 10px 30px rgba(0,0,0,.6);
 }
-
 .video-expand {
   background: #E8D5A8;
   color: #1E1E1E;
