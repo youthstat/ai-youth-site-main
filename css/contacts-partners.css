@@ -1,189 +1,117 @@
 /* =====================================================================
-   contacts-partners.css — тільки #contacts + .partners.
-   3 кольори: orange / blue / green. Без градієнтів.
+   ide-theme.css — IDE-хром + 3-колірна палітра (orange / blue / green).
+   Без градієнтів. Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
 
-/* ---------- змінні #contacts ---------- */
-#contacts {
-  --cp-bg:   var(--vsc-bg);
-  --cp-bg-2: var(--vsc-bg-alt);
-  --cp-line: var(--vsc-border);
-  --cp-text: var(--vsc-text);
-  --cp-muted: var(--vsc-muted);
-  --cp-a: var(--c-blue);          /* дефолтний акцент */
-  --cp-on: #FFFFFF;
-  --cp-glow: rgba(59,130,246,.14);
-  --cp-shadow: 0 14px 34px rgba(0,0,0,.16);
-}
-:root[data-theme="dark"] #contacts {
-  --cp-glow: rgba(96,165,250,.20);
-  --cp-shadow: 0 14px 34px rgba(0,0,0,.5);
-}
-
-/* ---------- reveal ---------- */
-@keyframes cp-in {
-  from { opacity: 0; transform: translateY(22px) scale(.97); filter: blur(6px); }
-}
-.js #contacts .contact:not(.is-visible),
-.js #contacts .partner:not(.is-visible) { opacity: 0; }
-.js #contacts .contact.is-visible,
-.js #contacts .partner.is-visible {
-  animation: cp-in .65s cubic-bezier(.2,.8,.2,1) backwards;
-  animation-delay: calc(var(--i, 0) * 90ms);
-}
-
-/* ---------- spotlight ---------- */
-#contacts .contact,
-#contacts .partner {
-  --mx: 50%; --my: 0%;
-  position: relative; isolation: isolate;
-  background: var(--cp-bg);
-  border: 1px solid var(--cp-line);
-  border-radius: 18px;
-  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s;
-}
-#contacts .contact::before,
-#contacts .partner::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(260px circle at var(--mx) var(--my), var(--cp-glow), transparent 70%);
-  opacity: 0; transition: opacity .3s;
-}
-#contacts .contact:hover::before,
-#contacts .partner:hover::before { opacity: 1; }
-
-/* ---------- PARTNERS ---------- */
-#contacts .partners {
-  list-style: none; margin: 0 0 8px; padding: 0;
-  display: grid; gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-}
-#contacts .partner {
-  display: grid; place-items: center;
-  min-height: 112px; padding: 0; overflow: hidden; text-align: center;
-}
-#contacts .partner > a,
-#contacts .partner > .partner-name,
-#contacts .partner:not(.partner-link) { padding: 22px 20px; }
-#contacts .partner > a {
-  display: grid; place-items: center; width: 100%; height: 100%;
-  color: var(--cp-text); text-decoration: none; border: 0;
-}
-#contacts .partner img {
-  display: block; max-width: 100%; max-height: 64px; width: auto; height: auto;
-  object-fit: contain; filter: grayscale(1) opacity(.7);
-  transition: filter .35s, transform .35s cubic-bezier(.2,.8,.2,1);
-}
-#contacts .partner .partner-name,
-#contacts .partner:not(:has(img)) {
-  font-weight: 600; font-size: .98rem; line-height: 1.3; color: var(--cp-text);
-}
-:root[data-theme="dark"] #contacts .partner img { filter: grayscale(1) brightness(1.6) opacity(.75); }
-
-#contacts .partner:hover,
-#contacts .partner:focus-within {
-  transform: translateY(-6px);
-  border-color: var(--cp-a);
-  box-shadow: var(--cp-shadow);
-}
-#contacts .partner:hover img,
-#contacts .partner:focus-within img { filter: none; transform: scale(1.07); }
-#contacts .partner a:focus-visible {
-  outline: 2px solid var(--cp-a);
-  outline-offset: -4px;
-  border-radius: 16px;
-}
-
-/* ---------- CONTACTS ---------- */
-#contacts .contacts {
-  display: grid; gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-}
-
-#contacts .contact {
-  padding: 0;
-  overflow: hidden;
-  display: block;
-  background: var(--cp-bg);
-  border: 1.5px solid var(--cp-line);
-}
-#contacts .contact:hover,
-#contacts .contact:focus-within {
-  transform: translateY(-6px);
-  border-color: var(--cp-a);
-  box-shadow: var(--cp-shadow);
-}
-
-/* ---------- TERMINAL (contact.json) ---------- */
-#contacts .term-bar {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 12px;
-  background: var(--cp-bg-2);
-  border-bottom: 1px solid var(--cp-line);
-  font: 500 .8rem/1 ui-monospace, monospace;
-}
-#contacts .term-dots { display: inline-flex; gap: 5px; }
-#contacts .term-dots i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
-#contacts .term-dots i:nth-child(2) { background: #ffbd2e; }
-#contacts .term-dots i:nth-child(3) { background: #28c840; }
-#contacts .term-title { color: var(--cp-muted); }
-
-#contacts .term-body { padding: 14px 16px; font: 500 .85rem/1.6 ui-monospace, monospace; }
-#contacts .code-line { display: flex; gap: 12px; }
-#contacts .ln { color: var(--cp-muted); user-select: none; min-width: 1.5em; text-align: right; }
-#contacts .code { white-space: pre; }
-
-#contacts .tok-p { color: var(--vsc-punct); }
-#contacts .tok-k { color: var(--c-orange); }
-#contacts .tok-s { color: var(--c-green); }
-
-#contacts .term-body a {
-  display: inline;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px dashed currentColor;
-  overflow-wrap: anywhere;
-  vertical-align: baseline;
-}
-#contacts .term-body a:hover,
-#contacts .term-body a:focus-visible {
+/* ---------- 1. NAV ---------- */
+.site-nav a[aria-current="true"] {
+  background: rgba(59,130,246,.16);
   color: var(--c-blue);
-  outline: none;
+}
+.site-nav a:hover { background: var(--bg-alt); }
+
+/* ---------- 2. КНОПКИ ---------- */
+.btn-primary {
+  background: var(--c-blue);
+  color: #FFFFFF;
+  box-shadow: 0 8px 22px rgba(59,130,246,.28);
+}
+.btn-primary:hover { background: #2563EB; }
+:root[data-theme="dark"] .btn-primary { color: #0B1220; }
+:root[data-theme="dark"] .btn-primary:hover { background: #3B82F6; }
+
+.btn-outline:hover, .card-btn:hover {
+  background: rgba(34,197,94,.12);
+  border-color: var(--c-green);
 }
 
-#contacts .cursor {
-  display: inline-block; width: 8px; height: 1em; vertical-align: text-bottom;
-  background: currentColor; animation: cp-blink 1s steps(1) infinite;
+/* ---------- 3. HERO ---------- */
+.hero { background: #1E1E1E; }
+.hero-media::after { background: rgba(15,17,23,.65); }
+.hero-desc { color: #D4D4D4; }
+
+.flags-card {
+  background: rgba(30,30,30,.72);
+  border-color: rgba(59,130,246,.35);
+  box-shadow: 0 20px 50px rgba(0,0,0,.45);
 }
-@keyframes cp-blink { 50% { opacity: 0; } }
+.flag-item { background: rgba(255,255,255,.06); }
 
-/* =====================================================================
-   РОТАЦІЯ 3 КОЛЬОРІВ — без градієнтів, тверді акценти
-   ===================================================================== */
-
-/* контакти: 3 кольори по колу */
-#contacts .contacts > .contact:nth-child(3n+1) { --cp-a: var(--c-blue);   }
-#contacts .contacts > .contact:nth-child(3n+2) { --cp-a: var(--c-orange); }
-#contacts .contacts > .contact:nth-child(3n)   { --cp-a: var(--c-green);  }
-
-/* партнери: 3 кольори по колу */
-#contacts .partners > .partner:nth-child(3n+1) { --cp-a: var(--c-blue);   }
-#contacts .partners > .partner:nth-child(3n+2) { --cp-a: var(--c-orange); }
-#contacts .partners > .partner:nth-child(3n)   { --cp-a: var(--c-green);  }
-
-/* ---------- no-JS / reduced motion ---------- */
-html:not(.js) #contacts .contact,
-html:not(.js) #contacts .partner { opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .js #contacts .contact.is-visible,
-  .js #contacts .partner.is-visible { animation: none; }
-  #contacts .contact:hover,
-  #contacts .contact:focus-within { animation: none; }
-  #contacts .contact,
-  #contacts .partner,
-  #contacts .partner img { transition: none; }
+/* ---------- 4. КАРТКИ / СТАТИСТИКА ---------- */
+.next-card {
+  background: rgba(59,130,246,.08);
+  border-color: rgba(59,130,246,.35);
 }
+.erasmus-card { border-left-color: var(--c-green); }
+
+.stat-num,
+.stat-dl .stat-num {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: var(--c-orange);
+}
+.stat-dl {
+  background: #1E1E1E;
+  border-color: rgba(249,115,22,.35);
+}
+.stat-dl .stat-label { color: #D4D4D4; }
+.dl-target { color: #A0A0A0; }
+
+.dl-bar .bar-fill { background: var(--c-orange); }
+.bar-fill         { background: var(--c-blue); }
+.bar-fill.is-done { background: var(--c-green); }
+.day::before      { background: var(--c-blue); }
+
+.donut-seg.seg-a { stroke: var(--c-orange); }
+.donut-seg.seg-b { stroke: var(--c-blue); }
+.donut-seg.seg-c { stroke: var(--c-green); }
+
+/* ---------- 5. ГАЛЕРЕЯ / ВІДЕО / ДІАЛОГИ ---------- */
+.gallery-overlay {
+  background: rgba(30,30,30,.82);
+  color: #fff;
+}
+.gallery-overlay strong { color: var(--c-orange); }
+.gallery-overlay span   { color: var(--c-green); }
+.gallery-item.has-more:hover .gallery-overlay { background: rgba(30,30,30,.62); }
+
+.video-expand, .play {
+  background: rgba(30,30,30,.82);
+  color: var(--c-orange);
+}
+.car-btn { background: rgba(30,30,30,.76); }
+.dialog { background: rgba(14,14,15,.78); }
+.lightbox { background: rgba(14,14,15,.95); }
+/* ці підписи завжди на темному фоні — колір не залежить від теми */
+.vd-title, .lb-count { color: #D4D4D4; }
+.dialog-panel {
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(59,130,246,.16);
+}
+
+.carousel-slide:has(img.is-loading)::after,
+.gallery-item:has(img.is-loading)::before,
+.video-frame.is-loading::after,
+.media-skel::after, .gallery-skel::after,
+.vd-stage.is-loading::after {
+  border-color: rgba(59,130,246,.25);
+  border-top-color: var(--c-blue);
+}
+
+/* ---------- 6. ФУТЕР (завжди темний, як статус-бар у VS Code) ---------- */
+.site-footer {
+  background: #1E1E1E;
+  color: #D4D4D4;
+  border-top: 1px solid rgba(34,197,94,.35);
+}
+.disclaimer { color: #858585; }
+
+/* ---------- 7. ПІДСВІТКА КОДУ У CONTACTS (VS Code Light+/Dark+) ---------- */
+#contacts .term-body .tok-p { color: #808080; }
+#contacts .term-body .tok-k { color: #0451A5; }   /* ключі */
+#contacts .term-body .tok-s { color: #A31515; }   /* рядки */
+:root[data-theme="dark"] #contacts .term-body .tok-k { color: #9CDCFE; }
+:root[data-theme="dark"] #contacts .term-body .tok-s { color: #CE9178; }
+#contacts .term-body a:hover,
+#contacts .term-body a:focus-visible { color: var(--c-blue); }
