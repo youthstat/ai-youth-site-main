@@ -472,10 +472,31 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
 .video-frame.is-loading .video-poster { background: transparent; }
 
 /* ============================================================
-   ALPHA LYRAE OVERRIDES — ТІЛЬКИ шрифт
+   ALPHA LYRAE OVERRIDES
    ============================================================ */
 
-/* ═══ 1. h2 — АГРЕСИВНО ═══ */
+/* ═══ 1. ХЕДЕР — brand + burger + theme + nav + усе всередині ═══ */
+header.site-header,
+header.site-header *,
+.site-header,
+.site-header *,
+.header-inner,
+.header-inner *,
+.brand,
+.brand *,
+.brand-text,
+.brand-mark,
+.header-actions,
+.header-actions *,
+.icon-btn,
+.burger,
+.site-nav,
+.site-nav *,
+.site-nav a,
+.site-nav a:hover,
+.site-nav a[aria-current="true"],
+
+/* ═══ 2. h2 — АГРЕСИВНО ═══ */
 body h2,
 body h2[id],
 body h2[class],
@@ -489,137 +510,63 @@ html body section h2,
 .modal-head h2,
 .sub-title,
 
-/* ═══ 2. Хедер: brand + навігація ═══ */
-.brand,
-.brand-text,
-.site-nav,
-.site-nav a,
-.site-nav a[aria-current="true"],
-
 /* ═══ 3. Hero ═══ */
 #hero-title,
-.hero .btn-primary,
-.hero .btn-ghost,
-.flags-card,
-.flags-card *,
+.hero .btn-primary, .hero .btn-ghost,
+.flags-card, .flags-card *,
 
-/* ═══ 4. About: erasmus + about lead + about text + objectives + goals ═══ */
+/* ═══ 4. ABOUT ═══ */
+.erasmus-card, .erasmus-card h3, .erasmus-card p,
 #about-lead,
-.about-text,
-.about-text *,
-.about-text p,
-.erasmus-card,
-.erasmus-card h3,
-.erasmus-card p,
-.goals,
-.goals *,
-.goal,
-.goal *,
-.goal h4,
-.goal p,
+.about-text, .about-text p, .about-text *,
+#about .sub-title,
+.goals, .goals *, .goal, .goal *, .goal h4, .goal p,
 
-/* ═══ 5. Planned vs Achieved ═══ */
-#progress-list,
-#progress-list *,
-.prog,
-.prog-top,
-.prog-label,
-.prog-val,
+/* ═══ 5. PLANNED vs ACHIEVED ═══ */
+#progress-list, #progress-list *,
+.prog, .prog-top, .prog-label, .prog-val,
 
-/* ═══ 6. Programme: lead ═══ */
+/* ═══ 6. PROGRAMME lead ═══ */
 #programme .section-head .lead,
 
-/* ═══ 7. Participants: competences + youthpass ═══ */
-.competences,
-.competences *,
-.competences h3,
-.comp-grid,
-.comp-grid *,
-.comp,
-.comp *,
-.comp span,
+/* ═══ 7. PARTICIPANTS — Key competences + Youthpass ═══ */
+.competences, .competences *, .competences h3,
+.comp-grid, .comp-grid *, .comp, .comp *, .comp span,
 .note,
-#competences,
-#competences *,
-#donut-card,
-#donut-card *,
-#people-card,
-#people-card *,
-.people-stat,
-.people-stat *,
-.people-stat strong,
-.people-stat span,
-.chips,
-.chips *,
-.chip,
+#competences, #competences *,
+#donut-card, #donut-card *,
+#people-card, #people-card *,
+.people-stat, .people-stat *, .people-stat strong, .people-stat span,
+.chips, .chips *, .chip,
 
-/* ═══ 8. Impact Dashboard ═══ */
-#stats,
-#stats *,
-.stat,
-.stat *,
-.stat-num,
-.stat-label,
-.count-badge,
-.dl-target,
-.dl-target *,
+/* ═══ 8. IMPACT ═══ */
+#stats, #stats *, .stat, .stat *, .stat-num, .stat-label, .count-badge,
+.dl-target, .dl-target *,
 
-/* ═══ 9. Local Impact ═══ */
+/* ═══ 9. LOCAL IMPACT ═══ */
 #local-intro,
-.country,
-.country *,
-.country h3,
-.country-place,
-.country-text,
-.country-people,
-.country-people small,
-.country-switch,
-.switch-btn,
+.country, .country *, .country h3, .country-place, .country-text,
+.country-people, .country-people small,
+.country-switch, .switch-btn,
 
-/* ═══ 10. Network ═══ */
+/* ═══ 10. NETWORK ═══ */
 #network-lead,
-.help-item,
-.help-item *,
-.help-main h4,
-.help-main p,
-.next-card,
-.next-card *,
-.next-list,
-.next-list *,
+.help-item, .help-item *, .help-main h4, .help-main p,
+.next-card, .next-card *, .next-list, .next-list *,
 
-/* ═══ 11. Contacts / Partners ═══ */
+/* ═══ 11. CONTACTS / PARTNERS ═══ */
 #contacts-lead,
-.contact,
-.contact *,
-.contact h4,
-.contact a,
-.partner,
-.partner *,
-.partner-link,
-.partner-link *,
+.contact, .contact *, .contact h4, .contact a,
+.partner, .partner *, .partner-link, .partner-link *,
 
-/* ═══ 12. Footer ═══ */
-#disclaimer,
-.logo-fallback,
-.btn-ghost-light,
-.copyright,
+/* ═══ 12. FOOTER ═══ */
+#disclaimer, .logo-fallback, .btn-ghost-light, .copyright,
 
-/* ═══ 13. Кнопки та фото-контроли ═══ */
-.btn,
-.card-btn,
-.switch-btn,
-.gallery-toggle,
-.icon-btn,
-.video-expand,
-.dialog-close,
-.gallery,
-.gallery *,
-.gallery-more,
-.gallery-more *,
-.gallery-item,
-.gallery-item *,
-.gallery-overlay,
-.gallery-overlay *,
+/* ═══ 13. Кнопки / фото-контроли ═══ */
+.btn, .card-btn, .switch-btn, .gallery-toggle,
+.video-expand, .dialog-close,
+.gallery, .gallery *, .gallery-more, .gallery-more *,
+.gallery-item, .gallery-item *, .gallery-overlay, .gallery-overlay *,
 .car-btn, .car-prev, .car-next,
 .days-btn, .days-prev, .days-next, .days-dot,
 .lb-btn, .lb-prev, .lb-next, .lb-close,
