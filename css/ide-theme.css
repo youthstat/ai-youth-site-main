@@ -1,53 +1,204 @@
 /* =====================================================================
-   contacts-terminal.css — стилізація ТІЛЬКИ блоку контактів.
-   Решта сайту не змінюється. Підключити ПІСЛЯ style.css.
+   contacts-partners.css — стилі ТІЛЬКИ для блоків "Partners" і "Contacts".
+   Підключити ПІСЛЯ style.css (замість contacts-terminal.css).
    ===================================================================== */
 
-.contact.term {
-  --t-bg: #FFFFFF; --t-bar: #E6E6EC;
-  --t-key: #0451A5; --t-str: #A31515; --t-fn: #795E26; --t-punc: #6E7781; --t-ln: #9AA1AB;
-  --t-accent: #AF00DB;
+#contacts {
+  --cp-bg: #FFFFFF;
+  --cp-bg-2: #F3F6FC;
+  --cp-line: rgba(11, 31, 58, .12);
+  --cp-text: #0B1F3A;
+  --cp-muted: #5B6B82;
+  --cp-a: #2F6BFF;   /* blue  */
+  --cp-b: #22D3EE;   /* cyan  */
+  --cp-glow: rgba(47, 107, 255, .16);
+  --cp-shadow: 0 14px 34px rgba(11, 31, 58, .14);
 }
-:root[data-theme="dark"] .contact.term {
-  --t-bg: #1B1B1C; --t-bar: #323233;
-  --t-key: #9CDCFE; --t-str: #CE9178; --t-fn: #DCDCAA; --t-punc: #808080; --t-ln: #5A5A5A;
-  --t-accent: #C586C0;
+:root[data-theme="dark"] #contacts {
+  --cp-bg: #10213B;
+  --cp-bg-2: #0B1B33;
+  --cp-line: rgba(255, 255, 255, .12);
+  --cp-text: #EAF1FF;
+  --cp-muted: #9DB0CE;
+  --cp-glow: rgba(34, 211, 238, .16);
+  --cp-shadow: 0 14px 34px rgba(0, 0, 0, .45);
 }
 
-.contacts { gap: 18px; }
-.contact.term { padding: 0; overflow: hidden; background: var(--t-bg); border-radius: 10px; position: relative; }
-.contact.term::after {
-  content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; pointer-events: none; opacity: 0;
-  background: linear-gradient(90deg, transparent, var(--t-accent), transparent);
+/* ---------- one reveal sequence (stagger by --i) ---------- */
+@keyframes cp-in {
+  from { opacity: 0; transform: translateY(22px) scale(.97); filter: blur(6px); }
 }
-.contact.term:hover { transform: translateY(-5px); box-shadow: 0 0 0 1.5px var(--t-accent), 0 12px 32px rgba(0,0,0,.25); border-color: var(--t-accent); }
-.contact.term:hover::after { opacity: .9; animation: term-scan 1.6s linear infinite; }
-@keyframes term-scan { to { transform: translateY(190px); } }
+.js #contacts .contact:not(.is-visible),
+.js #contacts .partner:not(.is-visible) { opacity: 0; }
+.js #contacts .contact.is-visible,
+.js #contacts .partner.is-visible {
+  animation: cp-in .65s cubic-bezier(.2, .8, .2, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
 
-.term-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--t-bar); border-bottom: 1px solid var(--border); }
-.term-dots { display: flex; gap: 6px; }
-.term-dots i { width: 11px; height: 11px; border-radius: 50%; display: block; transition: transform .2s; }
-.term-dots i:nth-child(1) { background: #FF5F56; }
-.term-dots i:nth-child(2) { background: #FFBD2E; }
-.term-dots i:nth-child(3) { background: #27C93F; }
-.contact.term:hover .term-dots i { transform: scale(1.25); }
-.term-title { margin-left: 6px; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }
+/* ---------- shared: cursor spotlight ---------- */
+#contacts .contact,
+#contacts .partner {
+  --mx: 50%; --my: 0%;
+  position: relative;
+  isolation: isolate;
+  background: var(--cp-bg);
+  border: 1px solid var(--cp-line);
+  border-radius: 18px;
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s, border-color .3s;
+}
+#contacts .contact::before,
+#contacts .partner::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(260px circle at var(--mx) var(--my), var(--cp-glow), transparent 70%);
+  opacity: 0; transition: opacity .3s;
+}
+#contacts .contact:hover::before,
+#contacts .partner:hover::before { opacity: 1; }
 
-.term-body { padding: 16px 0 18px; font-family: var(--font-mono); font-size: .88rem; line-height: 1.9; }
-.code-line { display: flex; gap: 16px; padding-right: 18px; opacity: 0; transform: translateX(-12px); }
-.js .contact.is-visible .code-line { animation: term-line .45s ease forwards; animation-delay: calc(.25s + var(--i) * .22s); }
-html:not(.js) .code-line { opacity: 1; transform: none; }
-@keyframes term-line { to { opacity: 1; transform: none; } }
-.ln { flex: none; width: 36px; text-align: right; color: var(--t-ln); user-select: none; }
-.code { min-width: 0; overflow-wrap: anywhere; color: var(--text); }
-.code-line:hover { background: rgba(127,127,127,.10); }
-.tok-p { color: var(--t-punc); } .tok-k { color: var(--t-key); } .tok-s { color: var(--t-str); }
-.contact .tok-s a { display: inline; padding: 0; color: var(--t-str); font-weight: 400; text-decoration: none; border-bottom: 1px dashed currentColor; transition: color .2s; }
-.contact .tok-s a:hover { color: var(--t-fn); border-bottom-style: solid; }
-.cursor { display: inline-block; width: .55em; height: 1.05em; margin-left: 4px; background: var(--t-fn); vertical-align: -.2em; animation: term-blink 1s steps(1) infinite; }
-@keyframes term-blink { 50% { opacity: 0; } }
+/* =====================================================================
+   PARTNERS
+   ===================================================================== */
+#contacts .partners {
+  list-style: none; margin: 0 0 8px; padding: 0;
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+#contacts .partner {
+  display: grid; place-items: center;
+  min-height: 112px; padding: 0; overflow: hidden;
+  text-align: center;
+}
+#contacts .partner > a,
+#contacts .partner > .partner-name,
+#contacts .partner:not(.partner-link) { padding: 22px 20px; }
+#contacts .partner > a {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  color: var(--cp-text); text-decoration: none; border: 0;
+}
+#contacts .partner img {
+  display: block; max-width: 100%; max-height: 64px; width: auto; height: auto; object-fit: contain;
+  filter: grayscale(1) opacity(.7);
+  transition: filter .35s, transform .35s cubic-bezier(.2, .8, .2, 1);
+}
+#contacts .partner .partner-name,
+#contacts .partner:not(:has(img)) {
+  font-weight: 600; font-size: .98rem; line-height: 1.3; color: var(--cp-text);
+}
+:root[data-theme="dark"] #contacts .partner img { filter: grayscale(1) brightness(1.6) opacity(.75); }
 
+/* light sweep across the tile */
+#contacts .partner::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: skewX(-18deg); opacity: 0;
+}
+:root[data-theme="dark"] #contacts .partner::after {
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .12), transparent);
+}
+#contacts .partner:hover,
+#contacts .partner:focus-within {
+  transform: translateY(-6px);
+  border-color: var(--cp-a);
+  box-shadow: var(--cp-shadow);
+}
+#contacts .partner:hover img,
+#contacts .partner:focus-within img { filter: none; transform: scale(1.07); }
+#contacts .partner:hover::after { opacity: 1; animation: cp-sweep .9s ease forwards; }
+@keyframes cp-sweep { to { left: 130%; } }
+#contacts .partner a:focus-visible { outline: 2px solid var(--cp-a); outline-offset: -4px; border-radius: 16px; }
+
+/* =====================================================================
+   CONTACTS
+   ===================================================================== */
+#contacts .contacts {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+/* rotating gradient border (the one "memorable" element) */
+@property --cp-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+#contacts .contact {
+  display: grid; justify-items: start; gap: 6px;
+  padding: 26px 24px 22px;
+  background:
+    linear-gradient(var(--cp-bg), var(--cp-bg)) padding-box,
+    conic-gradient(from var(--cp-angle), var(--cp-line) 0 70%, var(--cp-b) 85%, var(--cp-a) 95%, var(--cp-line)) border-box;
+  border: 1.5px solid transparent;
+}
+#contacts .contact:hover,
+#contacts .contact:focus-within {
+  transform: translateY(-6px);
+  box-shadow: var(--cp-shadow);
+  animation: cp-spin 3.2s linear infinite;
+}
+@keyframes cp-spin { to { --cp-angle: 360deg; } }
+
+/* avatar with initials */
+#contacts .contact-avatar {
+  position: relative; display: grid; place-items: center;
+  width: 58px; height: 58px; margin-bottom: 10px; border-radius: 50%;
+  font-family: var(--font-display, 'Space Grotesk', system-ui, sans-serif);
+  font-weight: 700; font-size: 1.15rem; letter-spacing: .02em; color: #fff;
+  background: linear-gradient(135deg, var(--cp-a), var(--cp-b));
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+}
+#contacts .contact-avatar::after {
+  content: ""; position: absolute; inset: -6px; border-radius: 50%;
+  border: 1.5px dashed var(--cp-a); opacity: 0; transform: scale(.85);
+  transition: opacity .3s, transform .5s;
+}
+#contacts .contact:hover .contact-avatar { transform: rotate(-6deg) scale(1.06); }
+#contacts .contact:hover .contact-avatar::after { opacity: .7; transform: scale(1); animation: cp-orbit 8s linear infinite; }
+@keyframes cp-orbit { to { transform: rotate(360deg); } }
+
+#contacts .contact-name {
+  margin: 0 0 8px; font-size: 1.2rem; line-height: 1.25; color: var(--cp-text);
+  font-family: var(--font-display, 'Space Grotesk', system-ui, sans-serif);
+}
+
+/* contact links */
+#contacts .contact-links { display: grid; gap: 8px; width: 100%; }
+#contacts .contact-link {
+  position: relative; display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; border-radius: 12px;
+  background: var(--cp-bg-2); color: var(--cp-text);
+  font-size: .95rem; line-height: 1.3; text-decoration: none; overflow-wrap: anywhere;
+  border: 1px solid transparent;
+  transition: background .25s, color .25s, border-color .25s, transform .25s;
+}
+#contacts .contact-link .ci {
+  flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px;
+  color: var(--cp-a); background: var(--cp-glow);
+  transition: background .25s, color .25s, transform .25s;
+}
+#contacts .contact-link .ci svg { width: 17px; height: 17px; }
+#contacts .contact-link .arrow {
+  margin-left: auto; flex: none; opacity: 0; transform: translateX(-6px);
+  transition: opacity .25s, transform .25s; color: currentColor;
+}
+#contacts .contact-link:hover,
+#contacts .contact-link:focus-visible {
+  background: linear-gradient(90deg, var(--cp-a), var(--cp-b));
+  color: #fff; transform: translateX(3px); outline: none;
+}
+#contacts .contact-link:hover .ci,
+#contacts .contact-link:focus-visible .ci { background: rgba(255, 255, 255, .22); color: #fff; transform: rotate(-8deg); }
+#contacts .contact-link:hover .arrow,
+#contacts .contact-link:focus-visible .arrow { opacity: 1; transform: none; }
+
+/* ---------- no-JS / reduced motion ---------- */
+html:not(.js) #contacts .contact,
+html:not(.js) #contacts .partner { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
-  .code-line { opacity: 1; transform: none; animation: none !important; }
-  .cursor { animation: none; }
+  .js #contacts .contact.is-visible,
+  .js #contacts .partner.is-visible { animation: none; }
+  #contacts .contact:hover,
+  #contacts .contact:focus-within { animation: none; }
+  #contacts .partner:hover::after,
+  #contacts .contact:hover .contact-avatar::after { animation: none; }
+  #contacts .contact,
+  #contacts .partner,
+  #contacts .contact-link,
+  #contacts .partner img { transition: none; }
 }
