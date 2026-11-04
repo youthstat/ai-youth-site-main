@@ -26,7 +26,7 @@
 
   /* IDE chrome */
   --navy:  #1E1E1E;
-  --blue:  var(--c-orange);     /* головний акцент (історична назва) */
+  --blue:  var(--c-blue);     /* головний акцент (історична назва) */
   --cyan:  var(--c-green);
   --green: var(--c-green);
   --amber: var(--c-orange);
@@ -39,17 +39,17 @@
   --vsc-muted:     #6E6E6E;
   --vsc-punct:     #6E6E6E;
 
-  --vsc-keyword:   var(--c-orange);
+  --vsc-keyword:   var(--c-blue);
   --vsc-keyword-2: var(--c-green);
   --vsc-type:      var(--c-green);
-  --vsc-function:  var(--c-orange);
+  --vsc-function:  var(--c-blue);
   --vsc-string:    var(--c-green);
-  --vsc-number:    var(--c-orange);
+  --vsc-number:    var(--c-blue);
   --vsc-variable:  var(--c-green);
-  --vsc-constant:  var(--c-orange);
+  --vsc-constant:  var(--c-blue);
   --vsc-comment:   var(--c-green);
-  --vsc-error:     var(--c-orange);
-  --vsc-warning:   var(--c-orange);
+  --vsc-error:     var(--c-blue);
+  --vsc-warning:   var(--c-blue);
   --vsc-info:      var(--c-green);
   --vsc-git-add:   var(--c-green);
 
@@ -79,12 +79,12 @@
   --surface: rgba(255,255,255,.05); --surface-solid: #2D2D30;
   --text: #D4D4D4; --muted: #858585;
   --border: rgba(255,255,255,.10); --shadow: 0 10px 30px rgba(0,0,0,.45);
-  --glow: 0 0 0 1.5px var(--c-orange), 0 14px 38px rgba(251,146,60,.28);
-  --link: var(--c-orange); --grey-block: #333337;
+  --glow: 0 0 0 1.5px var(--c-blue), 0 14px 38px rgba(251,146,60,.28);
+  --link: var(--c-blue); --grey-block: #333337;
 }
 
 html {
-  accent-color: var(--c-orange);
+  accent-color: var(--c-blue);
   scrollbar-color: var(--vsc-punct) transparent;
 }
 ::selection { background: rgba(249,115,22,.32); color: inherit; }
