@@ -51,7 +51,6 @@
     georgia: `<rect width="30" height="20" fill="#FFFFFF"/><rect x="13" width="4" height="20" fill="#E8112D"/><rect y="8" width="30" height="4" fill="#E8112D"/>${cross(6.5, 4)}${cross(23.5, 4)}${cross(6.5, 16)}${cross(23.5, 16)}`,
     jordan: `<rect width="30" height="6.7" fill="#000000"/><rect y="6.7" width="30" height="6.7" fill="#FFFFFF"/><rect y="13.4" width="30" height="6.6" fill="#007A3D"/><polygon points="0,0 14,10 0,20" fill="#CE1126"/><polygon points="${star(4.2, 10, 1.7, 0.75, 7)}" fill="#FFFFFF"/>`
   };
-  /** Returns a <span class="flag"> with the SVG flag of a country id (falls back to the emoji) */
   const flag = (id) => {
     const c = (D.countries || []).find((x) => x.id === id);
     const span = h('span', { class: 'flag', role: 'img', 'aria-label': `Flag of ${c ? c.name : id}` });
@@ -60,7 +59,6 @@
     return span;
   };
 
-  /** Accepts an 11-char ID or a pasted YouTube URL; returns a clean ID or '' */
   const youtubeId = (value) => {
     if (!value) return '';
     const s = String(value).trim();
@@ -98,7 +96,6 @@
   const IS_HTTP = /^https?:$/.test(location.protocol);
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  /** Does this file exist? With retry/backoff when the server answers 429. */
   const probe = async (src) => {
     if (IS_HTTP && window.fetch) {
       for (let attempt = 0; attempt < 3; attempt++) {
@@ -397,7 +394,6 @@
   };
 
   /* ========== 9. HERO ========== */
-  /* Every hero element is OPTIONAL: if it is removed from index.html, the page still renders. */
   const renderHero = () => {
     const setText = (sel, text) => { const el = $(sel); if (el) el.textContent = text; };
     setText('#hero-eyebrow', D.event.subtitle);
@@ -425,67 +421,8 @@
     initNetwork();
   };
 
-  // const initNetwork = () => {
-  //   const canvas = $('#hero-canvas');
-  //   if (!canvas) return;
-  //   const ctx = canvas.getContext && canvas.getContext('2d');
-  //   if (!ctx) return;
-  //   let w = 0; let ht = 0; let dots = []; let raf = 0; let visible = true;
-  //   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  //   const resize = () => {
-  //     const r = canvas.getBoundingClientRect();
-  //     w = r.width; ht = r.height;
-  //     canvas.width = w * dpr; canvas.height = ht * dpr;
-  //     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  //     const count = Math.max(22, Math.min(70, Math.round((w * ht) / 22000)));
-  //     dots = Array.from({ length: count }, () => ({
-  //       x: Math.random() * w, y: Math.random() * ht,
-  //       vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35
-  //     }));
-  //   };
-
-  //   const draw = () => {
-  //     ctx.clearRect(0, 0, w, ht);
-  //     for (const d of dots) {
-  //       if (!reduceMotion) {
-  //         d.x += d.vx; d.y += d.vy;
-  //         if (d.x < 0 || d.x > w) d.vx *= -1;
-  //         if (d.y < 0 || d.y > ht) d.vy *= -1;
-  //       }
-  //       ctx.beginPath(); ctx.arc(d.x, d.y, 1.8, 0, Math.PI * 2);
-  //       ctx.fillStyle = 'rgba(34,211,238,.8)'; ctx.fill();
-  //     }
-  //     for (let a = 0; a < dots.length; a += 1) {
-  //       for (let b = a + 1; b < dots.length; b += 1) {
-  //         const dx = dots[a].x - dots[b].x; const dy = dots[a].y - dots[b].y;
-  //         const dist = Math.hypot(dx, dy);
-  //         if (dist < 130) {
-  //           ctx.strokeStyle = `rgba(120,170,255,${(1 - dist / 130) * 0.35})`;
-  //           ctx.lineWidth = 1;
-  //           ctx.beginPath(); ctx.moveTo(dots[a].x, dots[a].y); ctx.lineTo(dots[b].x, dots[b].y); ctx.stroke();
-  //         }
-  //       }
-  //     }
-  //   };
-
-  //   const loop = () => { draw(); if (visible && !reduceMotion) raf = requestAnimationFrame(loop); };
-  //   resize(); draw();
-  //   if (reduceMotion) { window.addEventListener('resize', () => { resize(); draw(); }); return; }
-  //   loop();
-  //   let t = 0;
-  //   window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(resize, 200); });
-  //   if ('IntersectionObserver' in window) {
-  //     new IntersectionObserver(([e]) => {
-  //       visible = e.isIntersecting;
-  //       if (visible) { cancelAnimationFrame(raf); loop(); } else cancelAnimationFrame(raf);
-  //     }).observe(canvas);
-  //   }
-  // };
-   
-/* ЗАМІНИТИ в main.js цілу функцію initNetwork на цю.
-     Замість ліній — плаваючі цифри 0/1 і шматочки коду, кольори з IDE-палітри.
-     Вони пливуть вгору поверх фото, а біля курсора яскравішають і відштовхуються. */
+  /* Floating 0/1 and code snippets above the hero photo.
+     Colors from the VS Code syntax palette; the ones near the cursor brighten and drift. */
   const initNetwork = () => {
     const canvas = $('#hero-canvas');
     if (!canvas) return;
@@ -513,12 +450,12 @@
 
     const make = (anywhere) => {
       const [rgb, a] = COLORS[Math.floor(Math.random() * COLORS.length)];
-      const depth = Math.random();                 // 0 — далеко, 1 — близько
+      const depth = Math.random();
       return {
         x: rnd(0, w), y: anywhere ? rnd(0, ht) : ht + rnd(10, 60),
         g: GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
-        s: 11 + depth * 17,                        // розмір шрифту
-        vy: -(0.10 + depth * 0.38),                // близькі рухаються швидше
+        s: 11 + depth * 17,
+        vy: -(0.10 + depth * 0.38),
         sw: rnd(0.4, 1.2), ph: rnd(0, 6.28),
         rgb, a: a * (0.45 + depth * 0.55)
       };
@@ -543,9 +480,7 @@
           if (p.y < -30) Object.assign(p, make(false));
           if ((p.g === '0' || p.g === '1') && Math.random() < 0.002) p.g = p.g === '0' ? '1' : '0';
         }
-        /* плавне зникання біля верху й низу */
         const edge = Math.max(0, Math.min(1, Math.min(p.y, ht - p.y) / (ht * 0.16)));
-        /* реакція на курсор */
         const dx = p.x - ptr.x; const dy = p.y - ptr.y;
         const d = Math.hypot(dx, dy);
         const near = d < 150 ? 1 - d / 150 : 0;
@@ -580,6 +515,7 @@
       }).observe(canvas);
     }
   };
+
   /* ========== 10. ABOUT & PROGRESS ========== */
   const renderAbout = () => {
     const A = D.about;
@@ -1173,26 +1109,38 @@
       if (p.url) li.append(inner);
       list.append(li);
     });
- const sp = (cls, t) => h('span', { class: cls, text: t });
-const line = (n, ...parts) => h('div', { class: 'code-line', style: `--i:${n}` },
-  h('span', { class: 'ln', text: String(n) }), h('span', { class: 'code' }, ...parts));
 
-$('#contacts-grid').append(...D.contacts.map((c) => {
-  let n = 0;
-  const rows = [line(++n, sp('tok-p', '{')),
-    line(++n, '  ', sp('tok-k', '"name"'), sp('tok-p', ': '), sp('tok-s', `"${c.name}"`), sp('tok-p', ','))];
-  if (c.email) rows.push(line(++n, '  ', sp('tok-k', '"email"'), sp('tok-p', ': '),
-    h('span', { class: 'tok-s' }, '"', h('a', { href: `mailto:${c.email}`, text: c.email }), '"'),
-    sp('tok-p', c.phone ? ',' : '')));
-  if (c.phone) rows.push(line(++n, '  ', sp('tok-k', '"phone"'), sp('tok-p', ': '),
-    h('span', { class: 'tok-s' }, '"', h('a', { href: `tel:${c.phone}`, text: c.phoneText || c.phone }), '"')));
-  rows.push(line(++n, sp('tok-p', '}'), h('span', { class: 'cursor' })));
-  return h('article', { class: 'card contact term reveal' },
-    h('div', { class: 'term-bar' },
-      h('span', { class: 'term-dots', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')),
-      h('span', { class: 'term-title', text: 'contact.json' })),
-    h('div', { class: 'term-body' }, rows));
-}));
+    const sp = (cls, t) => h('span', { class: cls, text: t });
+    const line = (n, ...parts) => h('div', { class: 'code-line', style: `--i:${n}` },
+      h('span', { class: 'ln', text: String(n) }), h('span', { class: 'code' }, ...parts));
+
+    /* FIX: map((c, i)) — індекс для --i (stagger reveal-анімації) */
+    $('#contacts-grid').append(...D.contacts.map((c, i) => {
+      let n = 0;
+      const rows = [line(++n, sp('tok-p', '{')),
+        line(++n, '  ', sp('tok-k', '"name"'), sp('tok-p', ': '), sp('tok-s', `"${c.name}"`), sp('tok-p', ','))];
+      if (c.email) {
+        /* FIX: не додаємо порожній <span> замість коми */
+        rows.push(line(++n, '  ', sp('tok-k', '"email"'), sp('tok-p', ': '),
+          h('span', { class: 'tok-s' }, '"', h('a', { href: `mailto:${c.email}`, text: c.email }), '"'),
+          ...(c.phone ? [sp('tok-p', ',')] : [])));
+      }
+      if (c.phone) {
+        /* FIX: tel: без пробілів */
+        const telHref = `tel:${String(c.phone).replace(/[^\d+]/g, '')}`;
+        rows.push(line(++n, '  ', sp('tok-k', '"phone"'), sp('tok-p', ': '),
+          h('span', { class: 'tok-s' }, '"', h('a', { href: telHref, text: c.phoneText || c.phone }), '"')));
+      }
+      rows.push(line(++n, sp('tok-p', '}'), h('span', { class: 'cursor' })));
+      const card = h('article', { class: 'card contact term reveal' },
+        h('div', { class: 'term-bar' },
+          h('span', { class: 'term-dots', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')),
+          h('span', { class: 'term-title', text: 'contact.json' })),
+        h('div', { class: 'term-body' }, rows));
+      /* FIX: --i для каскадної появи */
+      card.style.setProperty('--i', String(i));
+      return card;
+    }));
   };
 
   const renderFooter = () => {
