@@ -1,0 +1,199 @@
+#contacts {
+  --cp-bg: #FFFFFF;
+  --cp-bg-2: #F3F6FC;
+  --cp-line: rgba(11, 31, 58, .12);
+  --cp-text: #0B1F3A;
+  --cp-muted: #5B6B82;
+  --cp-a: #2F6BFF;   /* blue  */
+  --cp-b: #22D3EE;   /* cyan  */
+  --cp-glow: rgba(47, 107, 255, .16);
+  --cp-shadow: 0 14px 34px rgba(11, 31, 58, .14);
+}
+:root[data-theme="dark"] #contacts {
+  --cp-bg: #10213B;
+  --cp-bg-2: #0B1B33;
+  --cp-line: rgba(255, 255, 255, .12);
+  --cp-text: #EAF1FF;
+  --cp-muted: #9DB0CE;
+  --cp-glow: rgba(34, 211, 238, .16);
+  --cp-shadow: 0 14px 34px rgba(0, 0, 0, .45);
+}
+
+/* ---------- one reveal sequence (stagger by --i) ---------- */
+@keyframes cp-in {
+  from { opacity: 0; transform: translateY(22px) scale(.97); filter: blur(6px); }
+}
+.js #contacts .contact:not(.is-visible),
+.js #contacts .partner:not(.is-visible) { opacity: 0; }
+.js #contacts .contact.is-visible,
+.js #contacts .partner.is-visible {
+  animation: cp-in .65s cubic-bezier(.2, .8, .2, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+/* ---------- shared: cursor spotlight ---------- */
+#contacts .contact,
+#contacts .partner {
+  --mx: 50%; --my: 0%;
+  position: relative;
+  isolation: isolate;
+  background: var(--cp-bg);
+  border: 1px solid var(--cp-line);
+  border-radius: 18px;
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s, border-color .3s;
+}
+#contacts .contact::before,
+#contacts .partner::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(260px circle at var(--mx) var(--my), var(--cp-glow), transparent 70%);
+  opacity: 0; transition: opacity .3s;
+}
+#contacts .contact:hover::before,
+#contacts .partner:hover::before { opacity: 1; }
+
+/* =====================================================================
+   PARTNERS
+   ===================================================================== */
+#contacts .partners {
+  list-style: none; margin: 0 0 8px; padding: 0;
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+#contacts .partner {
+  display: grid; place-items: center;
+  min-height: 112px; padding: 0; overflow: hidden;
+  text-align: center;
+}
+#contacts .partner > a,
+#contacts .partner > .partner-name,
+#contacts .partner:not(.partner-link) { padding: 22px 20px; }
+#contacts .partner > a {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  color: var(--cp-text); text-decoration: none; border: 0;
+}
+#contacts .partner img {
+  display: block; max-width: 100%; max-height: 64px; width: auto; height: auto; object-fit: contain;
+  filter: grayscale(1) opacity(.7);
+  transition: filter .35s, transform .35s cubic-bezier(.2, .8, .2, 1);
+}
+#contacts .partner .partner-name,
+#contacts .partner:not(:has(img)) {
+  font-weight: 600; font-size: .98rem; line-height: 1.3; color: var(--cp-text);
+}
+:root[data-theme="dark"] #contacts .partner img { filter: grayscale(1) brightness(1.6) opacity(.75); }
+
+/* light sweep across the tile */
+#contacts .partner::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: skewX(-18deg); opacity: 0;
+}
+:root[data-theme="dark"] #contacts .partner::after {
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .12), transparent);
+}
+#contacts .partner:hover,
+#contacts .partner:focus-within {
+  transform: translateY(-6px);
+  border-color: var(--cp-a);
+  box-shadow: var(--cp-shadow);
+}
+#contacts .partner:hover img,
+#contacts .partner:focus-within img { filter: none; transform: scale(1.07); }
+#contacts .partner:hover::after { opacity: 1; animation: cp-sweep .9s ease forwards; }
+@keyframes cp-sweep { to { left: 130%; } }
+#contacts .partner a:focus-visible { outline: 2px solid var(--cp-a); outline-offset: -4px; border-radius: 16px; }
+
+/* =====================================================================
+   CONTACTS
+   ===================================================================== */
+#contacts .contacts {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+/* rotating gradient border */
+@property --cp-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+#contacts .contact {
+  display: grid; justify-items: start; gap: 6px;
+  padding: 26px 24px 22px;
+  background:
+    linear-gradient(var(--cp-bg), var(--cp-bg)) padding-box,
+    conic-gradient(from var(--cp-angle), var(--cp-line) 0 70%, var(--cp-b) 85%, var(--cp-a) 95%, var(--cp-line)) border-box;
+  border: 1.5px solid transparent;
+}
+#contacts .contact:hover,
+#contacts .contact:focus-within {
+  transform: translateY(-6px);
+  box-shadow: var(--cp-shadow);
+  animation: cp-spin 3.2s linear infinite;
+}
+@keyframes cp-spin { to { --cp-angle: 360deg; } }
+
+/* avatar with initials */
+#contacts .contact-avatar {
+  position: relative; display: grid; place-items: center;
+  width: 58px; height: 58px; margin-bottom: 10px; border-radius: 50%;
+  font-family: var(--font-display, 'Space Grotesk', system-ui, sans-serif);
+  font-weight: 700; font-size: 1.15rem; letter-spacing: .02em; color: #fff;
+  background: linear-gradient(135deg, var(--cp-a), var(--cp-b));
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+}
+#contacts .contact-avatar::after {
+  content: ""; position: absolute; inset: -6px; border-radius: 50%;
+  border: 1.5px dashed var(--cp-a); opacity: 0; transform: scale(.85);
+  transition: opacity .3s, transform .5s;
+}
+#contacts .contact:hover .contact-avatar { transform: rotate(-6deg) scale(1.06); }
+#contacts .contact:hover .contact-avatar::after { opacity: .7; transform: scale(1); animation: cp-orbit 8s linear infinite; }
+@keyframes cp-orbit { to { transform: rotate(360deg); } }
+
+#contacts .contact-name {
+  margin: 0 0 8px; font-size: 1.2rem; line-height: 1.25; color: var(--cp-text);
+  font-family: var(--font-display, 'Space Grotesk', system-ui, sans-serif);
+}
+
+/* contact links */
+#contacts .contact-links { display: grid; gap: 8px; width: 100%; }
+#contacts .contact-link {
+  position: relative; display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; border-radius: 12px;
+  background: var(--cp-bg-2); color: var(--cp-text);
+  font-size: .95rem; line-height: 1.3; text-decoration: none; overflow-wrap: anywhere;
+  border: 1px solid transparent;
+  transition: background .25s, color .25s, border-color .25s, transform .25s;
+}
+#contacts .contact-link .ci {
+  flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px;
+  color: var(--cp-a); background: var(--cp-glow);
+  transition: background .25s, color .25s, transform .25s;
+}
+#contacts .contact-link .ci svg { width: 17px; height: 17px; }
+#contacts .contact-link .arrow {
+  margin-left: auto; flex: none; opacity: 0; transform: translateX(-6px);
+  transition: opacity .25s, transform .25s; color: currentColor;
+}
+#contacts .contact-link:hover,
+#contacts .contact-link:focus-visible {
+  background: linear-gradient(90deg, var(--cp-a), var(--cp-b));
+  color: #fff; transform: translateX(3px); outline: none;
+}
+#contacts .contact-link:hover .ci,
+#contacts .contact-link:focus-visible .ci { background: rgba(255, 255, 255, .22); color: #fff; transform: rotate(-8deg); }
+#contacts .contact-link:hover .arrow,
+#contacts .contact-link:focus-visible .arrow { opacity: 1; transform: none; }
+
+/* ---------- no-JS / reduced motion ---------- */
+html:not(.js) #contacts .contact,
+html:not(.js) #contacts .partner { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .js #contacts .contact.is-visible,
+  .js #contacts .partner.is-visible { animation: none; }
+  #contacts .contact:hover,
+  #contacts .contact:focus-within { animation: none; }
+  #contacts .partner:hover::after,
+  #contacts .contact:hover .contact-avatar::after { animation: none; }
+  #contacts .contact,
+  #contacts .partner,
+  #contacts .contact-link,
+  #contacts .partner img { transition: none; }
+}
