@@ -1,29 +1,29 @@
 /* =====================================================================
-   ide-theme.css — IDE-хром + 3-колірна палітра (orange / blue / green).
-   Палітра: ORANGE (основний) + GREEN. Синього в проєкті немає.
-   Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
+   ide-theme.css — IDE-хром + палітра: BLUE (акцент) + MUTED GREEN.
+   Оранжевого немає. Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
 
-/* ---------- 00. СИНЬОГО БІЛЬШЕ НЕМАЄ ----------
-   Токен --c-blue (його використовують --vsc-* та інші правила) тепер зелений. */
-:root                    { --c-blue: #22C55E; --c-num: #3B82F6; }
-:root[data-theme="dark"] { --c-blue: #4ADE80; --c-num: #60A5FA; }
+/* ---------- 00. ПРИГЛУШЕНИЙ ЗЕЛЕНИЙ ----------
+   --c-green трохи менш насичений і темніший:
+     було  #22C55E (HSL 142, 71%, 45%)   → стало #2BA85A (HSL 143, 58%, 41%)
+     було  #4ADE80 (HSL 142, 69%, 62%)   → стало #4ABF75 (HSL 142, 48%, 52%)
+   --c-blue / --vsc-* теж вказують на цей зелений. */
+:root                    { --c-green: #2BA85A; --c-blue: #2BA85A; --c-num: #3B82F6; }
+:root[data-theme="dark"] { --c-green: #4ABF75; --c-blue: #4ABF75; --c-num: #60A5FA; }
 
-/* ---------- 0. ГОЛОВНИЙ АКЦЕНТ: синій -> оранжевий ----------
-   --blue і --link використовує весь style.css (посилання, рамки кнопок,
-   hover стрілок, точки каруселі, підписи днів тощо) — міняємо в одному місці. */
+/* ---------- 0. ГОЛОВНИЙ АКЦЕНТ (синій) ---------- */
 :root,
 :root[data-theme="dark"] {
   --blue: var(--c-blue);
   --link: var(--c-blue);
-  --glow: 0 0 0 1.5px var(--c-blue), 0 14px 38px rgba(249,115,22,.26);
+  --glow: 0 0 0 1.5px var(--c-blue), 0 14px 38px rgba(59,130,246,.26);
   accent-color: var(--c-blue);
 }
-::selection { background: rgba(249,115,22,.32); color: inherit; }
+::selection { background: rgba(59,130,246,.32); color: inherit; }
 
 /* ---------- 1. NAV ---------- */
 .site-nav a[aria-current="true"] {
-  background: rgba(249,115,22,.16);
+  background: rgba(59,130,246,.16);
   color: var(--c-blue);
 }
 .site-nav a:hover { background: var(--bg-alt); }
@@ -32,17 +32,17 @@
 .btn-primary {
   background: var(--c-green);
   color: #052E16;
-  box-shadow: 0 8px 22px rgba(34,197,94,.30);
+  box-shadow: 0 8px 22px rgba(43,168,90,.30);
 }
-.btn-primary:hover { background: #16A34A; }
+.btn-primary:hover { background: #228C4A; }
 :root[data-theme="dark"] .btn-primary { color: #052E16; }
-:root[data-theme="dark"] .btn-primary:hover { background: #22C55E; }
+:root[data-theme="dark"] .btn-primary:hover { background: #389E5D; }
 
 .btn-outline,
 .card-btn { color: var(--c-green); border-color: var(--c-green); }
 .btn-outline:hover,
 .card-btn:hover {
-  background: rgba(34,197,94,.12);
+  background: rgba(43,168,90,.12);
   border-color: var(--c-green);
 }
 
@@ -53,15 +53,15 @@
 
 .flags-card {
   background: rgba(30,30,30,.72);
-  border-color: rgba(249,115,22,.35);
+  border-color: rgba(59,130,246,.35);           /* було оранжеве */
   box-shadow: 0 20px 50px rgba(0,0,0,.45);
 }
 .flag-item { background: rgba(255,255,255,.06); }
 
 /* ---------- 4. КАРТКИ / СТАТИСТИКА ---------- */
 .next-card {
-  background: rgba(34,197,94,.08);       /* зелений замість синього */
-  border-color: rgba(34,197,94,.35);
+  background: rgba(43,168,90,.08);
+  border-color: rgba(43,168,90,.35);
 }
 .erasmus-card { border-left-color: var(--c-green); }
 
@@ -75,7 +75,7 @@
 }
 .stat-dl {
   background: #1E1E1E;
-  border-color: rgba(249,115,22,.35);
+  border-color: rgba(59,130,246,.35);           /* було оранжеве */
 }
 .stat-dl .stat-label { color: #D4D4D4; }
 .dl-target { color: #A0A0A0; }
@@ -109,10 +109,9 @@
 .car-btn:hover { background: var(--c-green); color: #052E16; }
 .dialog { background: rgba(14,14,15,.78); }
 .lightbox { background: rgba(14,14,15,.95); }
-/* ці підписи завжди на темному фоні — колір не залежить від теми */
 .vd-title, .lb-count { color: #D4D4D4; }
 .dialog-panel {
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(249,115,22,.18);
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(59,130,246,.18);   /* було оранжеве */
 }
 
 .carousel-slide:has(img.is-loading)::after,
@@ -120,14 +119,14 @@
 .video-frame.is-loading::after,
 .media-skel::after, .gallery-skel::after,
 .vd-stage.is-loading::after {
-  border-color: rgba(249,115,22,.25);
+  border-color: rgba(59,130,246,.25);           /* було оранжеве */
   border-top-color: var(--c-blue);
 }
 
-/* ---------- 6. ФУТЕР (завжди темний, як статус-бар у VS Code) ---------- */
+/* ---------- 6. ФУТЕР ---------- */
 .site-footer {
   background: #1E1E1E;
   color: #D4D4D4;
-  border-top: 1px solid rgba(34,197,94,.35);
+  border-top: 1px solid rgba(43,168,90,.35);
 }
 .disclaimer { color: #858585; }
