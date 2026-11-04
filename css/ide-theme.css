@@ -6,8 +6,8 @@
 
 /* ---------- 00. СИНЬОГО БІЛЬШЕ НЕМАЄ ----------
    Токен --c-blue (його використовують --vsc-* та інші правила) тепер зелений. */
-:root                    { --c-blue: #22C55E; }
-:root[data-theme="dark"] { --c-blue: #4ADE80; }
+:root                    { --c-blue: #22C55E; --c-num: #3B82F6; }
+:root[data-theme="dark"] { --c-blue: #4ADE80; --c-num: #60A5FA; }
 
 /* ---------- 0. ГОЛОВНИЙ АКЦЕНТ: синій -> оранжевий ----------
    --blue і --link використовує весь style.css (посилання, рамки кнопок,
@@ -30,25 +30,25 @@
 
 /* ---------- 2. КНОПКИ ---------- */
 .btn-primary {
-  background: var(--c-orange);
-  color: #FFFFFF;
-  box-shadow: 0 8px 22px rgba(249,115,22,.30);
+  background: var(--c-green);
+  color: #052E16;
+  box-shadow: 0 8px 22px rgba(34,197,94,.30);
 }
-.btn-primary:hover { background: #EA580C; }
-:root[data-theme="dark"] .btn-primary { color: #1E1E1E; }
-:root[data-theme="dark"] .btn-primary:hover { background: #F97316; }
+.btn-primary:hover { background: #16A34A; }
+:root[data-theme="dark"] .btn-primary { color: #052E16; }
+:root[data-theme="dark"] .btn-primary:hover { background: #22C55E; }
 
 .btn-outline,
-.card-btn { color: var(--c-orange); border-color: var(--c-orange); }
+.card-btn { color: var(--c-green); border-color: var(--c-green); }
 .btn-outline:hover,
 .card-btn:hover {
-  background: rgba(249,115,22,.12);
-  border-color: var(--c-orange);
+  background: rgba(34,197,94,.12);
+  border-color: var(--c-green);
 }
 
 /* ---------- 3. HERO ---------- */
 .hero { background: #1E1E1E; }
-.hero-media::after { background: rgba(0,0,0,.55); }
+.hero-media::after { background: rgba(15,17,23,.65); }
 .hero-desc { color: #D4D4D4; }
 
 .flags-card {
@@ -71,7 +71,7 @@
   -webkit-background-clip: border-box;
   background-clip: border-box;
   -webkit-text-fill-color: currentColor;
-  color: var(--c-orange);
+  color: var(--c-num);
 }
 .stat-dl {
   background: #1E1E1E;
@@ -95,7 +95,7 @@
   background: rgba(30,30,30,.82);
   color: #fff;
 }
-.gallery-overlay strong { color: var(--c-orange); }
+.gallery-overlay strong { color: var(--c-num); }
 .gallery-overlay span   { color: var(--c-green); }
 .gallery-item.has-more:hover .gallery-overlay { background: rgba(30,30,30,.62); }
 
@@ -104,9 +104,9 @@
   color: var(--c-orange);
 }
 .video-expand:hover, .video-expand:focus-visible,
-.video-poster:hover .play { background: var(--c-orange); color: #1E1E1E; }
+.video-poster:hover .play { background: var(--c-green); color: #052E16; }
 .car-btn { background: rgba(30,30,30,.76); }
-.car-btn:hover { background: var(--c-orange); }
+.car-btn:hover { background: var(--c-green); color: #052E16; }
 .dialog { background: rgba(14,14,15,.78); }
 .lightbox { background: rgba(14,14,15,.95); }
 /* ці підписи завжди на темному фоні — колір не залежить від теми */
