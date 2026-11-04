@@ -810,8 +810,11 @@
 
   /* ========== 15. LOCAL IMPACT ========== */
   const renderCountries = () => {
-    const total = D.countries.reduce((sum, c) => sum + c.people, 0);
-    if (total !== 211) console.warn(`Country totals add up to ${total}, expected 211`);
+    // console check: the events of a country must add up to its "people" number
+    D.countries.forEach((c) => {
+      const sum = c.events.reduce((s, e) => s + (e.people || 0), 0);
+      if (sum !== c.people) console.warn(`[content] ${c.name}: events add up to ${sum}, but people is ${c.people}`);
+    });
     $('#local-intro').textContent = D.localIntro;
 
     const sw = $('#country-switch');
@@ -825,6 +828,9 @@
       } }, flag(c.id), c.name));
 
       const btn = h('button', { class: 'card-btn', type: 'button', 'aria-haspopup': 'dialog', 'aria-label': `Open details for ${c.name}`, text: 'View details' });
+      const postLink = c.postUrl
+        ? h('a', { class: 'btn btn-outline btn-sm', href: c.postUrl, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `View ${c.name} post (opens in a new tab)`, text: 'View post ↗' })
+        : null;
       const places = c.events.map((e) => e.place).join(' · ');
       const card = h('article', { class: 'card card-hover country reveal', id: `country-${c.id}` },
         h('div', { class: 'country-top' },
@@ -832,9 +838,9 @@
           h('h3', { text: c.name }),
           h('div', { class: 'country-people' }, String(c.people), h('small', { text: 'people reached' }))),
         h('p', { class: 'country-place', text: places }),
-        h('p', { class: 'country-text', text: c.events[0].text }),
-        btn);
-      card.addEventListener('click', (e) => { if (e.target !== btn) btn.click(); });
+        h('p', { class: 'country-text', text: c.summary || c.events[0].text }),
+        h('div', { class: 'country-actions', style: 'display:flex;flex-wrap:wrap;gap:10px;align-items:center' }, btn, postLink));
+      card.addEventListener('click', (e) => { if (e.target !== btn && !e.target.closest('a')) btn.click(); });
       btn.addEventListener('click', (e) => { e.stopPropagation(); openCountry(c.id, btn); });
       wrap.append(card);
     });
@@ -846,6 +852,10 @@
     renderToken += 1;
     const token = renderToken;
     const media = h('div', { class: 'modal-media' });
+    const postBlock = c.postUrl
+      ? [h('section', { class: 'modal-section' },
+          h('a', { class: 'btn btn-outline', href: c.postUrl, target: '_blank', rel: 'noopener noreferrer', text: 'View post ↗' }))]
+      : [];
     modalBody.replaceChildren(
       modalHead([flag(c.id), ' Local impact'], c.name, `${c.people} people reached`),
       h('section', { class: 'modal-section' }, h('h3', { text: 'Local events' }),
@@ -853,6 +863,7 @@
           h('h4', { text: e.place }),
           e.people ? h('p', { class: 'ev-people', text: `${e.people} people` }) : null,
           h('p', { text: e.text }))))),
+      ...postBlock,
       media);
     openDialog(modal, opener);
     $('.dialog-panel', modal).scrollTop = 0;
