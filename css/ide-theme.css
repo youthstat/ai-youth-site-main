@@ -1,12 +1,10 @@
 /* =====================================================================
    ide-theme.css — IDE-хром + палітра: BLUE (акцент) + MUTED GREEN.
-   Оранжевого немає. Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
+   ЖОДНОГО оранжевого. Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
 
 /* ---------- 00. ПРИГЛУШЕНИЙ ЗЕЛЕНИЙ ----------
-   --c-green трохи менш насичений і темніший:
-     було  #22C55E (HSL 142, 71%, 45%)   → стало #2BA85A (HSL 143, 58%, 41%)
-     було  #4ADE80 (HSL 142, 69%, 62%)   → стало #4ABF75 (HSL 142, 48%, 52%)
+   --c-green трохи менш насичений і темніший.
    --c-blue / --vsc-* теж вказують на цей зелений. */
 :root                    { --c-green: #2BA85A; --c-blue: #2BA85A; --c-num: #3B82F6; }
 :root[data-theme="dark"] { --c-green: #4ABF75; --c-blue: #4ABF75; --c-num: #60A5FA; }
@@ -53,15 +51,16 @@
 
 .flags-card {
   background: rgba(30,30,30,.72);
-  border-color: rgba(59,130,246,.35);           /* було оранжеве */
+  border-color: rgba(59,130,246,.35);
   box-shadow: 0 20px 50px rgba(0,0,0,.45);
 }
 .flag-item { background: rgba(255,255,255,.06); }
 
 /* ---------- 4. КАРТКИ / СТАТИСТИКА ---------- */
+/* «What we will continue to do» — СИНЯ рамка (було зелене) */
 .next-card {
-  background: rgba(43,168,90,.08);
-  border-color: rgba(43,168,90,.35);
+  background: rgba(59,130,246,.08);
+  border-color: rgba(59,130,246,.35);
 }
 .erasmus-card { border-left-color: var(--c-green); }
 
@@ -75,7 +74,7 @@
 }
 .stat-dl {
   background: #1E1E1E;
-  border-color: rgba(59,130,246,.35);           /* було оранжеве */
+  border-color: rgba(59,130,246,.35);
 }
 .stat-dl .stat-label { color: #D4D4D4; }
 .dl-target { color: #A0A0A0; }
@@ -111,7 +110,7 @@
 .lightbox { background: rgba(14,14,15,.95); }
 .vd-title, .lb-count { color: #D4D4D4; }
 .dialog-panel {
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(59,130,246,.18);   /* було оранжеве */
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(59,130,246,.18);
 }
 
 .carousel-slide:has(img.is-loading)::after,
@@ -119,7 +118,7 @@
 .video-frame.is-loading::after,
 .media-skel::after, .gallery-skel::after,
 .vd-stage.is-loading::after {
-  border-color: rgba(59,130,246,.25);           /* було оранжеве */
+  border-color: rgba(59,130,246,.25);
   border-top-color: var(--c-blue);
 }
 
