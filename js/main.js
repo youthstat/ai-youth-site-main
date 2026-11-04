@@ -1061,41 +1061,66 @@
   };
 
   /* ========== 19. CONTACTS & FOOTER ========== */
+ /* ========== 19. CONTACTS & FOOTER ========== */
+  /* ЗАМІНИТИ в main.js цілу функцію renderContacts (від її початку до закриття `};`) на цю. */
   const renderContacts = () => {
     $('#contacts-lead').textContent = D.contactsLead;
+
+    /* --- іконки --- */
+    const ICON_MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>';
+    const ICON_PHONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>';
+    const ICON_ARROW = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+    const initials = (name) => String(name).split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+
+    /* --- партнери --- */
     const list = $('#partners');
-    D.partners.forEach((p) => {
-      const li = h('li', { class: 'partner' + (p.url ? ' partner-link' : '') });
+    D.partners.forEach((p, i) => {
+      const li = h('li', { class: 'partner reveal' + (p.url ? ' partner-link' : ''), style: `--i:${i}` });
       const inner = p.url
         ? h('a', { href: p.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${p.name} — Instagram`, title: p.name })
         : li;
       if (p.logo) {
         if (!p.url) { li.setAttribute('aria-label', p.name); li.title = p.name; }
         inner.append(safeImg(p.logo, `${p.name} logo`, true));
-      } else inner.textContent = p.name;
+      } else {
+        inner.append(h('span', { class: 'partner-name', text: p.name }));
+      }
       if (p.url) li.append(inner);
       list.append(li);
     });
- const sp = (cls, t) => h('span', { class: cls, text: t });
-const line = (n, ...parts) => h('div', { class: 'code-line', style: `--i:${n}` },
-  h('span', { class: 'ln', text: String(n) }), h('span', { class: 'code' }, ...parts));
 
-$('#contacts-grid').append(...D.contacts.map((c) => {
-  let n = 0;
-  const rows = [line(++n, sp('tok-p', '{')),
-    line(++n, '  ', sp('tok-k', '"name"'), sp('tok-p', ': '), sp('tok-s', `"${c.name}"`), sp('tok-p', ','))];
-  if (c.email) rows.push(line(++n, '  ', sp('tok-k', '"email"'), sp('tok-p', ': '),
-    h('span', { class: 'tok-s' }, '"', h('a', { href: `mailto:${c.email}`, text: c.email }), '"'),
-    sp('tok-p', c.phone ? ',' : '')));
-  if (c.phone) rows.push(line(++n, '  ', sp('tok-k', '"phone"'), sp('tok-p', ': '),
-    h('span', { class: 'tok-s' }, '"', h('a', { href: `tel:${c.phone}`, text: c.phoneText || c.phone }), '"')));
-  rows.push(line(++n, sp('tok-p', '}'), h('span', { class: 'cursor' })));
-  return h('article', { class: 'card contact term reveal' },
-    h('div', { class: 'term-bar' },
-      h('span', { class: 'term-dots', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')),
-      h('span', { class: 'term-title', text: 'contact.json' })),
-    h('div', { class: 'term-body' }, rows));
-}));
+    /* --- контакти --- */
+    $('#contacts-grid').append(...D.contacts.map((c, i) => {
+      const links = [];
+      if (c.email) {
+        links.push(h('a', { class: 'contact-link', href: `mailto:${c.email}` },
+          h('span', { class: 'ci', html: ICON_MAIL }),
+          h('span', { text: c.email }),
+          h('span', { class: 'arrow', html: ICON_ARROW })));
+      }
+      if (c.phone) {
+        links.push(h('a', { class: 'contact-link', href: `tel:${c.phone}` },
+          h('span', { class: 'ci', html: ICON_PHONE }),
+          h('span', { text: c.phoneText || c.phone }),
+          h('span', { class: 'arrow', html: ICON_ARROW })));
+      }
+      return h('article', { class: 'card contact reveal', style: `--i:${i}` },
+        h('div', { class: 'contact-avatar', 'aria-hidden': 'true', text: initials(c.name) }),
+        h('h4', { class: 'contact-name', text: c.name }),
+        h('div', { class: 'contact-links' }, links));
+    }));
+
+    /* --- підсвітка, що слідує за курсором --- */
+    const section = $('#contacts');
+    if (section && !reduceMotion) {
+      section.addEventListener('pointermove', (e) => {
+        const el = e.target.closest('.contact, .partner');
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        el.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    }
   };
 
   const renderFooter = () => {
