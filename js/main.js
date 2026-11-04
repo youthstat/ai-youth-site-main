@@ -14,7 +14,6 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ALT_PREFIX = 'AI and Young People exchange';
 
-  /** Tiny DOM builder: h('div', {class:'x', text:'..', onclick:fn}, child, child) */
   const h = (tag, props = {}, ...kids) => {
     const n = document.createElement(tag);
     for (const [k, v] of Object.entries(props)) {
@@ -37,7 +36,6 @@
 
   const fmt = (n) => Number(n).toLocaleString('en-US');
 
-  /** Inline SVG flags (emoji flags do not render on Windows). Simplified national flags, 3:2. */
   const star = (cx, cy, R, r, n) => Array.from({ length: n * 2 }, (_, i) => {
     const a = (Math.PI / n) * i - Math.PI / 2; const rad = i % 2 ? r : R;
     return `${(cx + rad * Math.cos(a)).toFixed(2)},${(cy + rad * Math.sin(a)).toFixed(2)}`;
@@ -421,8 +419,6 @@
     initNetwork();
   };
 
-  /* Floating 0/1 and code snippets above the hero photo.
-     Colors from the VS Code syntax palette; the ones near the cursor brighten and drift. */
   const initNetwork = () => {
     const canvas = $('#hero-canvas');
     if (!canvas) return;
@@ -432,13 +428,12 @@
 
     const GLYPHS = ['0', '1', '0', '1', '0', '1', '0', '1', '01', '10', '00', '11', '101', '010',
       '{ }', '</>', '=>', 'AI', '0x1F', '//', '[ ]'];
-    /* [rgb, максимальна прозорість] — фіолетовий домінує */
     const COLORS = [
       ['197,134,192', 0.60], ['197,134,192', 0.60], ['197,134,192', 0.50],
-      ['206,145,120', 0.45],   // #CE9178
-      ['220,220,170', 0.42],   // #DCDCAA
-      ['156,220,254', 0.28],   // #9CDCFE (рідко)
-      ['128,128,128', 0.45]    // #808080
+      ['206,145,120', 0.45],
+      ['220,220,170', 0.42],
+      ['156,220,254', 0.28],
+      ['128,128,128', 0.45]
     ];
     const FONT = '"JetBrains Mono", "Space Mono", ui-monospace, monospace';
     if (document.fonts && document.fonts.load) document.fonts.load(`500 16px ${FONT}`).catch(() => {});
@@ -1096,9 +1091,12 @@
   /* ========== 19. CONTACTS & FOOTER ========== */
   const renderContacts = () => {
     $('#contacts-lead').textContent = D.contactsLead;
+
+    /* --- PARTNERS (FIX: .reveal + --i) --- */
     const list = $('#partners');
-    D.partners.forEach((p) => {
-      const li = h('li', { class: 'partner' + (p.url ? ' partner-link' : '') });
+    D.partners.forEach((p, i) => {
+      const li = h('li', { class: 'partner reveal' + (p.url ? ' partner-link' : '') });
+      li.style.setProperty('--i', String(i));
       const inner = p.url
         ? h('a', { href: p.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${p.name} — Instagram`, title: p.name })
         : li;
@@ -1110,23 +1108,21 @@
       list.append(li);
     });
 
+    /* --- CONTACTS (terminal) --- */
     const sp = (cls, t) => h('span', { class: cls, text: t });
     const line = (n, ...parts) => h('div', { class: 'code-line', style: `--i:${n}` },
       h('span', { class: 'ln', text: String(n) }), h('span', { class: 'code' }, ...parts));
 
-    /* FIX: map((c, i)) — індекс для --i (stagger reveal-анімації) */
     $('#contacts-grid').append(...D.contacts.map((c, i) => {
       let n = 0;
       const rows = [line(++n, sp('tok-p', '{')),
         line(++n, '  ', sp('tok-k', '"name"'), sp('tok-p', ': '), sp('tok-s', `"${c.name}"`), sp('tok-p', ','))];
       if (c.email) {
-        /* FIX: не додаємо порожній <span> замість коми */
         rows.push(line(++n, '  ', sp('tok-k', '"email"'), sp('tok-p', ': '),
           h('span', { class: 'tok-s' }, '"', h('a', { href: `mailto:${c.email}`, text: c.email }), '"'),
           ...(c.phone ? [sp('tok-p', ',')] : [])));
       }
       if (c.phone) {
-        /* FIX: tel: без пробілів */
         const telHref = `tel:${String(c.phone).replace(/[^\d+]/g, '')}`;
         rows.push(line(++n, '  ', sp('tok-k', '"phone"'), sp('tok-p', ': '),
           h('span', { class: 'tok-s' }, '"', h('a', { href: telHref, text: c.phoneText || c.phone }), '"')));
@@ -1137,7 +1133,6 @@
           h('span', { class: 'term-dots', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')),
           h('span', { class: 'term-title', text: 'contact.json' })),
         h('div', { class: 'term-body' }, rows));
-      /* FIX: --i для каскадної появи */
       card.style.setProperty('--i', String(i));
       return card;
     }));
@@ -1145,7 +1140,6 @@
 
   const renderFooter = () => {
     $('#disclaimer').textContent = D.footer.disclaimer;
-
     const logo = $('#erasmus-logo');
     const fallback = $('#erasmus-fallback');
     const swap = () => { logo.hidden = true; fallback.hidden = false; };
