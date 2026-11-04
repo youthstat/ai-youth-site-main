@@ -39,8 +39,8 @@ window.SITE_DATA = {
   },
   // done:true shows a green tick
   goals: [
-    { title: "Detected AI disinformation", text: "Trained 42 participants to detect AI-generated disinformation.", done: true },
-    { title: "Local initiatives", text: "Ran 6 local initiatives that reached 259 people (goal: more than 200).", done: true },
+    { title: "AI literacy and critical thinking", text: "Equipped 42 participants and group leaders with practical skills to question AI, recognise AI-generated disinformation and use AI ethically.", done: true },
+    { title: "Local initiatives", text: "Ran 9 local events in all 6 countries that reached 259 people (goal: 240).", done: true },
     { title: "AI Literacy Toolkit", text: "Created the “AI Literacy Toolkit”.", done: true },
     { title: "AI & Youth Ambassadors Network", text: "Established the “AI & Youth Ambassadors Network”. This website is the network.", done: true }
   ],
@@ -48,8 +48,8 @@ window.SITE_DATA = {
   /* ========== 3. PLANNED vs ACHIEVED ========== */
   progress: [
     { label: "Participants", value: 42, target: 42, text: "42 / 42" },
-    { label: "Local initiatives", value: 6, target: 6, text: "6 / 6" },
-    { label: "People reached", value: 259, target: 200, text: "259 (goal 200+)" },
+    { label: "Local events", value: 9, target: 6, text: "9 events in 6 countries (goal: 6)" },
+    { label: "People reached", value: 259, target: 240, text: "259 (goal: 240)" },
     { label: "AI Literacy Toolkit", done: true, text: "Created" },
     { label: "AI & Youth Ambassadors Network", done: true, text: "Founded: this website" }
   ],
@@ -126,18 +126,21 @@ window.SITE_DATA = {
   youthpassText: "Learning outcomes were recognised through Youthpass.",
 
   /* ========== 6. IMPACT DASHBOARD ========== */
+  // NOTE: keep 6 items here. The dashboard layout (6 cards + the downloads card) is built for that number.
   stats: [
     { value: 42, label: "Participants & leaders" },
-    { value: 211, label: "People reached by local initiatives" },
+    { value: 259, label: "People reached by local events" },
     { value: 6, label: "Countries" },
     { value: 6, label: "Educational videos" },
-    { value: 900, label: "Social media views (Poland)" },
+    { value: 15000, suffix: "+", label: "Social media views, all countries (approx.)" },
     { value: 20, suffix: "+", label: "Posts by participants" }
   ],
   downloadsCard: { label: "AI Literacy Toolkit downloads", target: 1200, targetText: "Target: 1200+" },
 
- /* ========== 7. LOCAL IMPACT ACROSS EUROPE ========== */
- /* ========== 7. LOCAL IMPACT ACROSS EUROPE ========== */
+  /* ========== 7. LOCAL IMPACT ACROSS EUROPE ========== */
+  // people (country) must equal the sum of people in its events: main.js prints a console warning if not.
+  // summary (optional): short text on the country card when a country had more than one event.
+  // postUrl (optional): "View post" button. Empty = no button.
   localIntro:
     "After the exchange, every national team took the project home. Between 16 September and 20 October 2026 the teams ran nine local events in six countries. About 259 young people took part. Posts and stories from all countries reached about 15,000 views. Every partner organisation also published a post on its own channels, and participants shared the results on social media.",
   countries: [
@@ -204,7 +207,9 @@ window.SITE_DATA = {
       ],
       youtube: "", photoFolder: "images/countries/poland/", photoMax: 30
     }
-  ],  /* ========== 8. GALLERY ========== */
+  ],
+
+  /* ========== 8. GALLERY ========== */
   gallery: { folder: "images/gallery/", photoMax: 60 },
 
   /* ========== 9. VIDEOS ========== */
