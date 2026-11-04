@@ -48,7 +48,7 @@
 
 /* ---------- 3. HERO ---------- */
 .hero { background: #1E1E1E; }
-.hero-media::after { background: rgba(15,17,23,.65); }
+.hero-media::after { background: rgba(0,0,0,.55); }
 .hero-desc { color: #D4D4D4; }
 
 .flags-card {
