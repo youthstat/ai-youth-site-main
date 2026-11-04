@@ -735,3 +735,31 @@ h1.mono, h2.mono, h3.mono, h4.mono, h5.mono, h6.mono,
   font-family: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   font-weight: 500 !important;
 }
+/* ============================================================
+   FORCE Alpha Lyrae on ALL headings (bypasses var() and specificity)
+   ============================================================ */
+h1, h2, h3, h4, h5, h6,
+#hero-title,
+.hero h1,
+.hero-copy h1,
+.hero-copy,
+.flags-title,
+.section-head h2,
+.sub-title,
+.modal-head h2,
+.modal-section h3,
+.day h3,
+.country h3,
+.event h4,
+.help-main h4,
+.contact h4,
+.goal h4,
+.erasmus-card h3,
+.network-grid h3,
+.competences h3,
+.people-card h3,
+.donut-card h3,
+.video-title,
+.vd-title {
+  font-family: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+}
