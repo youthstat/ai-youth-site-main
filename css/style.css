@@ -683,20 +683,21 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
 .video-frame.is-loading .video-poster { background: transparent; }
 
 /* ============================================================
-   Alpha Lyrae — ТІЛЬКИ для перелічених елементів
-   (решта сайту — Inter / Space Grotesk / JetBrains Mono, як і було)
+   Alpha Lyrae — ТІЛЬКИ на вказаних елементах
+   (решту сайту не чіпає: там Space Grotesk / Inter / JetBrains Mono)
    ============================================================ */
 
-/* 1. Hero: заголовок + дві кнопки */
+/* Hero: заголовок + 2 кнопки */
 #hero-title,
 .hero .btn-primary,
 .hero .btn-ghost,
 
-/* 2. Блок Participating countries повністю */
+/* Participating countries (увесь блок) */
 .flags-card,
 .flags-card *,
 
-/* 3. Усі назви блоків (section h2) */
+/* Назви всіх блоків (h2 у section-head) */
+.section-head h2,
 #about-title,
 #planned-title,
 #programme-title,
@@ -707,9 +708,74 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
 #videos-title,
 #network-title,
 #contacts-title,
+h2[id$="-title"],
 
-/* 4. Кнопка "Back to top" у футері */
-.btn-ghost-light {
+/* Erasmus+ card: "Made possible by Erasmus+" + текст */
+.erasmus-card,
+.erasmus-card h3,
+.erasmus-card p,
+
+/* Planned vs Achieved (progress items) */
+#progress-list,
+#progress-list *,
+.prog,
+.prog-top,
+.prog-label,
+.prog-val,
+
+/* Programme lead: "A short summary of each day, with photos." */
+#programme .section-head .lead,
+
+/* Next steps card: "What we will continue to do" + list items */
+#next-card,
+#next-card *,
+.next-card,
+.next-card *,
+.next-list,
+.next-list *,
+.next-list li,
+
+/* Contacts lead: "If you have any questions, feel free to reach out." */
+#contacts .section-head .lead,
+#contacts-lead,
+
+/* Back to top button */
+.btn-ghost-light,
+
+/* УСІ кнопки */
+.btn,
+.card-btn,
+.switch-btn,
+.gallery-toggle,
+.icon-btn,
+.video-expand,
+.dialog-close,
+
+/* Фото: плитки галереї, стрілки каруселей, лайтбокс */
+.gallery,
+.gallery *,
+.gallery-more,
+.gallery-more *,
+.gallery-toggle,
+.gallery-toggle *,
+.gallery-count,
+.gallery-item,
+.gallery-item *,
+.gallery-overlay,
+.gallery-overlay strong,
+.gallery-overlay span,
+.car-btn,
+.car-prev,
+.car-next,
+.days-btn,
+.days-prev,
+.days-next,
+.days-dot,
+.lb-btn,
+.lb-prev,
+.lb-next,
+.lb-close,
+.play {
   font-family: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   font-weight: 500 !important;
 }
