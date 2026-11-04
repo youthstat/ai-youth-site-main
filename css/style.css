@@ -10,7 +10,6 @@
 }
 
 /* ========== 0. TOKENS ========== */
-/* Палітра: BLUE (основний акцент) + GREEN. Оранжевого немає. */
 :root {
   --header-h: 68px;
   --radius: 18px;
@@ -19,19 +18,17 @@
   --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --c-orange: #3B82F6;          /* тепер СИНІЙ (історична назва токена) */
+  --c-orange: #3B82F6;          /* СИНІЙ (історична назва токена) */
   --c-green:  #22C55E;
-  --c-blue:   #22C55E;          /* історична назва токена — теж зелений */
-  --c-num:    #3B82F6;          /* кольор цифр (статистика) */
+  --c-blue:   #22C55E;
+  --c-num:    #3B82F6;
 
-  /* IDE chrome */
   --navy:  #1E1E1E;
-  --blue:  var(--c-blue);       /* головний акцент (історична назва) */
+  --blue:  var(--c-blue);
   --cyan:  var(--c-green);
   --green: var(--c-green);
   --amber: var(--c-orange);
 
-  /* VS Code-сумісні змінні */
   --vsc-bg:        #FFFFFF;
   --vsc-bg-alt:    #F3F3F3;
   --vsc-border:    #E5E5E5;
@@ -53,7 +50,6 @@
   --vsc-info:      var(--c-green);
   --vsc-git-add:   var(--c-green);
 
-  /* базові токени сторінки */
   --bg: #F7F4F8; --bg-alt: #EEE9F1;
   --surface: rgba(255,255,255,.82); --surface-solid: #FFFFFF;
   --text: #1F1B24; --muted: #5E5668;
@@ -63,7 +59,7 @@
 }
 
 :root[data-theme="dark"] {
-  --c-orange: #60A5FA;          /* тепер СИНІЙ у темній темі */
+  --c-orange: #60A5FA;
   --c-green:  #4ADE80;
   --c-blue:   #4ADE80;
   --c-num:    #60A5FA;
@@ -384,7 +380,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .help-main p { margin: 0; color: var(--muted); font-size: 0.88rem; }
 .help-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-left: 42px; }
 
-/* «What we will continue to do» — СИНЯ рамка + синій фон (було зелене) */
+/* FIX: «What we will continue to do» — СИНЯ рамка + синій фон (було зелене) */
 .next-card { align-self: start; background: rgba(59,130,246,.08); border-color: rgba(59,130,246,.35); }
 
 .next-list { margin: 14px 0 0; display: grid; gap: 10px; }
