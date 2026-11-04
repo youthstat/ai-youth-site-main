@@ -763,3 +763,12 @@ h1, h2, h3, h4, h5, h6,
 .vd-title {
   font-family: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif !important;
 }
+/* NUCLEAR: force Alpha Lyrae on hero title, regardless of everything else */
+#hero-title,
+#hero-title *,
+h1#hero-title,
+.hero-copy h1,
+.hero-copy h1 * {
+  font-family: "Alpha Lyrae", "Space Grotesk", sans-serif !important;
+  font-weight: 500 !important;
+}
