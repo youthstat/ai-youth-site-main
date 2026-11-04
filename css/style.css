@@ -9,12 +9,6 @@
   font-display: swap;
 }
 
-/* Geist — via jsDelivr CDN (variable font, all weights) */
-@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.3.0/index.min.css');
-
-/* Sora — via Google Fonts (weights 400, 500, 600, 700) */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
-
 /* =====================================================================
    style.css — AI and Young People · Erasmus+ report site
    Mobile-first. Breakpoints: 480 / 768 / 1100
@@ -44,9 +38,9 @@
   --radius-sm: 14px;
   --header-h: 68px;
 
-  /* Font stacks */
-  --font-head: "Alpha Lyrae", "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: "Geist Variable", "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Alpha Lyrae everywhere; JetBrains Mono only for numeric labels */
+  --font-head: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -80,8 +74,7 @@ body {
 body.no-scroll { overflow: hidden; }
 img, svg, canvas { max-width: 100%; display: block; }
 a { color: var(--link); }
-/* Sora headings with a clear semibold weight */
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); font-weight: 600; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); font-weight: 500; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
 p { margin: 0 0 1em; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -267,11 +260,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .is-visible .bar-fill, .bar-fill.is-filled { width: var(--w, 0%); }
 
 /* ========== 8. PROGRAMME ========== */
-/* Programme days: carousel moved only by buttons (no dragging / scrollbar) */
 .days-carousel { position: relative; }
 .days {
   display: flex; gap: 16px; align-items: stretch; position: relative;
-  overflow: hidden;                         /* nothing to drag: only the buttons move it */
+  overflow: hidden;
   padding: 10px 14px 28px;
 }
 .days > .day { flex: 0 0 100%; min-width: 0; }
@@ -303,7 +295,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .day-media { min-width: 0; margin-top: 6px; }
 .day-media:empty { display: none; }
 .day-media .carousel { border-radius: 12px; max-width: 280px; margin-inline: auto; }
-/* Programme days: усі фото в однаковій рамці, зайве обрізається по центру */
 .day-media .carousel-slide img { object-fit: cover; object-position: center; }
 .day-media .car-btn { width: 30px; height: 30px; font-size: 1.1rem; }
 .day-media .car-prev { left: 6px; } .day-media .car-next { right: 6px; }
@@ -376,9 +367,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .country-text { color: var(--muted); font-size: .94rem; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* ========== 12. GALLERY ========== */
-/* Replace everything in style.css from "12. GALLERY" up to (not including) "13. VIDEOS" with this block. */
-
-/* --- base (full grid, shown after "View all") --- */
 .gallery { column-count: 2; column-gap: 12px; }
 .gallery-item {
   position: relative; display: block; width: 100%; margin: 0 0 12px; padding: 0;
@@ -423,7 +411,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .gallery.is-bento .gallery-item:nth-child(3) { grid-row: span 2; }
 .gallery.is-bento .gallery-item:nth-child(6) { grid-column: span 2; }
 
-/* "+N more photos" tile — brand navy→blue glass with mono caption */
+/* "+N more photos" tile */
 .gallery-overlay {
   position: absolute; inset: 0; z-index: 1;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
@@ -450,11 +438,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .gallery-toggle .chev { transition: transform .3s ease; }
 .gallery-more.is-expanded .gallery-toggle .chev { transform: rotate(180deg); }
 
-/* fallback without View Transitions: new photos fade in one by one */
 @keyframes galleryIn { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
 .gallery-item.is-new { animation: galleryIn .55s cubic-bezier(.2, .7, .2, 1) both; animation-delay: var(--d, 0ms); }
 
-/* smooth morph between mosaic and full grid */
 ::view-transition-group(*) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2, .7, .2, 1); }
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 
@@ -462,6 +448,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .gallery-item.is-new { animation: none; }
   .gallery.is-bento .gallery-item img, .gallery-overlay, .gallery-toggle .chev { transition: none; }
 }
+
 /* ========== 13. VIDEOS ========== */
 .videos-layout { display: grid; gap: 16px; }
 .videos { display: grid; gap: 16px; align-content: start; }
@@ -477,7 +464,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   border: 0; border-radius: 50%; color: #fff; background: rgba(11, 31, 58, .72); cursor: pointer; transition: background .2s, transform .2s;
 }
 .video-expand:hover, .video-expand:focus-visible { background: var(--blue); transform: scale(1.08); }
-/* expanded player */
 .vd-panel { position: relative; display: grid; justify-items: center; gap: 10px; max-width: 100%; }
 .vd-panel .dialog-close { top: -6px; right: -6px; background: var(--surface-solid); color: var(--text); }
 .vd-stage {
@@ -499,7 +485,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .video-soon span { display: block; font-size: 2rem; }
 .video-title { padding: 14px 18px 18px; font-weight: 600; margin: 0; }
 
-/* ========== 14. OUTPUTS & VOICES ========== */
 /* ========== 15. NETWORK / PARTNERS / CONTACTS ========== */
 .network-grid { display: grid; gap: 18px; }
 .network-grid h3 { font-size: 1.3rem; }
@@ -518,7 +503,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .dl-count { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: .85rem; color: var(--muted); }
 .partners { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .partner { display: grid; place-items: center; min-height: 84px; padding: 14px; text-align: center; font-family: var(--font-head); font-weight: 700; letter-spacing: .02em; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); }
-.partner:has(img) { background: #fff; } /* logos have white backgrounds: keep the tile white in dark theme too */
+.partner:has(img) { background: #fff; }
 .partner img { max-height: 96px; max-width: 100%; width: auto; object-fit: contain; }
 .partner-link { padding: 0; transition: transform .2s ease, box-shadow .2s ease; }
 .partner-link a { display: grid; place-items: center; width: 100%; height: 100%; min-height: 84px; padding: 14px; color: inherit; text-decoration: none; border-radius: inherit; }
@@ -548,6 +533,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .site-footer .copyright a { color: inherit; text-decoration: none; }
 .site-footer .copyright a:hover { text-decoration: underline; }
+
 /* ========== 17. DIALOG (modal) ========== */
 .dialog {
   position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 12px;
@@ -588,7 +574,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .carousel { aspect-ratio: var(--ar, 3 / 2); transition: aspect-ratio .35s ease; }
 .carousel-track { display: flex; height: 100%; transform: translateX(calc(var(--i, 0) * -100%)); transition: transform .4s ease; }
 .carousel-slide { flex: 0 0 100%; height: 100%; background: var(--grey-block); }
-.carousel-slide img { width: 100%; height: 100%; object-fit: cover; } /* frame ratio = photo ratio, so nothing is cropped */
+.carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
 .carousel-slide .img-fallback { height: 100%; border-radius: 0; }
 .modal-section .carousel { max-width: 520px; margin-inline: auto; }
 .schedule-dl { margin: 18px 0 0; }
@@ -663,7 +649,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .brand-text { display: inline; }
 }
 
-/* ========== LOADING STATES (shimmer + spinner instead of text) ========== */
+/* ========== LOADING STATES ========== */
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 @keyframes spin { to { transform: rotate(360deg); } }
 .is-loading, .media-skel, .gallery-skel {
@@ -679,7 +665,6 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
 .modal-section .media-skel, .modal-media .media-skel { max-width: 520px; }
 .gallery-skel { display: block; width: 100%; margin: 0 0 12px; border-radius: 18px; break-inside: avoid; }
 .gallery:not(.has-photos) { min-height: 200px; }
-/* round spinner on top of anything that is still loading */
 .carousel-slide:has(img.is-loading)::after, .gallery-item:has(img.is-loading)::before, .video-frame.is-loading::after,
 .media-skel::after, .gallery-skel::after, .lightbox.is-loading::after, .vd-stage.is-loading::after {
   content: ""; position: absolute; top: 50%; left: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%;
