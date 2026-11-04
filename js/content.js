@@ -136,62 +136,72 @@ window.SITE_DATA = {
   ],
   downloadsCard: { label: "AI Literacy Toolkit downloads", target: 1200, targetText: "Target: 1200+" },
 
-  /* ========== 7. LOCAL IMPACT ACROSS EUROPE ========== */
+ /* ========== 7. LOCAL IMPACT ACROSS EUROPE ========== */
   localIntro:
-    "After the exchange, every national team ran local events. In total, 211 people took part.",
+    "After the exchange, every national team took the project home. Between 16 September and 20 October 2026 the teams ran nine local events in six countries. About 259 young people took part. Every partner organisation also published a post on its own channels, and participants shared the results on social media.",
   countries: [
     {
       id: "romania", name: "Romania", flag: "🇷🇴", people: 55,
+      postUrl: "https://www.instagram.com/p/DbneSvROYxB/",
       events: [
         { place: "AHA Center, Bucharest", people: 30,
-          text: "Volunteers, youth workers and students took part. The toolkit and the videos were presented, followed by a discussion on AI ethics." },
+          text: "About 30 NGO volunteers, youth workers, students and trainers took part. The team presented the toolkit and the participant videos. A discussion followed on AI ethics, over-use and how to make AI safer and more inclusive for vulnerable young people." },
         { place: "Faculty of Forestry, Ștefan cel Mare University, Suceava", people: 25,
-          text: "25 students took part in a local session." }
+          text: "About 25 students of the Faculty of Forestry took part. The team presented the toolkit and the videos and discussed safe and inclusive use of AI." }
       ],
       youtube: "", photoFolder: "images/countries/romania/", photoMax: 30
     },
     {
       id: "moldova", name: "Moldova", flag: "🇲🇩", people: 50,
+      postUrl: "https://www.instagram.com/p/DdRdnrIjQtY/",
       events: [
         { place: "Prometeu-ProTalent Theoretical Lyceum, Chișinău", people: 50,
-          text: "The exchange experience, AI, critical thinking and Erasmus+ opportunities were presented." }
+          text: "JEF Moldova presented the exchange to 50 students. The session covered debates on AI, critical thinking and intercultural learning. It also introduced Erasmus+ youth exchanges, training courses, the European Solidarity Corps and summer schools." }
       ],
       youtube: "", photoFolder: "images/countries/moldova/", photoMax: 30
     },
     {
-      id: "jordan", name: "Jordan", flag: "🇯🇴", people: 29,
+      id: "jordan", name: "Jordan", flag: "🇯🇴", people: 30,
+      postUrl: "",
       events: [
-        { place: "SYL Office, Amman", people: 29,
-          text: "Students and young professionals took part in Poster Rotation (4 groups), the “Real or Fake Challenge: AI Edition” (Fake News Quiz) and the debate “Agree, Disagree, or In Between”." }
+        { place: "SYL Office, Amman", people: 30,
+          text: "University students and young professionals took part in three activities from the exchange: Poster Rotation (4 groups), the “Real or Fake Challenge: AI Edition” (Fake News Quiz) and the debate “Agree, Disagree, or In Between”. The team also screened the winning film from Oscar Night." }
       ],
       youtube: "", photoFolder: "images/countries/jordan/", photoMax: 30
     },
     {
-      id: "ukraine", name: "Ukraine", flag: "🇺🇦", people: 26,
+      id: "ukraine", name: "Ukraine", flag: "🇺🇦", people: 41,
+      postUrl: "https://www.instagram.com/p/Ddgew-uDi37/",
       events: [
-        { place: "Shelter of T.H. Shevchenko National University “Chernihiv Colehium”", people: 26,
-          text: "Students and teachers attended an info session about Erasmus+: youth exchanges, trainings and volunteering." }
+        { place: "Shelter of T.H. Shevchenko National University “Chernihiv Colehium”", people: 13,
+          text: "Andrii presented the project to 13 students and teachers. The info session covered Erasmus+ youth exchanges, trainings, volunteering and how to write a strong application. He also shared his own experience from Vatra Dornei. The Faculty of Philology published a post about the session." },
+        { place: "Youth Centre, Lviv", people: 28,
+          text: "Twenty-eight young people took part in a session led by Diana, with a focus on cybersecurity." }
       ],
       youtube: "", photoFolder: "images/countries/ukraine/", photoMax: 30
     },
     {
-      id: "georgia", name: "Georgia", flag: "🇬🇪", people: 30,
+      id: "georgia", name: "Georgia", flag: "🇬🇪", people: 50,
+      postUrl: "",
       events: [
-        { place: "Public School No. 55, Tbilisi (Vake)", people: 30,
-          text: "11th-grade students learned about Erasmus+, youth exchanges, how to apply and the benefits of taking part." }
+        { place: "Public School No. 55, Tbilisi (Vake)", people: 50,
+          text: "11th-grade students learned about Erasmus+, youth exchanges, how to apply and the benefits of taking part. The team showed photos from Vatra Dornei and answered questions. Seven participants also posted about the exchange in the Youth For The World Facebook group." }
       ],
       youtube: "", photoFolder: "images/countries/georgia/", photoMax: 30
     },
     {
-      id: "poland", name: "Poland", flag: "🇵🇱", people: 21,
+      id: "poland", name: "Poland", flag: "🇵🇱", people: 33,
+      postUrl: "https://www.instagram.com/p/Ddt94dggJUT/",
       events: [
-        { place: "Online meeting, 20.09.2026", people: 21,
-          text: "An online meeting with slides, videos and personal impressions. Social media sharing reached 900 views." }
+        { place: "Online meetup, 20.09.2026", people: 11,
+          text: "Eleven people joined an online meeting with slides, a film and personal stories about what Erasmus+ offers." },
+        { place: "Unplugged: AI Under the Open Sky (offline, open-air event), 17.10.2026", people: 22,
+          text: "Twenty-two people met outdoors for an offline event. The unplugged format fitted the topic of balancing technology and humanity. Five participants also published posts on Facebook and Reddit." }
       ],
       youtube: "", photoFolder: "images/countries/poland/", photoMax: 30
     }
   ],
-
+${c.postUrl ? `<a class="btn" href="${c.postUrl}" target="_blank" rel="noopener noreferrer">View post ↗</a>` : ""}
   /* ========== 8. GALLERY ========== */
   gallery: { folder: "images/gallery/", photoMax: 60 },
 
