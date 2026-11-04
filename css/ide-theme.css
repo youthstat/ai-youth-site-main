@@ -1,72 +1,30 @@
 /* =====================================================================
-   ide-theme.css — лише кольори (темна/світла схема як у редакторі коду)
-   + стиль блоку контактів. Підключити ПІСЛЯ style.css.
-   Синього більше немає: усі «сині» фони = колір фону сайту,
-   підсвітка (кнопки, hover, активне меню) = --accent (фіолетовий).
-   Щоб змінити підсвітку — поміняйте лише --accent нижче.
+   contacts-terminal.css — стилізація ТІЛЬКИ блоку контактів.
+   Решта сайту не змінюється. Підключити ПІСЛЯ style.css.
    ===================================================================== */
 
-:root {
-  --bg: #F5F5F7; --bg-alt: #ECECF1;
-  --surface: rgba(255,255,255,.9); --surface-solid: #FFFFFF;
-  --text: #1F2328; --muted: #57606A;
-  --border: rgba(31,35,40,.14); --shadow: 0 8px 24px rgba(31,35,40,.08);
-  --navy: #1E1E1E;
-  --accent: #AF00DB;
-  --blue: var(--accent); --link: #9B00BF;
-  --cyan: #0A8F7A; --green: #2E8B3D; --amber: #B5760B;
-  --grey-block: #DADCE3;
-  --glow: 0 0 0 1.5px var(--accent), 0 12px 32px rgba(175,0,219,.20);
-  --tok-key: #0451A5; --tok-str: #A31515; --tok-fn: #795E26;
-  --tok-com: #008000; --tok-punc: #6E7781; --tok-ln: #9AA1AB;
-  --term-bg: #FFFFFF; --term-bar: #E6E6EC;
+.contact.term {
+  --t-bg: #FFFFFF; --t-bar: #E6E6EC;
+  --t-key: #0451A5; --t-str: #A31515; --t-fn: #795E26; --t-punc: #6E7781; --t-ln: #9AA1AB;
+  --t-accent: #AF00DB;
 }
-:root[data-theme="dark"] {
-  --bg: #1E1E1E; --bg-alt: #252526;
-  --surface: rgba(37,37,38,.88); --surface-solid: #252526;
-  --text: #D4D4D4; --muted: #9DA5B4;
-  --border: rgba(255,255,255,.10); --shadow: 0 10px 28px rgba(0,0,0,.45);
-  --accent: #C586C0; --link: #D7A1D2;
-  --cyan: #4EC9B0; --green: #4E9A51; --amber: #DCDCAA;
-  --grey-block: #333337;
-  --glow: 0 0 0 1.5px var(--accent), 0 12px 34px rgba(197,134,192,.25);
-  --tok-key: #9CDCFE; --tok-str: #CE9178; --tok-fn: #DCDCAA;
-  --tok-com: #6A9955; --tok-punc: #808080; --tok-ln: #5A5A5A;
-  --term-bg: #1B1B1C; --term-bar: #323233;
+:root[data-theme="dark"] .contact.term {
+  --t-bg: #1B1B1C; --t-bar: #323233;
+  --t-key: #9CDCFE; --t-str: #CE9178; --t-fn: #DCDCAA; --t-punc: #808080; --t-ln: #5A5A5A;
+  --t-accent: #C586C0;
 }
 
-/* ---------- Прибираємо синє, що було зашите в style.css ---------- */
-.hero { background: #1E1E1E; }
-.site-footer { background: #1E1E1E; }
-.stat-dl { background: var(--bg-alt); color: var(--text); border-color: var(--border); }
-.stat-dl .stat-label, .stat-dl .dl-target { color: var(--muted); }
-.stat-num { background: none; color: var(--tok-fn); -webkit-text-fill-color: currentColor; }
-.stat-dl .stat-num { color: var(--amber); }
-.btn-primary { background: var(--accent); color: #fff; box-shadow: none; }
-.btn-outline:hover, .card-btn:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
-.site-nav a[aria-current="true"] { background: color-mix(in srgb, var(--accent) 16%, transparent); }
-.next-card { background: var(--bg-alt); }
-.bar-fill { background: linear-gradient(90deg, var(--accent), var(--cyan)); }
-.day::before { background: linear-gradient(var(--accent), var(--cyan)); }
-.flags-card { background: rgba(30,30,30,.85); }
-.gallery-overlay { background: rgba(30,30,30,.78); }
-.video-expand, .car-btn, .play { background: rgba(30,30,30,.78); }
-.dialog { background: rgba(0,0,0,.72); }
-.lightbox { background: rgba(10,10,10,.95); }
-.is-loading, .media-skel, .gallery-skel { --spin: var(--accent); }
-
-/* ---------- Контакти: вікно термінала / contact.json ---------- */
 .contacts { gap: 18px; }
-.contact.term { padding: 0; overflow: hidden; background: var(--term-bg); border-radius: 10px; position: relative; }
+.contact.term { padding: 0; overflow: hidden; background: var(--t-bg); border-radius: 10px; position: relative; }
 .contact.term::after {
   content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; pointer-events: none; opacity: 0;
-  background: linear-gradient(90deg, transparent, var(--accent), var(--cyan), transparent);
+  background: linear-gradient(90deg, transparent, var(--t-accent), transparent);
 }
-.contact.term:hover { transform: translateY(-5px); box-shadow: var(--glow); border-color: var(--accent); }
-.contact.term:hover::after { opacity: .9; animation: scan 1.6s linear infinite; }
-@keyframes scan { to { transform: translateY(190px); } }
+.contact.term:hover { transform: translateY(-5px); box-shadow: 0 0 0 1.5px var(--t-accent), 0 12px 32px rgba(0,0,0,.25); border-color: var(--t-accent); }
+.contact.term:hover::after { opacity: .9; animation: term-scan 1.6s linear infinite; }
+@keyframes term-scan { to { transform: translateY(190px); } }
 
-.term-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--term-bar); border-bottom: 1px solid var(--border); }
+.term-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--t-bar); border-bottom: 1px solid var(--border); }
 .term-dots { display: flex; gap: 6px; }
 .term-dots i { width: 11px; height: 11px; border-radius: 50%; display: block; transition: transform .2s; }
 .term-dots i:nth-child(1) { background: #FF5F56; }
@@ -77,17 +35,17 @@
 
 .term-body { padding: 16px 0 18px; font-family: var(--font-mono); font-size: .88rem; line-height: 1.9; }
 .code-line { display: flex; gap: 16px; padding-right: 18px; opacity: 0; transform: translateX(-12px); }
-.js .contact.is-visible .code-line { animation: lineIn .45s ease forwards; animation-delay: calc(.25s + var(--i) * .22s); }
+.js .contact.is-visible .code-line { animation: term-line .45s ease forwards; animation-delay: calc(.25s + var(--i) * .22s); }
 html:not(.js) .code-line { opacity: 1; transform: none; }
-@keyframes lineIn { to { opacity: 1; transform: none; } }
-.ln { flex: none; width: 36px; text-align: right; color: var(--tok-ln); user-select: none; }
-.code { min-width: 0; overflow-wrap: anywhere; }
+@keyframes term-line { to { opacity: 1; transform: none; } }
+.ln { flex: none; width: 36px; text-align: right; color: var(--t-ln); user-select: none; }
+.code { min-width: 0; overflow-wrap: anywhere; color: var(--text); }
 .code-line:hover { background: rgba(127,127,127,.10); }
-.tok-p { color: var(--tok-punc); } .tok-k { color: var(--tok-key); } .tok-s { color: var(--tok-str); }
-.contact .tok-s a { display: inline; padding: 0; color: var(--tok-str); font-weight: 400; text-decoration: none; border-bottom: 1px dashed currentColor; transition: color .2s; }
-.contact .tok-s a:hover { color: var(--tok-fn); border-bottom-style: solid; }
-.cursor { display: inline-block; width: .55em; height: 1.05em; margin-left: 4px; background: var(--tok-fn); vertical-align: -.2em; animation: blink 1s steps(1) infinite; }
-@keyframes blink { 50% { opacity: 0; } }
+.tok-p { color: var(--t-punc); } .tok-k { color: var(--t-key); } .tok-s { color: var(--t-str); }
+.contact .tok-s a { display: inline; padding: 0; color: var(--t-str); font-weight: 400; text-decoration: none; border-bottom: 1px dashed currentColor; transition: color .2s; }
+.contact .tok-s a:hover { color: var(--t-fn); border-bottom-style: solid; }
+.cursor { display: inline-block; width: .55em; height: 1.05em; margin-left: 4px; background: var(--t-fn); vertical-align: -.2em; animation: term-blink 1s steps(1) infinite; }
+@keyframes term-blink { 50% { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
   .code-line { opacity: 1; transform: none; animation: none !important; }
