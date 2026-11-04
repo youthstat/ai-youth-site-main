@@ -87,31 +87,28 @@
 
   <main>
 
-    <!-- ========== 1. HERO (Airport Dashboard) ========== -->
-    <section class="hero" id="home" aria-labelledby="hero-title">
-      <div class="hero-media" id="hero-media" aria-hidden="true">
-        <!-- ADD PHOTO: put images/hero/hero.jpg (optional). Without it the gradient mesh is shown. -->
-        <canvas id="hero-canvas"></canvas>
+<!-- ========== 1. HERO (Airport Dashboard) ========== -->
+<section class="hero" id="home" aria-labelledby="hero-title">
+  <div class="hero-media" id="hero-media" aria-hidden="true">
+    <!-- ADD PHOTO: put images/hero/hero.jpg (optional). Without it the gradient mesh is shown. -->
+    <canvas id="hero-canvas"></canvas>
+  </div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <h1 id="hero-title"></h1>
+      <p class="hero-sub mono" id="hero-sub"></p>
+      <p class="hero-desc" id="hero-desc"></p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#about">Learn more</a>
+        <a class="btn btn-ghost" href="#impact">View results</a>
       </div>
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="hero-badge mono" id="hero-badge"></p>
-          <p class="eyebrow mono" id="hero-eyebrow"></p>
-          <h1 id="hero-title"></h1>
-          <p class="hero-sub mono" id="hero-sub"></p>
-          <p class="hero-desc" id="hero-desc"></p>
-          <div class="btn-row">
-            <a class="btn btn-primary" href="#about">Learn more</a>
-            <a class="btn btn-ghost" href="#impact">View results</a>
-          </div>
-        </div>
-        <aside class="flags-card" aria-labelledby="flags-title">
-          <h2 class="flags-title mono" id="flags-title">Participating countries</h2>
-          <ul class="flag-list" id="flag-list"></ul>
-        </aside>
-      </div>
-    </section>
-
+    </div>
+    <aside class="flags-card" aria-labelledby="flags-title">
+      <h2 class="flags-title mono" id="flags-title">Participating countries</h2>
+      <ul class="flag-list" id="flag-list"></ul>
+    </aside>
+  </div>
+</section>
     <!-- ========== 2. ABOUT THE PROJECT ========== -->
     <section class="section" id="about" aria-labelledby="about-title">
       <div class="container">
