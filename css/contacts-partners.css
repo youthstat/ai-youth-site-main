@@ -218,3 +218,32 @@ html:not(.js) #contacts .partner { opacity: 1; }
   #contacts .contact-link,
   #contacts .partner img { transition: none; }
 }
+#contacts .term-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  background: var(--cp-bg-2);
+  border-bottom: 1px solid var(--cp-line);
+  font: 500 .8rem/1 ui-monospace, monospace;
+}
+#contacts .term-dots { display: inline-flex; gap: 5px; }
+#contacts .term-dots i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+#contacts .term-dots i:nth-child(2) { background: #ffbd2e; }
+#contacts .term-dots i:nth-child(3) { background: #28c840; }
+#contacts .term-title { color: var(--cp-muted); }
+#contacts .term-body { padding: 14px 16px; font: 500 .85rem/1.6 ui-monospace, monospace; }
+#contacts .code-line { display: flex; gap: 12px; }
+#contacts .ln { color: var(--cp-muted); user-select: none; min-width: 1.5em; text-align: right; }
+#contacts .code { white-space: pre; }
+#contacts .tok-p { color: var(--vsc-punct); }
+#contacts .tok-k { color: var(--vsc-keyword); }
+#contacts .tok-s { color: var(--vsc-string); }
+#contacts .tok-s a { color: inherit; text-decoration: none; border-bottom: 1px dashed currentColor; }
+#contacts .tok-s a:hover { color: var(--vsc-keyword-2); }
+#contacts .cursor {
+  display: inline-block; width: 8px; height: 1em; vertical-align: text-bottom;
+  background: currentColor; animation: cp-blink 1s steps(1) infinite;
+}
+@keyframes cp-blink { 50% { opacity: 0; } }
+
+/* прибрати мертві avatar-селектори (вони не зашкодять, але зайві) */
+/* .contact-avatar, .contact-name, .contact-links, .contact-link — можна видалити */
