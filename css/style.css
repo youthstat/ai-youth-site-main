@@ -12,6 +12,12 @@
 /* ========== 0. TOKENS ========== */
 /* ---------- TOKENS ---------- */
 :root {
+     --header-h: 68px;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --font-head: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   /* 3 кольори — вся палітра акцентів */
   --c-orange: #F97316;
   --c-blue:   #3B82F6;
