@@ -11,7 +11,7 @@
   --cp-line:  var(--vsc-border);
   --cp-text:  var(--vsc-text);
   --cp-muted: var(--vsc-muted);
-  --cp-a:     var(--c-orange);          /* дефолтний акцент */
+  --cp-a:     var(--c-blue);          /* дефолтний акцент */
   --cp-glow:  rgba(59,130,246,.14);
   --cp-shadow: 0 14px 34px rgba(0,0,0,.16);
 }
@@ -210,3 +210,32 @@ html:not(.js) #contacts .partner { opacity: 1; }
   animation: none !important;
 }
 #contacts .partners .partner:has(img) { background: #FFFFFF !important; }
+
+/* ---------- ПАРТНЕРИ: без підсвітки, лише збільшення; рамка оранжева при натисканні ---------- */
+#contacts .partners .partner::before { display: none; }          /* прибрано підсвітку-спотлайт */
+
+#contacts .partners .partner,
+#contacts .partners .partner:hover,
+#contacts .partners .partner:focus-within {
+  box-shadow: none;
+  border-color: var(--cp-line);
+  transform: none;
+}
+#contacts .partners .partner { transition: transform .3s cubic-bezier(.2,.8,.2,1), border-color .15s; }
+
+/* hover: тільки збільшення */
+#contacts .partners .partner:hover { transform: scale(1.06); }
+
+/* натискання / фокус з клавіатури: яскрава оранжева рамка */
+#contacts .partners .partner:active,
+#contacts .partners .partner:has(a:active),
+#contacts .partners .partner:has(a:focus-visible) {
+  transform: scale(1.06);
+  border-color: var(--c-orange);
+  box-shadow: 0 0 0 2px var(--c-orange);
+}
+#contacts .partners .partner a:focus-visible { outline: none; }
+
+/* картинка всередині не масштабується окремо */
+#contacts .partners .partner:hover img,
+#contacts .partners .partner:focus-within img { transform: none; }
