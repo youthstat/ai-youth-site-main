@@ -40,7 +40,7 @@ window.SITE_DATA = {
   // done:true shows a green tick
   goals: [
     { title: "Detected AI disinformation", text: "Trained 42 participants to detect AI-generated disinformation.", done: true },
-    { title: "Local initiatives", text: "Ran 6 local initiatives that reached 211 people (goal: more than 200).", done: true },
+    { title: "Local initiatives", text: "Ran 6 local initiatives that reached 259 people (goal: more than 200).", done: true },
     { title: "AI Literacy Toolkit", text: "Created the “AI Literacy Toolkit”.", done: true },
     { title: "AI & Youth Ambassadors Network", text: "Established the “AI & Youth Ambassadors Network”. This website is the network.", done: true }
   ],
@@ -49,7 +49,7 @@ window.SITE_DATA = {
   progress: [
     { label: "Participants", value: 42, target: 42, text: "42 / 42" },
     { label: "Local initiatives", value: 6, target: 6, text: "6 / 6" },
-    { label: "People reached", value: 211, target: 200, text: "211 (goal 200+)" },
+    { label: "People reached", value: 259, target: 200, text: "259 (goal 200+)" },
     { label: "AI Literacy Toolkit", done: true, text: "Created" },
     { label: "AI & Youth Ambassadors Network", done: true, text: "Founded: this website" }
   ],
