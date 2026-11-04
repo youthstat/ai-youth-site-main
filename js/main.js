@@ -86,6 +86,17 @@
     });
   };
 
+  /* Окремий, надійний показ (партнери / контакти): низький поріг + страховка по таймеру */
+  const showOnScroll = (els, fallbackMs = 2500) => {
+    const show = (el) => el.classList.add('is-visible');
+    if (!('IntersectionObserver' in window)) { els.forEach(show); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+    }, { threshold: 0.01, rootMargin: '0px 0px 80px 0px' });
+    els.forEach((el) => io.observe(el));
+    setTimeout(() => els.forEach(show), fallbackMs);
+  };
+
   /* ========== 3. PHOTO LOADER ========== */
   const EXTS = ['.jpg', '.jpeg', '.png', '.webp'];
   const photoCache = new Map();
@@ -214,6 +225,7 @@
   });
 
   [$('#modal'), $('#lightbox'), $('#video-dialog')].forEach((dlg) => {
+    if (!dlg) return;
     dlg.addEventListener('click', (e) => {
       if (e.target === dlg || e.target.closest('[data-close]')) closeDialog(dlg);
     });
@@ -308,7 +320,7 @@
     $('#vd-title').textContent = title;
     openDialog(videoDialog, opener);
   };
-  videoDialog.addEventListener('dialog:closed', () => { $('#vd-stage').replaceChildren(); });
+  if (videoDialog) videoDialog.addEventListener('dialog:closed', () => { $('#vd-stage').replaceChildren(); });
 
   const EXPAND_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>';
 
@@ -348,6 +360,7 @@
   /* ========== 7. THEME TOGGLE ========== */
   const initTheme = () => {
     const btn = $('#theme-toggle');
+    if (!btn) return;
     const apply = (t) => {
       document.documentElement.setAttribute('data-theme', t);
       btn.setAttribute('aria-pressed', String(t === 'dark'));
@@ -364,6 +377,7 @@
   const initNav = () => {
     const nav = $('#site-nav');
     const burger = $('#burger');
+    if (!nav || !burger) return;
     const setOpen = (open) => {
       nav.classList.toggle('is-open', open);
       burger.setAttribute('aria-expanded', String(open));
@@ -889,7 +903,7 @@
     const el = $('#lightbox');
     const img = $('#lb-img');
     const count = $('#lb-count');
-    let list = []; let idx = 0; let thumbs = [];
+    let list = []; let idx = 0;
 
     const show = (animateFrom) => {
       const src = list[idx];
@@ -936,7 +950,7 @@
     el.addEventListener('dialog:closed', () => { img.removeAttribute('src'); });
 
     const open = (photos, start, thumbEl) => {
-      list = photos; idx = start; thumbs = [thumbEl];
+      list = photos; idx = start;
       const single = list.length < 2;
       $('#lb-prev').hidden = single; $('#lb-next').hidden = single;
       openDialog(el, thumbEl);
@@ -963,6 +977,8 @@
     const canVT = typeof document.startViewTransition === 'function' && !reduceMotion;
 
     const placeholder = () => h('div', { class: 'placeholder' }, h('span', { 'aria-hidden': 'true' }, '📷'), h('strong', { text: 'Photos coming soon' }), h('span', { class: 'note', text: 'The exchange photos will appear here.' }));
+
+    let setExpanded = () => {};
 
     const draw = (animateFrom = -1) => {
       grid.replaceChildren();
@@ -1017,9 +1033,8 @@
         if (countEl) countEl.textContent = `Showing ${visible.length} of ${photos.length}`;
       }
     };
-    draw();
 
-    const setExpanded = (value, fromTile = false) => {
+    setExpanded = (value, fromTile = false) => {
       expanded = value;
       const apply = () => draw(!canVT && expanded ? bentoCount() : -1);
       const t = canVT ? document.startViewTransition(apply) : (apply(), null);
@@ -1029,6 +1044,8 @@
         if (t) t.updateCallbackDone.then(go); else go();
       }
     };
+
+    draw();
 
     toggleBtn.addEventListener('click', () => setExpanded(!expanded));
 
@@ -1090,19 +1107,19 @@
 
   /* ========== 19. CONTACTS & FOOTER ========== */
   const renderContacts = () => {
-    $('#contacts-lead').textContent = D.contactsLead;
+    $('#contacts-lead').textContent = D.contactsLead || '';
 
-    /* --- PARTNERS (FIX: .reveal + --i) --- */
+    /* --- PARTNERS (без .reveal: окремий показ) --- */
     const list = $('#partners');
-    D.partners.forEach((p, i) => {
-      const li = h('li', { class: 'partner reveal' + (p.url ? ' partner-link' : '') });
+    (D.partners || []).forEach((p, i) => {
+      const li = h('li', { class: 'partner' + (p.url ? ' partner-link' : '') });
       li.style.setProperty('--i', String(i));
       const inner = p.url
-        ? h('a', { href: p.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${p.name} — Instagram`, title: p.name })
+        ? h('a', { href: p.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${p.name} (opens in a new tab)`, title: p.name })
         : li;
       if (p.logo) {
         if (!p.url) { li.setAttribute('aria-label', p.name); li.title = p.name; }
-        inner.append(safeImg(p.logo, `${p.name} logo`, true));
+        inner.append(safeImg(p.logo, `${p.name} logo`, false));
       } else inner.textContent = p.name;
       if (p.url) li.append(inner);
       list.append(li);
@@ -1113,7 +1130,7 @@
     const line = (n, ...parts) => h('div', { class: 'code-line', style: `--i:${n}` },
       h('span', { class: 'ln', text: String(n) }), h('span', { class: 'code' }, ...parts));
 
-    $('#contacts-grid').append(...D.contacts.map((c, i) => {
+    $('#contacts-grid').append(...(D.contacts || []).map((c, i) => {
       let n = 0;
       const rows = [line(++n, sp('tok-p', '{')),
         line(++n, '  ', sp('tok-k', '"name"'), sp('tok-p', ': '), sp('tok-s', `"${c.name}"`), sp('tok-p', ','))];
@@ -1128,7 +1145,7 @@
           h('span', { class: 'tok-s' }, '"', h('a', { href: telHref, text: c.phoneText || c.phone }), '"')));
       }
       rows.push(line(++n, sp('tok-p', '}'), h('span', { class: 'cursor' })));
-      const card = h('article', { class: 'card contact term reveal' },
+      const card = h('article', { class: 'card contact term' },
         h('div', { class: 'term-bar' },
           h('span', { class: 'term-dots', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')),
           h('span', { class: 'term-title', text: 'contact.json' })),
@@ -1136,6 +1153,9 @@
       card.style.setProperty('--i', String(i));
       return card;
     }));
+
+    /* показ партнерів і контактів — не залежить від загального .reveal */
+    showOnScroll($$('#contacts .partner, #contacts .contact'));
   };
 
   const renderFooter = () => {
