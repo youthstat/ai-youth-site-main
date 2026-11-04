@@ -110,8 +110,10 @@
 
 @property --cp-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 #contacts .contact {
-  display: grid; justify-items: start; gap: 6px;
-  padding: 26px 24px 22px;
+  /* FIX: padding 0 + overflow hidden — щоб .term-bar прилипав до рамки */
+  padding: 0;
+  overflow: hidden;
+  display: block;
   background:
     linear-gradient(var(--cp-bg), var(--cp-bg)) padding-box,
     conic-gradient(from var(--cp-angle),
@@ -126,78 +128,65 @@
 }
 @keyframes cp-spin { to { --cp-angle: 360deg; } }
 
-#contacts .contact-avatar {
-  position: relative; display: grid; place-items: center;
-  width: 58px; height: 58px; margin-bottom: 10px; border-radius: 50%;
-  font-family: var(--font-display, 'Space Grotesk', system-ui, sans-serif);
-  font-weight: 700; font-size: 1.15rem; letter-spacing: .02em;
-  color: var(--cp-on);                                /* ← було #fff */
-  background: linear-gradient(135deg, var(--cp-a), var(--cp-b));
-  transition: transform .4s cubic-bezier(.2,.8,.2,1);
+/* ---------- TERMINAL (contact.json) ---------- */
+#contacts .term-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  background: var(--cp-bg-2);
+  border-bottom: 1px solid var(--cp-line);
+  font: 500 .8rem/1 ui-monospace, monospace;
 }
-#contacts .contact-avatar::after {
-  content: ""; position: absolute; inset: -6px; border-radius: 50%;
-  border: 1.5px dashed var(--cp-a); opacity: 0; transform: scale(.85);
-  transition: opacity .3s, transform .5s;
-}
-#contacts .contact:hover .contact-avatar { transform: rotate(-6deg) scale(1.06); }
-#contacts .contact:hover .contact-avatar::after {
-  opacity: .7; transform: scale(1); animation: cp-orbit 8s linear infinite;
-}
-@keyframes cp-orbit { to { transform: rotate(360deg); } }
+#contacts .term-dots { display: inline-flex; gap: 5px; }
+#contacts .term-dots i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+#contacts .term-dots i:nth-child(2) { background: #ffbd2e; }
+#contacts .term-dots i:nth-child(3) { background: #28c840; }
+#contacts .term-title { color: var(--cp-muted); }
 
-#contacts .contact-name {
-  margin: 0 0 8px; font-size: 1.2rem; line-height: 1.25;
-  color: var(--cp-text);
-  font-family: var(--font-display, 'Space Grotesk', system-ui, sans-serif);
+#contacts .term-body { padding: 14px 16px; font: 500 .85rem/1.6 ui-monospace, monospace; }
+#contacts .code-line { display: flex; gap: 12px; }
+#contacts .ln { color: var(--cp-muted); user-select: none; min-width: 1.5em; text-align: right; }
+#contacts .code { white-space: pre; }
+
+#contacts .tok-p { color: var(--vsc-punct); }
+#contacts .tok-k { color: var(--vsc-keyword); }
+#contacts .tok-s { color: var(--vsc-string); }
+
+/* FIX: email/phone всередині JSON-рядка — inline, без обрізання рядка.
+   Перебиває style.css .contact a { display:block; padding:6px 0; ... } */
+#contacts .term-body a {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+  overflow-wrap: anywhere;
+  vertical-align: baseline;
+}
+#contacts .term-body a:hover,
+#contacts .term-body a:focus-visible {
+  color: var(--vsc-keyword-2);
+  outline: none;
 }
 
-#contacts .contact-links { display: grid; gap: 8px; width: 100%; }
-#contacts .contact-link {
-  position: relative; display: flex; align-items: center; gap: 12px;
-  padding: 10px 12px; border-radius: 12px;
-  background: var(--cp-bg-2); color: var(--cp-text);
-  font-size: .95rem; line-height: 1.3; text-decoration: none; overflow-wrap: anywhere;
-  border: 1px solid transparent;
-  transition: background .25s, color .25s, border-color .25s, transform .25s;
+#contacts .cursor {
+  display: inline-block; width: 8px; height: 1em; vertical-align: text-bottom;
+  background: currentColor; animation: cp-blink 1s steps(1) infinite;
 }
-#contacts .contact-link .ci {
-  flex: none; display: grid; place-items: center;
-  width: 32px; height: 32px; border-radius: 9px;
-  color: var(--cp-a); background: var(--cp-glow);
-  transition: background .25s, color .25s, transform .25s;
-}
-#contacts .contact-link .ci svg { width: 17px; height: 17px; }
-#contacts .contact-link .arrow {
-  margin-left: auto; flex: none; opacity: 0; transform: translateX(-6px);
-  transition: opacity .25s, transform .25s; color: currentColor;
-}
-#contacts .contact-link:hover,
-#contacts .contact-link:focus-visible {
-  background: linear-gradient(90deg, var(--cp-a), var(--cp-b));
-  color: var(--cp-on);                                /* ← було #fff */
-  transform: translateX(3px); outline: none;
-}
-#contacts .contact-link:hover .ci,
-#contacts .contact-link:focus-visible .ci {
-  background: rgba(127,127,127,.28);
-  color: var(--cp-on);                                /* ← було #fff */
-  transform: rotate(-8deg);
-}
-#contacts .contact-link:hover .arrow,
-#contacts .contact-link:focus-visible .arrow { opacity: 1; transform: none; }
+@keyframes cp-blink { 50% { opacity: 0; } }
 
 /* =====================================================================
    MULTICOLOR — 4 кольори синтаксису VS Code по колу
    ===================================================================== */
 
-/* контакти: 4 комбінації градієнтів */
 #contacts .contacts > .contact:nth-child(4n+1) { --cp-a: var(--vsc-keyword);  --cp-b: var(--vsc-string);   }
 #contacts .contacts > .contact:nth-child(4n+2) { --cp-a: var(--vsc-type);     --cp-b: var(--vsc-function); }
 #contacts .contacts > .contact:nth-child(4n+3) { --cp-a: var(--vsc-variable); --cp-b: var(--vsc-constant); }
 #contacts .contacts > .contact:nth-child(4n+4) { --cp-a: var(--vsc-number);   --cp-b: var(--vsc-keyword);  }
 
-/* партнери: акцент бордера/тіні по колу */
 #contacts .partners > .partner:nth-child(4n+1) { --cp-a: var(--vsc-keyword);  }
 #contacts .partners > .partner:nth-child(4n+2) { --cp-a: var(--vsc-type);     }
 #contacts .partners > .partner:nth-child(4n+3) { --cp-a: var(--vsc-function); }
@@ -211,39 +200,8 @@ html:not(.js) #contacts .partner { opacity: 1; }
   .js #contacts .partner.is-visible { animation: none; }
   #contacts .contact:hover,
   #contacts .contact:focus-within { animation: none; }
-  #contacts .partner:hover::after,
-  #contacts .contact:hover .contact-avatar::after { animation: none; }
+  #contacts .partner:hover::after { animation: none; }
   #contacts .contact,
   #contacts .partner,
-  #contacts .contact-link,
   #contacts .partner img { transition: none; }
 }
-#contacts .term-bar {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 12px;
-  background: var(--cp-bg-2);
-  border-bottom: 1px solid var(--cp-line);
-  font: 500 .8rem/1 ui-monospace, monospace;
-}
-#contacts .term-dots { display: inline-flex; gap: 5px; }
-#contacts .term-dots i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
-#contacts .term-dots i:nth-child(2) { background: #ffbd2e; }
-#contacts .term-dots i:nth-child(3) { background: #28c840; }
-#contacts .term-title { color: var(--cp-muted); }
-#contacts .term-body { padding: 14px 16px; font: 500 .85rem/1.6 ui-monospace, monospace; }
-#contacts .code-line { display: flex; gap: 12px; }
-#contacts .ln { color: var(--cp-muted); user-select: none; min-width: 1.5em; text-align: right; }
-#contacts .code { white-space: pre; }
-#contacts .tok-p { color: var(--vsc-punct); }
-#contacts .tok-k { color: var(--vsc-keyword); }
-#contacts .tok-s { color: var(--vsc-string); }
-#contacts .tok-s a { color: inherit; text-decoration: none; border-bottom: 1px dashed currentColor; }
-#contacts .tok-s a:hover { color: var(--vsc-keyword-2); }
-#contacts .cursor {
-  display: inline-block; width: 8px; height: 1em; vertical-align: text-bottom;
-  background: currentColor; animation: cp-blink 1s steps(1) infinite;
-}
-@keyframes cp-blink { 50% { opacity: 0; } }
-
-/* прибрати мертві avatar-селектори (вони не зашкодять, але зайві) */
-/* .contact-avatar, .contact-name, .contact-links, .contact-link — можна видалити */
