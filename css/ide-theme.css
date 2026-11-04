@@ -1,93 +1,118 @@
 /* =====================================================================
    ide-theme.css — IDE-хром + 3-колірна палітра (orange / blue / green).
-   Без градієнтів. Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
+   Палітра: ORANGE (основний) + GREEN. Синього в проєкті немає.
+   Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
+
+/* ---------- 00. СИНЬОГО БІЛЬШЕ НЕМАЄ ----------
+   Токен --c-blue (його використовують --vsc-* та інші правила) тепер зелений. */
+:root                    { --c-blue: #22C55E; }
+:root[data-theme="dark"] { --c-blue: #4ADE80; }
+
+/* ---------- 0. ГОЛОВНИЙ АКЦЕНТ: синій -> оранжевий ----------
+   --blue і --link використовує весь style.css (посилання, рамки кнопок,
+   hover стрілок, точки каруселі, підписи днів тощо) — міняємо в одному місці. */
+:root,
+:root[data-theme="dark"] {
+  --blue: var(--c-orange);
+  --link: var(--c-orange);
+  --glow: 0 0 0 1.5px var(--c-orange), 0 14px 38px rgba(249,115,22,.26);
+  accent-color: var(--c-orange);
+}
+::selection { background: rgba(249,115,22,.32); color: inherit; }
 
 /* ---------- 1. NAV ---------- */
 .site-nav a[aria-current="true"] {
-  background: rgba(59,130,246,.16);
-  color: var(--c-blue);
+  background: rgba(249,115,22,.16);
+  color: var(--c-orange);
 }
 .site-nav a:hover { background: var(--bg-alt); }
 
 /* ---------- 2. КНОПКИ ---------- */
 .btn-primary {
-  background: var(--c-green);
+  background: var(--c-orange);
   color: #FFFFFF;
-  box-shadow: 0 8px 22px rgba(59,130,246,.28);
+  box-shadow: 0 8px 22px rgba(249,115,22,.30);
 }
-.btn-primary:hover { background: #2563EB; }
-:root[data-theme="dark"] .btn-primary { color: #0B1220; }
-:root[data-theme="dark"] .btn-primary:hover { background: #3B82F6; }
+.btn-primary:hover { background: #EA580C; }
+:root[data-theme="dark"] .btn-primary { color: #1E1E1E; }
+:root[data-theme="dark"] .btn-primary:hover { background: #F97316; }
 
-.btn-outline:hover, .card-btn:hover {
-  background: rgba(34,197,94,.12);
-  border-color: var(--c-green);
+.btn-outline,
+.card-btn { color: var(--c-orange); border-color: var(--c-orange); }
+.btn-outline:hover,
+.card-btn:hover {
+  background: rgba(249,115,22,.12);
+  border-color: var(--c-orange);
 }
 
-/* ---------- 3. HERO (без градієнтів) ---------- */
-.hero {
-  background: #111418;
-}
-.hero-media::after {
-  background: rgba(15,17,23,.65);
-}
+/* ---------- 3. HERO ---------- */
+.hero { background: #1E1E1E; }
+.hero-media::after { background: rgba(15,17,23,.65); }
 .hero-desc { color: #D4D4D4; }
 
 .flags-card {
   background: rgba(30,30,30,.72);
-  border-color: rgba(59,130,246,.35);
+  border-color: rgba(249,115,22,.35);
   box-shadow: 0 20px 50px rgba(0,0,0,.45);
 }
 .flag-item { background: rgba(255,255,255,.06); }
 
 /* ---------- 4. КАРТКИ / СТАТИСТИКА ---------- */
 .next-card {
-  background: rgba(59,130,246,.08);
-  border-color: rgba(59,130,246,.35);
+  background: rgba(34,197,94,.08);       /* зелений замість синього */
+  border-color: rgba(34,197,94,.35);
 }
 .erasmus-card { border-left-color: var(--c-green); }
 
-.stat-num {
+.stat-num,
+.stat-dl .stat-num {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
   color: var(--c-orange);
 }
 .stat-dl {
-  background: #1A1D22;
+  background: #1E1E1E;
   border-color: rgba(249,115,22,.35);
 }
-.stat-dl .stat-num { color: var(--c-orange); }
 .stat-dl .stat-label { color: #D4D4D4; }
 .dl-target { color: #A0A0A0; }
 
 .dl-bar .bar-fill { background: var(--c-orange); }
-.bar-fill         { background: var(--c-blue); }
+.bar-fill         { background: var(--c-orange); }
 .bar-fill.is-done { background: var(--c-green); }
-.day::before      { background: var(--c-blue); }
+.day::before      { background: var(--c-orange); }
+.day-n, .fact-label, .prog-val { color: var(--c-orange); }
 
 .donut-seg.seg-a { stroke: var(--c-orange); }
-.donut-seg.seg-b { stroke: var(--c-blue); }
+.donut-seg.seg-b { stroke: var(--c-green); }
 .donut-seg.seg-c { stroke: var(--c-green); }
-.donut-seg.seg-d { stroke: var(--c-blue); }
 
 /* ---------- 5. ГАЛЕРЕЯ / ВІДЕО / ДІАЛОГИ ---------- */
 .gallery-overlay {
-  background: rgba(15,23,42,.78);
+  background: rgba(30,30,30,.82);
   color: #fff;
 }
 .gallery-overlay strong { color: var(--c-orange); }
 .gallery-overlay span   { color: var(--c-green); }
-.gallery-item.has-more:hover .gallery-overlay {
-  background: rgba(15,23,42,.58);
-}
+.gallery-item.has-more:hover .gallery-overlay { background: rgba(30,30,30,.62); }
 
-.video-expand, .play { background: rgba(30,30,30,.82); }
-.play svg, .video-expand svg { color: var(--c-orange); }
+.video-expand, .play {
+  background: rgba(30,30,30,.82);
+  color: var(--c-orange);
+}
+.video-expand:hover, .video-expand:focus-visible,
+.video-poster:hover .play { background: var(--c-orange); color: #1E1E1E; }
 .car-btn { background: rgba(30,30,30,.76); }
+.car-btn:hover { background: var(--c-orange); }
 .dialog { background: rgba(14,14,15,.78); }
 .lightbox { background: rgba(14,14,15,.95); }
-.vd-title, .lb-count { color: var(--vsc-text); }
+/* ці підписи завжди на темному фоні — колір не залежить від теми */
+.vd-title, .lb-count { color: #D4D4D4; }
 .dialog-panel {
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(59,130,246,.16);
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(249,115,22,.18);
 }
 
 .carousel-slide:has(img.is-loading)::after,
@@ -95,14 +120,14 @@
 .video-frame.is-loading::after,
 .media-skel::after, .gallery-skel::after,
 .vd-stage.is-loading::after {
-  border-color: rgba(59,130,246,.25);
-  border-top-color: var(--c-blue);
+  border-color: rgba(249,115,22,.25);
+  border-top-color: var(--c-orange);
 }
 
-/* ---------- 6. ФУТЕР ---------- */
+/* ---------- 6. ФУТЕР (завжди темний, як статус-бар у VS Code) ---------- */
 .site-footer {
-  background: var(--vsc-bg);
-  color: var(--vsc-text);
+  background: #1E1E1E;
+  color: #D4D4D4;
   border-top: 1px solid rgba(34,197,94,.35);
 }
-.disclaimer { color: var(--vsc-muted); }
+.disclaimer { color: #858585; }
