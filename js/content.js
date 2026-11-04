@@ -146,7 +146,7 @@ window.SITE_DATA = {
   countries: [
     {
       id: "romania", name: "Romania", flag: "🇷🇴", people: 55,
-      postUrl: "https://www.instagram.com/p/DbneSvROYxB/",
+      postUrl: "https://www.instagram.com/p/DbneSvROYxB/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
       summary: "Two sessions, in Bucharest and Suceava, for about 55 people. The team presented the toolkit and the participant videos and discussed AI ethics.",
       events: [
         { place: "AHA Center, Bucharest", people: 30,
@@ -181,14 +181,14 @@ window.SITE_DATA = {
       events: [
         { place: "Shelter of T.H. Shevchenko National University “Chernihiv Colehium”", people: 13,
           text: "Andrii presented the project to 13 students and teachers. The info session covered Erasmus+ youth exchanges, trainings, volunteering and how to write a strong application. He also shared his own experience from Vatra Dornei. The Faculty of Philology published a post about the session." },
-        { place: "Youth Centre, Lviv", people: 28,
-          text: "Twenty-eight young people took part in a session led by Diana, with a focus on cybersecurity." }
-      ],
+        { { place: "Youth Centre, Lviv", people: 28,
+  text: "The Digital Safety Lab project taught 28 young people about password security, phishing, privacy, and safe online responses. Participants took part in practical exercises and AI-assisted scenario activities, exploring how AI can both support and threaten cybersecurity." }
+],
       youtube: "", photoFolder: "images/countries/ukraine/", photoMax: 30
     },
     {
       id: "georgia", name: "Georgia", flag: "🇬🇪", people: 50,
-      postUrl: "",
+      postUrl: "https://www.instagram.com/p/DdDgj9LjFfA/?obrf=NzFzZGpjd2kxNG4w",
       events: [
         { place: "Public School No. 55, Tbilisi (Vake)", people: 50,
           text: "11th-grade students learned about Erasmus+, youth exchanges, how to apply and the benefits of taking part. The team showed photos from Vatra Dornei and answered questions. Seven participants also posted about the exchange in the Youth For The World Facebook group." }
