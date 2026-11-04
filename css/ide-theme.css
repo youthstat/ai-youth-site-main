@@ -1,4 +1,151 @@
 /* =====================================================================
+   purple-theme.css — IDE-палітра (VS Code Dark+) з фіолетовою підсвіткою.
+   Підключити ОСТАННІМ у <head>, після style.css, ide-theme.css
+   і contacts-partners.css. Усе синє тут прибрано.
+   ===================================================================== */
+
+/* ---------- 0. ТОКЕНИ ---------- */
+/* Назви змінних ті самі, що в style.css, тому весь сайт перефарбовується сам.
+   --blue  = заливка кнопок (темно-фіолетова, щоб білий текст читався)
+   --cyan  = підсвітка / фокус / рамки (фіолетовий акцент)
+   --amber = жовтий з VS Code (#DCDCAA) */
+:root {
+  --navy: #1B1B1C;
+  --blue: #8B1FA9;
+  --cyan: #AF00DB;
+  --green: #5E8C48;
+  --amber: #DCDCAA;
+
+  --code-key: #9CDCFE;   /* лише для дрібних "кодових" акцентів */
+  --code-str: #CE9178;
+  --code-fn:  #DCDCAA;
+  --code-punc:#808080;
+  --code-ln:  #5A5A5A;
+  --code-accent: #C586C0;
+
+  /* світла тема */
+  --bg: #F7F4F8; --bg-alt: #EEE9F1;
+  --surface: rgba(255,255,255,.82); --surface-solid: #FFFFFF;
+  --text: #1F1B24; --muted: #5E5668;
+  --border: rgba(31,27,36,.13); --shadow: 0 10px 30px rgba(31,27,36,.10);
+  --glow: 0 0 0 1.5px var(--cyan), 0 14px 38px rgba(175,0,219,.24);
+  --link: #8B1FA9; --grey-block: #DED7E3;
+}
+:root[data-theme="dark"] {
+  --blue: #8E4B8A;
+  --cyan: #C586C0;
+  --bg: #1B1B1C; --bg-alt: #242426;
+  --surface: rgba(255,255,255,.05); --surface-solid: #2A2A2C;
+  --text: #D4D4D4; --muted: #A0A0A0;
+  --border: rgba(255,255,255,.10); --shadow: 0 10px 30px rgba(0,0,0,.45);
+  --glow: 0 0 0 1.5px var(--cyan), 0 14px 38px rgba(197,134,192,.30);
+  --link: #C586C0; --grey-block: #323233;
+}
+
+html { accent-color: #C586C0; scrollbar-color: #5A5A5A transparent; }
+::selection { background: rgba(197,134,192,.38); color: inherit; }
+
+/* ---------- 1. HEADER / NAV ---------- */
+.site-nav a[aria-current="true"] { background: rgba(197,134,192,.16); }
+.site-nav a:hover { background: var(--bg-alt); }
+
+/* ---------- 2. КНОПКИ ---------- */
+.btn-primary {
+  background: linear-gradient(135deg, #8E4B8A, #A8589F);
+  box-shadow: 0 8px 22px rgba(197,134,192,.32);
+}
+.btn-outline:hover, .card-btn:hover { background: rgba(197,134,192,.14); }
+
+/* ---------- 3. HERO: без синього ---------- */
+.hero {
+  background:
+    radial-gradient(60% 55% at 12% 18%, rgba(197,134,192,.34), transparent 70%),
+    radial-gradient(50% 50% at 88% 28%, rgba(206,145,120,.18), transparent 70%),
+    radial-gradient(45% 55% at 60% 98%, rgba(220,220,170,.10), transparent 70%),
+    linear-gradient(160deg, #1B1B1C 0%, #111112 100%);
+}
+/* затемнення поверх фото — нейтральне, а не синє */
+.hero-media::after {
+  background: linear-gradient(180deg, rgba(20,20,21,.55), rgba(20,20,21,.88));
+}
+.hero-desc { color: #D4D4D4; }
+.flags-card {
+  background: rgba(27,27,28,.66);
+  border-color: rgba(197,134,192,.28);
+  box-shadow: 0 20px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(197,134,192,.08);
+}
+.flag-item { background: rgba(255,255,255,.06); }
+
+/* ---------- 4. КАРТКИ / БЛОКИ ---------- */
+.next-card { background: linear-gradient(145deg, rgba(197,134,192,.14), rgba(206,145,120,.08)); }
+.erasmus-card { border-left-color: var(--cyan); }
+
+.stat-num {
+  background: linear-gradient(135deg, #C586C0, #DCDCAA);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+:root:not([data-theme="dark"]) .stat-num {
+  background: linear-gradient(135deg, #8B1FA9, #AF00DB);
+  -webkit-background-clip: text; background-clip: text;
+}
+.stat-dl {
+  background: linear-gradient(145deg, #1B1B1C, #2E2438);
+  border-color: rgba(197,134,192,.28);
+}
+.stat-dl .stat-num {
+  background: linear-gradient(135deg, #DCDCAA, #CE9178);
+  -webkit-background-clip: text; background-clip: text;
+}
+.stat-dl .stat-label { color: #D4D4D4; }
+.dl-target { color: #A0A0A0; }
+.dl-bar .bar-fill { background: linear-gradient(90deg, #C586C0, #DCDCAA); }
+.bar-fill { background: linear-gradient(90deg, #8E4B8A, #C586C0); }
+.bar-fill.is-done { background: linear-gradient(90deg, #5E8C48, #8DB87A); }
+.day::before { background: linear-gradient(#8E4B8A, #C586C0); }
+.donut-seg.seg-a { stroke: #C586C0; }
+
+/* ---------- 5. ГАЛЕРЕЯ / ВІДЕО / ДІАЛОГИ ---------- */
+.gallery-overlay { background: linear-gradient(145deg, rgba(27,27,28,.86), rgba(142,75,138,.66)); }
+.gallery-overlay span { color: #DCDCAA; }
+.gallery-item.has-more:hover .gallery-overlay { background: linear-gradient(145deg, rgba(27,27,28,.68), rgba(142,75,138,.48)); }
+.video-expand, .play { background: rgba(27,27,28,.78); }
+.car-btn { background: rgba(27,27,28,.72); }
+.dialog { background: rgba(14,14,15,.78); }
+.lightbox { background: rgba(14,14,15,.95); }
+.vd-title, .lb-count { color: #D4D4D4; }
+.dialog-panel { box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(197,134,192,.12); }
+
+.carousel-slide:has(img.is-loading)::after, .gallery-item:has(img.is-loading)::before,
+.video-frame.is-loading::after, .media-skel::after, .gallery-skel::after, .vd-stage.is-loading::after {
+  border-color: rgba(197,134,192,.25); border-top-color: var(--cyan);
+}
+
+/* ---------- 6. ФУТЕР ---------- */
+.site-footer { background: #1B1B1C; color: #D4D4D4; border-top: 1px solid rgba(197,134,192,.25); }
+.disclaimer { color: #A0A0A0; }
+
+/* ---------- 7. КОНТАКТИ І ПАРТНЕРИ (змінні з contacts-partners.css) ---------- */
+#contacts {
+  --cp-bg: #FFFFFF; --cp-bg-2: #F1EBF4;
+  --cp-line: rgba(31,27,36,.13);
+  --cp-text: #1F1B24; --cp-muted: #5E5668;
+  --cp-a: #AF00DB; --cp-b: #8B1FA9; --cp-on: #FFFFFF;
+  --cp-glow: rgba(175,0,219,.14);
+  --cp-shadow: 0 14px 34px rgba(31,27,36,.16);
+}
+:root[data-theme="dark"] #contacts {
+  --cp-bg: #1B1B1C; --cp-bg-2: #2A2A2C;
+  --cp-line: rgba(255,255,255,.12);
+  --cp-text: #D4D4D4; --cp-muted: #A0A0A0;
+  --cp-a: #C586C0; --cp-b: #DCDCAA; --cp-on: #1B1B1C;
+  --cp-glow: rgba(197,134,192,.18);
+  --cp-shadow: 0 14px 34px rgba(0,0,0,.5);
+}
+#contacts .contact-avatar { color: var(--cp-on); }
+#contacts .contact-link:hover,
+#contacts .contact-link:focus-visible { color: var(--cp-on); }
+#contacts .contact-link:hover .ci,
+#contacts .contact-link:focus-visible .ci { background: rgba(127,127,127,.28); color: var(--cp-on); }/* =====================================================================
    contacts-partners.css — стилі ТІЛЬКИ для блоків "Partners" і "Contacts".
    Підключити ПІСЛЯ style.css (замість contacts-terminal.css).
    ===================================================================== */
