@@ -601,17 +601,10 @@ h2.alpha-head.mono,
   font-weight: 500 !important;
 }
 
-/* --- 9. LOCAL IMPACT --- */
-#local-intro,
-.country,
-.country *,
-.country h3,
-.country-place,
-.country-text,
-.country-people,
-.country-people small,
-.country-switch,
-.switch-btn {
+/* --- 9. LOCAL IMPACT: ONLY BUTTONS (text stays Inter/Space Grotesk) --- */
+.switch-btn,
+.country .card-btn,
+.country .btn-outline {
   font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   font-weight: 500 !important;
 }
@@ -644,7 +637,7 @@ h2.alpha-head.mono,
   font-weight: 500 !important;
 }
 
-/* --- 12. FOOTER (except About-paragraphs) --- */
+/* --- 12. FOOTER --- */
 #disclaimer,
 .logo-fallback,
 .btn-ghost-light,
