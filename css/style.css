@@ -72,7 +72,8 @@ body {
 body.no-scroll { overflow: hidden; }
 img, svg, canvas { max-width: 100%; display: block; }
 a { color: var(--link); }
-h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 500; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
+/* CHANGED: h5, h6 added */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); font-weight: 500; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
 p { margin: 0 0 1em; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -688,21 +689,22 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
   .js .reveal { opacity: 1; transform: none; }
   .flag-item { opacity: 1; transform: none; }
 }
-.video-frame.is-loading .video-poster { background: transparent; } 
+.video-frame.is-loading .video-poster { background: transparent; }
+
 /* ============================================================
-   ENSURE Alpha Lyrae on every heading / title
+   ALL HEADINGS → Alpha Lyrae
+   Перекриває .mono, який у HTML стоїть на #flags-title
    ============================================================ */
 h1, h2, h3, h4, h5, h6,
+h1.mono, h2.mono, h3.mono, h4.mono, h5.mono, h6.mono,
 .hero h1,
-.hero-title,
-.hero-title span,
 .section-head h2,
 .sub-title,
+.flags-title,
 .modal-head h2,
 .modal-section h3,
 .brand,
 .brand-text,
-.flag-name,
 .day h3,
 .country h3,
 .event h4,
@@ -725,8 +727,10 @@ h1, h2, h3, h4, h5, h6,
 .logo-fallback {
   font-family: var(--font-head);
 }
-/* Force Alpha Lyrae on the hero title (beats any inline style from content.js) */
+
+/* Force Alpha Lyrae on the hero title (beats inline styles from content.js) */
 #hero-title,
+#hero-title *,
 .hero-copy h1 {
   font-family: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   font-weight: 500 !important;
