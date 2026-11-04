@@ -12,7 +12,7 @@
 
 /* ---------- 2. КНОПКИ ---------- */
 .btn-primary {
-  background: var(--c- green);
+  background: var(--c-green);
   color: #FFFFFF;
   box-shadow: 0 8px 22px rgba(59,130,246,.28);
 }
