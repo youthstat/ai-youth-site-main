@@ -9,6 +9,12 @@
   font-display: swap;
 }
 
+/* Geist — via jsDelivr CDN (variable font, all weights) */
+@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.3.0/index.min.css');
+
+/* Sora — via Google Fonts (weights 400, 500, 600, 700) */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
+
 /* =====================================================================
    style.css — AI and Young People · Erasmus+ report site
    Mobile-first. Breakpoints: 480 / 768 / 1100
@@ -38,8 +44,9 @@
   --radius-sm: 14px;
   --header-h: 68px;
 
-  --font-head: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Font stacks */
+  --font-head: "Alpha Lyrae", "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Geist Variable", "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -63,6 +70,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   font-family: var(--font-body);
+  font-weight: 400;
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text);
@@ -72,8 +80,8 @@ body {
 body.no-scroll { overflow: hidden; }
 img, svg, canvas { max-width: 100%; display: block; }
 a { color: var(--link); }
-/* CHANGED: h5, h6 added */
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); font-weight: 500; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
+/* Sora headings with a clear semibold weight */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); font-weight: 600; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
 p { margin: 0 0 1em; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -690,85 +698,3 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
   .flag-item { opacity: 1; transform: none; }
 }
 .video-frame.is-loading .video-poster { background: transparent; }
-
-/* ============================================================
-   ALL HEADINGS → Alpha Lyrae
-   Перекриває .mono, який у HTML стоїть на #flags-title
-   ============================================================ */
-h1, h2, h3, h4, h5, h6,
-h1.mono, h2.mono, h3.mono, h4.mono, h5.mono, h6.mono,
-.hero h1,
-.section-head h2,
-.sub-title,
-.flags-title,
-.modal-head h2,
-.modal-section h3,
-.brand,
-.brand-text,
-.day h3,
-.country h3,
-.event h4,
-.help-main h4,
-.contact h4,
-.goal h4,
-.erasmus-card h3,
-.network-grid h3,
-.competences h3,
-.people-card h3,
-.donut-card h3,
-.video-title,
-.vd-title,
-.stat-num,
-.country-people,
-.gallery-overlay strong,
-.partner,
-.donut-center strong,
-.people-stat strong,
-.logo-fallback {
-  font-family: var(--font-head);
-}
-
-/* Force Alpha Lyrae on the hero title (beats inline styles from content.js) */
-#hero-title,
-#hero-title *,
-.hero-copy h1 {
-  font-family: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif !important;
-  font-weight: 500 !important;
-}
-/* ============================================================
-   FORCE Alpha Lyrae on ALL headings (bypasses var() and specificity)
-   ============================================================ */
-h1, h2, h3, h4, h5, h6,
-#hero-title,
-.hero h1,
-.hero-copy h1,
-.hero-copy,
-.flags-title,
-.section-head h2,
-.sub-title,
-.modal-head h2,
-.modal-section h3,
-.day h3,
-.country h3,
-.event h4,
-.help-main h4,
-.contact h4,
-.goal h4,
-.erasmus-card h3,
-.network-grid h3,
-.competences h3,
-.people-card h3,
-.donut-card h3,
-.video-title,
-.vd-title {
-  font-family: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif !important;
-}
-/* NUCLEAR: force Alpha Lyrae on hero title, regardless of everything else */
-#hero-title,
-#hero-title *,
-h1#hero-title,
-.hero-copy h1,
-.hero-copy h1 * {
-  font-family: "Alpha Lyrae", "Space Grotesk", sans-serif !important;
-  font-weight: 500 !important;
-}
