@@ -472,122 +472,228 @@ img.is-loading { aspect-ratio: 3 / 2; width: 100%; }
 .video-frame.is-loading .video-poster { background: transparent; }
 
 /* ============================================================
-   ALPHA LYRAE OVERRIDES
+   ALPHA LYRAE - TARGETED OVERRIDES
+   Only specified elements receive Alpha Lyrae.
+   About paragraphs stay Inter (see last block).
    ============================================================ */
 
-/* ═══ 1. ХЕДЕР — brand + burger + theme + nav + усе всередині ═══ */
+/* --- 1. HEADER: brand, nav, theme toggle, burger --- */
 header.site-header,
 header.site-header *,
-.site-header,
-.site-header *,
-.header-inner,
-.header-inner *,
-.brand,
-.brand *,
-.brand-text,
-.brand-mark,
-.header-actions,
-.header-actions *,
-.icon-btn,
-.burger,
-.site-nav,
-.site-nav *,
-.site-nav a,
-.site-nav a:hover,
-.site-nav a[aria-current="true"],
+.site-header .brand,
+.site-header .brand *,
+.site-header .brand-text,
+.site-header .header-actions *,
+.site-header .icon-btn,
+.site-header .burger,
+.site-header .site-nav,
+.site-header .site-nav *,
+.site-header .site-nav a,
+.site-header .site-nav a[aria-current="true"] {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 2. h2 — АГРЕСИВНО ═══ */
-body h2,
-body h2[id],
-body h2[class],
-html body .section-head h2,
-html body header.section-head h2,
-html body section h2,
-[id$="-title"],
-#about-title, #planned-title, #programme-title,
-#participants-title, #impact-title, #local-title,
-#gallery-title, #videos-title, #network-title, #contacts-title,
+/* --- 2. ALL H2 WITH alpha-head CLASS --- */
+h2.alpha-head,
+h2.alpha-head.mono,
+#flags-title.alpha-head,
+#flags-title.alpha-head.mono,
+.flags-title.alpha-head,
+.flags-title.alpha-head.mono,
+#about-title,
+#planned-title,
+#programme-title,
+#participants-title,
+#impact-title,
+#local-title,
+#gallery-title,
+#videos-title,
+#network-title,
+#contacts-title,
 .modal-head h2,
-.sub-title,
+.sub-title {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 3. Hero ═══ */
+/* --- 3. HERO: title, buttons, flags card --- */
 #hero-title,
-.hero .btn-primary, .hero .btn-ghost,
-.flags-card, .flags-card *,
+.hero .btn-primary,
+.hero .btn-ghost,
+.flags-card,
+.flags-card * {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 4. ABOUT ═══ */
-.erasmus-card, .erasmus-card h3, .erasmus-card p,
+/* --- 4. ABOUT: erasmus card, lead, goals (NOT about-text) --- */
+.erasmus-card,
+.erasmus-card h3,
+.erasmus-card p,
 #about-lead,
-.about-text, .about-text p, .about-text *,
 #about .sub-title,
-.goals, .goals *, .goal, .goal *, .goal h4, .goal p,
+.goals,
+.goals *,
+.goal,
+.goal *,
+.goal h4,
+.goal p {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 5. PLANNED vs ACHIEVED ═══ */
-#progress-list, #progress-list *,
-.prog, .prog-top, .prog-label, .prog-val,
+/* --- 5. PLANNED vs ACHIEVED --- */
+#progress-list,
+#progress-list *,
+.prog,
+.prog-top,
+.prog-label,
+.prog-val {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 6. PROGRAMME lead ═══ */
-#programme .section-head .lead,
+/* --- 6. PROGRAMME lead text --- */
+#programme .section-head .lead {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 7. PARTICIPANTS — Key competences + Youthpass ═══ */
-.competences, .competences *, .competences h3,
-.comp-grid, .comp-grid *, .comp, .comp *, .comp span,
+/* --- 7. PARTICIPANTS: competences, donut, people stats --- */
+.competences,
+.competences *,
+.competences h3,
+.comp-grid,
+.comp-grid *,
+.comp,
+.comp *,
+.comp span,
 .note,
-#competences, #competences *,
-#donut-card, #donut-card *,
-#people-card, #people-card *,
-.people-stat, .people-stat *, .people-stat strong, .people-stat span,
-.chips, .chips *, .chip,
+#competences,
+#competences *,
+#donut-card,
+#donut-card *,
+#people-card,
+#people-card *,
+.people-stat,
+.people-stat *,
+.people-stat strong,
+.people-stat span,
+.chips,
+.chips *,
+.chip {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 8. IMPACT ═══ */
-#stats, #stats *, .stat, .stat *, .stat-num, .stat-label, .count-badge,
-.dl-target, .dl-target *,
+/* --- 8. IMPACT DASHBOARD --- */
+#stats,
+#stats *,
+.stat,
+.stat *,
+.stat-num,
+.stat-label,
+.count-badge,
+.dl-target,
+.dl-target * {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 9. LOCAL IMPACT ═══ */
+/* --- 9. LOCAL IMPACT --- */
 #local-intro,
-.country, .country *, .country h3, .country-place, .country-text,
-.country-people, .country-people small,
-.country-switch, .switch-btn,
+.country,
+.country *,
+.country h3,
+.country-place,
+.country-text,
+.country-people,
+.country-people small,
+.country-switch,
+.switch-btn {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 10. NETWORK ═══ */
+/* --- 10. NETWORK --- */
 #network-lead,
-.help-item, .help-item *, .help-main h4, .help-main p,
-.next-card, .next-card *, .next-list, .next-list *,
+.help-item,
+.help-item *,
+.help-main h4,
+.help-main p,
+.next-card,
+.next-card *,
+.next-list,
+.next-list * {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 11. CONTACTS / PARTNERS ═══ */
+/* --- 11. CONTACTS / PARTNERS --- */
 #contacts-lead,
-.contact, .contact *, .contact h4, .contact a,
-.partner, .partner *, .partner-link, .partner-link *,
+.contact,
+.contact *,
+.contact h4,
+.contact a,
+.partner,
+.partner *,
+.partner-link,
+.partner-link * {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 12. FOOTER ═══ */
-#disclaimer, .logo-fallback, .btn-ghost-light, .copyright,
+/* --- 12. FOOTER (except About-paragraphs) --- */
+#disclaimer,
+.logo-fallback,
+.btn-ghost-light,
+.copyright {
+  font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
 
-/* ═══ 13. Кнопки / фото-контроли ═══ */
-.btn, .card-btn, .switch-btn, .gallery-toggle,
-.video-expand, .dialog-close,
-.gallery, .gallery *, .gallery-more, .gallery-more *,
-.gallery-item, .gallery-item *, .gallery-overlay, .gallery-overlay *,
-.car-btn, .car-prev, .car-next,
-.days-btn, .days-prev, .days-next, .days-dot,
-.lb-btn, .lb-prev, .lb-next, .lb-close,
+/* --- 13. ALL BUTTONS & PHOTO CONTROLS --- */
+.btn,
+.card-btn,
+.switch-btn,
+.gallery-toggle,
+.video-expand,
+.dialog-close,
+.gallery,
+.gallery *,
+.gallery-more,
+.gallery-more *,
+.gallery-item,
+.gallery-item *,
+.gallery-overlay,
+.gallery-overlay *,
+.car-btn,
+.car-prev,
+.car-next,
+.days-btn,
+.days-prev,
+.days-next,
+.days-dot,
+.lb-btn,
+.lb-prev,
+.lb-next,
+.lb-close,
 .play {
   font-family: "Alpha Lyrae", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   font-weight: 500 !important;
 }
-/* About-параграфи → залишити в Inter, як було */
+
+/* ============================================================
+   ABOUT PARAGRAPHS - KEEP IN INTER (must be LAST block)
+   Guarantees the three About paragraphs stay Inter, not Alpha Lyrae.
+   ============================================================ */
 #about-text,
+#about-text p,
 #about-text *,
 .about-text,
-.about-text *,
-#about-text p,
-.about-text p {
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
-  font-weight: 400 !important;
-}
-#about-text, #about-text *,
-.about-text, .about-text *,
-#about-text p, .about-text p,
-#about-lead {
+.about-text p,
+.about-text * {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
   font-weight: 400 !important;
 }
