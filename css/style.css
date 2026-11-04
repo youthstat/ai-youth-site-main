@@ -1,4 +1,15 @@
 /* =====================================================================
+   FONTS
+   ===================================================================== */
+@font-face {
+  font-family: "Alpha Lyrae";
+  src: url("AlphaLyraeMedium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =====================================================================
    style.css — AI and Young People · Erasmus+ report site
    Mobile-first. Breakpoints: 480 / 768 / 1100
    ===================================================================== */
@@ -27,7 +38,7 @@
   --radius-sm: 14px;
   --header-h: 68px;
 
-  --font-head: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-head: "Alpha Lyrae", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
@@ -61,7 +72,7 @@ body {
 body.no-scroll { overflow: hidden; }
 img, svg, canvas { max-width: 100%; display: block; }
 a { color: var(--link); }
-h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
+h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 500; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
 p { margin: 0 0 1em; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -191,7 +202,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 .hero-grid { position: relative; z-index: 2; display: grid; gap: 36px; align-items: center; }
 .eyebrow { color: var(--cyan); font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
-.hero h1 { font-size: clamp(2rem, 7vw, 3.8rem); font-weight: 700; margin-bottom: .45em; text-wrap: balance; }
+.hero h1 { font-size: clamp(2rem, 7vw, 3.8rem); font-weight: 500; margin-bottom: .45em; text-wrap: balance; }
 .hero-sub { color: var(--amber); font-size: .92rem; margin-bottom: 18px; }
 .hero-desc { font-size: 1.1rem; color: #D4DFF5; max-width: 560px; margin-bottom: 28px; }
 
