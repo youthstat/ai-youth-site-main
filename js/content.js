@@ -181,7 +181,7 @@ window.SITE_DATA = {
       events: [
         { place: "Shelter of T.H. Shevchenko National University “Chernihiv Colehium”", people: 13,
           text: "Andrii presented the project to 13 students and teachers. The info session covered Erasmus+ youth exchanges, trainings, volunteering and how to write a strong application. He also shared his own experience from Vatra Dornei. The Faculty of Philology published a post about the session." },
-        { { place: "Youth Centre, Lviv", people: 28,
+        { place: "Youth Centre, Lviv", people: 28,
   text: "The Digital Safety Lab project taught 28 young people about password security, phishing, privacy, and safe online responses. Participants took part in practical exercises and AI-assisted scenario activities, exploring how AI can both support and threaten cybersecurity." }
 ],
       youtube: "", photoFolder: "images/countries/ukraine/", photoMax: 30
