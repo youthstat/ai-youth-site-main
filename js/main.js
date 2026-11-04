@@ -425,64 +425,161 @@
     initNetwork();
   };
 
+  // const initNetwork = () => {
+  //   const canvas = $('#hero-canvas');
+  //   if (!canvas) return;
+  //   const ctx = canvas.getContext && canvas.getContext('2d');
+  //   if (!ctx) return;
+  //   let w = 0; let ht = 0; let dots = []; let raf = 0; let visible = true;
+  //   const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  //   const resize = () => {
+  //     const r = canvas.getBoundingClientRect();
+  //     w = r.width; ht = r.height;
+  //     canvas.width = w * dpr; canvas.height = ht * dpr;
+  //     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  //     const count = Math.max(22, Math.min(70, Math.round((w * ht) / 22000)));
+  //     dots = Array.from({ length: count }, () => ({
+  //       x: Math.random() * w, y: Math.random() * ht,
+  //       vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35
+  //     }));
+  //   };
+
+  //   const draw = () => {
+  //     ctx.clearRect(0, 0, w, ht);
+  //     for (const d of dots) {
+  //       if (!reduceMotion) {
+  //         d.x += d.vx; d.y += d.vy;
+  //         if (d.x < 0 || d.x > w) d.vx *= -1;
+  //         if (d.y < 0 || d.y > ht) d.vy *= -1;
+  //       }
+  //       ctx.beginPath(); ctx.arc(d.x, d.y, 1.8, 0, Math.PI * 2);
+  //       ctx.fillStyle = 'rgba(34,211,238,.8)'; ctx.fill();
+  //     }
+  //     for (let a = 0; a < dots.length; a += 1) {
+  //       for (let b = a + 1; b < dots.length; b += 1) {
+  //         const dx = dots[a].x - dots[b].x; const dy = dots[a].y - dots[b].y;
+  //         const dist = Math.hypot(dx, dy);
+  //         if (dist < 130) {
+  //           ctx.strokeStyle = `rgba(120,170,255,${(1 - dist / 130) * 0.35})`;
+  //           ctx.lineWidth = 1;
+  //           ctx.beginPath(); ctx.moveTo(dots[a].x, dots[a].y); ctx.lineTo(dots[b].x, dots[b].y); ctx.stroke();
+  //         }
+  //       }
+  //     }
+  //   };
+
+  //   const loop = () => { draw(); if (visible && !reduceMotion) raf = requestAnimationFrame(loop); };
+  //   resize(); draw();
+  //   if (reduceMotion) { window.addEventListener('resize', () => { resize(); draw(); }); return; }
+  //   loop();
+  //   let t = 0;
+  //   window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(resize, 200); });
+  //   if ('IntersectionObserver' in window) {
+  //     new IntersectionObserver(([e]) => {
+  //       visible = e.isIntersecting;
+  //       if (visible) { cancelAnimationFrame(raf); loop(); } else cancelAnimationFrame(raf);
+  //     }).observe(canvas);
+  //   }
+  // };
+   
+/* ЗАМІНИТИ в main.js цілу функцію initNetwork на цю.
+     Замість ліній — плаваючі цифри 0/1 і шматочки коду, кольори з IDE-палітри.
+     Вони пливуть вгору поверх фото, а біля курсора яскравішають і відштовхуються. */
   const initNetwork = () => {
     const canvas = $('#hero-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext && canvas.getContext('2d');
     if (!ctx) return;
+    const hero = canvas.closest('.hero') || canvas;
+
+    const GLYPHS = ['0', '1', '0', '1', '0', '1', '0', '1', '01', '10', '00', '11', '101', '010',
+      '{ }', '</>', '=>', 'AI', '0x1F', '//', '[ ]'];
+    /* [rgb, максимальна прозорість] — фіолетовий домінує */
+    const COLORS = [
+      ['197,134,192', 0.60], ['197,134,192', 0.60], ['197,134,192', 0.50],
+      ['206,145,120', 0.45],   // #CE9178
+      ['220,220,170', 0.42],   // #DCDCAA
+      ['156,220,254', 0.28],   // #9CDCFE (рідко)
+      ['128,128,128', 0.45]    // #808080
+    ];
+    const FONT = '"JetBrains Mono", "Space Mono", ui-monospace, monospace';
+    if (document.fonts && document.fonts.load) document.fonts.load(`500 16px ${FONT}`).catch(() => {});
+
     let w = 0; let ht = 0; let dots = []; let raf = 0; let visible = true;
+    const ptr = { x: -999, y: -999 };
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rnd = (a, b) => a + Math.random() * (b - a);
+
+    const make = (anywhere) => {
+      const [rgb, a] = COLORS[Math.floor(Math.random() * COLORS.length)];
+      const depth = Math.random();                 // 0 — далеко, 1 — близько
+      return {
+        x: rnd(0, w), y: anywhere ? rnd(0, ht) : ht + rnd(10, 60),
+        g: GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
+        s: 11 + depth * 17,                        // розмір шрифту
+        vy: -(0.10 + depth * 0.38),                // близькі рухаються швидше
+        sw: rnd(0.4, 1.2), ph: rnd(0, 6.28),
+        rgb, a: a * (0.45 + depth * 0.55)
+      };
+    };
 
     const resize = () => {
       const r = canvas.getBoundingClientRect();
       w = r.width; ht = r.height;
       canvas.width = w * dpr; canvas.height = ht * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.max(22, Math.min(70, Math.round((w * ht) / 22000)));
-      dots = Array.from({ length: count }, () => ({
-        x: Math.random() * w, y: Math.random() * ht,
-        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35
-      }));
+      const count = Math.max(28, Math.min(84, Math.round((w * ht) / 15000)));
+      dots = Array.from({ length: count }, () => make(true));
     };
 
-    const draw = () => {
+    const draw = (t = 0) => {
       ctx.clearRect(0, 0, w, ht);
-      for (const d of dots) {
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      for (const p of dots) {
         if (!reduceMotion) {
-          d.x += d.vx; d.y += d.vy;
-          if (d.x < 0 || d.x > w) d.vx *= -1;
-          if (d.y < 0 || d.y > ht) d.vy *= -1;
+          p.y += p.vy;
+          p.x += Math.sin(t / 1000 * p.sw + p.ph) * 0.18;
+          if (p.y < -30) Object.assign(p, make(false));
+          if ((p.g === '0' || p.g === '1') && Math.random() < 0.002) p.g = p.g === '0' ? '1' : '0';
         }
-        ctx.beginPath(); ctx.arc(d.x, d.y, 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(34,211,238,.8)'; ctx.fill();
-      }
-      for (let a = 0; a < dots.length; a += 1) {
-        for (let b = a + 1; b < dots.length; b += 1) {
-          const dx = dots[a].x - dots[b].x; const dy = dots[a].y - dots[b].y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 130) {
-            ctx.strokeStyle = `rgba(120,170,255,${(1 - dist / 130) * 0.35})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath(); ctx.moveTo(dots[a].x, dots[a].y); ctx.lineTo(dots[b].x, dots[b].y); ctx.stroke();
-          }
-        }
+        /* плавне зникання біля верху й низу */
+        const edge = Math.max(0, Math.min(1, Math.min(p.y, ht - p.y) / (ht * 0.16)));
+        /* реакція на курсор */
+        const dx = p.x - ptr.x; const dy = p.y - ptr.y;
+        const d = Math.hypot(dx, dy);
+        const near = d < 150 ? 1 - d / 150 : 0;
+        const ox = near ? (dx / (d || 1)) * near * 18 : 0;
+        const oy = near ? (dy / (d || 1)) * near * 18 : 0;
+        const alpha = Math.min(1, (p.a + near * 0.45) * edge);
+        if (alpha < 0.02) continue;
+        ctx.font = `500 ${p.s}px ${FONT}`;
+        ctx.fillStyle = `rgba(${p.rgb},${alpha.toFixed(3)})`;
+        ctx.fillText(p.g, p.x + ox, p.y + oy);
       }
     };
 
-    const loop = () => { draw(); if (visible && !reduceMotion) raf = requestAnimationFrame(loop); };
+    const loop = (t) => { draw(t); if (visible && !reduceMotion) raf = requestAnimationFrame(loop); };
+
+    hero.addEventListener('pointermove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      ptr.x = e.clientX - r.left; ptr.y = e.clientY - r.top;
+    });
+    hero.addEventListener('pointerleave', () => { ptr.x = -999; ptr.y = -999; });
+
     resize(); draw();
     if (reduceMotion) { window.addEventListener('resize', () => { resize(); draw(); }); return; }
-    loop();
-    let t = 0;
-    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(resize, 200); });
+    raf = requestAnimationFrame(loop);
+    let rt = 0;
+    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 200); });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(([e]) => {
         visible = e.isIntersecting;
-        if (visible) { cancelAnimationFrame(raf); loop(); } else cancelAnimationFrame(raf);
+        cancelAnimationFrame(raf);
+        if (visible) raf = requestAnimationFrame(loop);
       }).observe(canvas);
     }
   };
-
   /* ========== 10. ABOUT & PROGRESS ========== */
   const renderAbout = () => {
     const A = D.about;
