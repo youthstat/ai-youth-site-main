@@ -121,7 +121,7 @@
 .media-skel::after, .gallery-skel::after,
 .vd-stage.is-loading::after {
   border-color: rgba(249,115,22,.25);
-  border-top-color: var(--c-orange);
+  border-top-color: var(--c-blue);
 }
 
 /* ---------- 6. ФУТЕР (завжди темний, як статус-бар у VS Code) ---------- */
