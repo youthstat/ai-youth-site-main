@@ -57,49 +57,50 @@ window.SITE_DATA = {
 
   /* ========== 4. PROGRAMME (7 DAYS) ==========
      date: activity days ran from 26 August to 1 September (25 Aug and 2 Sep were travel days)
+     Day titles and activity names follow the project's activity programme (Excel timetable).
      youtube: 11-character video ID (the part after v=). Empty = video block hidden.
      photos: optional manual list, e.g. ["a.jpg","b.jpg"]; otherwise photo-1.jpg, photo-2.jpg... are auto-detected. */
   days: [
     {
-      id: 1, date: "26 August", title: "Ice-Breaking & Group Agreement", countries: [], icon: "🧭",
-      description: "We got to know each other, learned about the project, agreed on the rules together and tried Mission Impossible: AI edition.",
-      activities: ["Ice-breaking and getting to know each other", "Intro to the project & Code of Conduct", "Fears & expectations, learning agreement", "Mission Impossible: AI edition", "Speed dating"],
+      id: 1, date: "26 August", title: "Foundation & Awareness", countries: [], icon: "🧭",
+      description: "We got to know each other through name and ice-breaking games, agreed on the Code of Conduct and the learning agreement, shared our expectations and fears, and built trust in Mission Impossible: AI edition.",
+      activities: ["Name & ice-breaking games", "Code of Conduct and Rules (intro to the project)", "Expectations & Fears Wall; Learning Agreement", "Team and trust building: Mission Impossible – AI edition", "Daily Reflection in Learning Families", "Speed Dating"],
       youtube: "", photoFolder: "images/days/day1/", photoMax: 30
     },
     {
-      id: 2, date: "27 August", title: "AI Detective & AI Boundaries", countries: ["Romania", "Moldova"], icon: "🕵️",
-      description: "We investigated AI together, discussed where its boundaries should be and shared our cultures on the first Cultural Night.",
-      activities: ["AI Detective (investigate your buddy)", "AI corners", "World Café: AI boundaries (laws created by country)", "AI community", "Cultural Night: Romania, Moldova"],
+      id: 2, date: "27 August", title: "Understanding Artificial Intelligence", countries: ["Romania", "Moldova"], icon: "🕵️",
+      description: "We explored what AI is through AI in My Pocket and the AI Detective game with our buddies, debated AI in the AI Corners, drafted laws for AI in a World Café and shared our cultures on the first Cultural Night.",
+      activities: ["AI in My Pocket: AI Detective (investigate your buddy)", "AI Corners", "World Café: AI Boundaries (laws created by country)", "AI Community", "Daily Reflection in Learning Families", "Intercultural Evening: Romania, Moldova"],
       youtube: "", photoFolder: "images/days/day2/", photoMax: 30
     },
     {
-      id: 3, date: "28 August", title: "Fake News & Algorithmic Bias", countries: ["Ukraine", "Poland"], icon: "📰",
-      description: "We investigated fake news, looked at AI in our own countries and held a court role-play on algorithmic bias.",
-      activities: ["Fake News Investigation", "AI in your country", "Role-play on algorithmic bias (court)", "Cultural Night: Ukraine, Poland"],
+      id: 3, date: "28 August", title: "Critical Thinking & Digital Safety", countries: ["Ukraine", "Poland"], icon: "📰",
+      description: "We investigated fake news in the Digital Detective Lab, looked at AI in our own countries in Digital Borders and held The Algorithmic Court, a role-play on algorithmic bias.",
+      activities: ["Digital Detective Lab: Fake News Investigation", "Digital Borders: AI in Your Country", "The Algorithmic Court: Role-Play", "Verdict & Ethical Debrief", "Daily Reflection in Learning Families", "Intercultural Evening: Ukraine, Poland"],
       youtube: "", photoFolder: "images/days/day3/", photoMax: 30
     },
     {
-      id: 4, date: "29 August", title: "Study Visit & Cultural Night", countries: ["Jordan", "Georgia"], icon: "🚌",
-      description: "We went on a study visit, reflected on the day and shared Jordan and Georgia on the Cultural Night.",
-      activities: ["Study visit", "Reflection", "Cultural Night: Jordan, Georgia"],
+      id: 4, date: "29 August", title: "Community Connection & Intercultural Learning", countries: ["Jordan", "Georgia"], icon: "🚌",
+      description: "We took our learning into the town with the Tech in My Town study visit, met pupils and teachers at the local school, reflected on the day and shared Jordan and Georgia on the Cultural Night.",
+      activities: ["Study Visit: Tech in My Town", "Visit to Local School: Scoala Gimnaziala Nr. 4 Vatra Dornei", "Daily Reflection in Learning Families", "Intercultural Evening: Jordan, Georgia"],
       youtube: "", photoFolder: "images/days/day4/", photoMax: 30
     },
     {
-      id: 5, date: "30 August", title: "AI Literacy Toolkit & Videos", countries: [], icon: "🧰",
-      description: "We created the AI Literacy Toolkit and the educational videos, and presented the videos to the group.",
-      activities: ["AI Literacy Toolkit creation", "Video materials creation", "Video material presentation", "Oscar night"],
+      id: 5, date: "30 August", title: "Co-creation: AI Literacy Toolkit & Content", countries: [], icon: "🧰",
+      description: "We created the AI Literacy Toolkit in the Project Lab, made short educational videos in the Content Creation Challenge, presented them to the group and celebrated at Oscar Night.",
+      activities: ["Project Lab: AI Literacy Toolkit creation", "Content Creation Challenge: Video materials creation", "Content Creation Challenge: Video presentation", "Daily Reflection in Learning Families", "Oscar Night"],
       youtube: "", photoFolder: "images/days/day5/", photoMax: 30
     },
     {
-      id: 6, date: "31 August", title: "Trip & Rest Day", countries: [], icon: "🏞️",
-      description: "We went on a trip together, then reflected on the week and had time to socialise and rest.",
-      activities: ["Trip", "Reflection", "Socialising / rest"],
+      id: 6, date: "31 August", title: "Technology & Environment", countries: [], icon: "🏞️",
+      description: "We went on the AI & Our Planet: Reflective Hike, discussing AI, sustainability and our digital footprint along the way and sharing a picnic in nature. The day ended with a reflection and a relaxed evening.",
+      activities: ["AI & Our Planet: Reflective Hike", "Picnic (local, seasonal food)", "Daily Reflection in Learning Families", "Relax & Recharge: Socialising / Rest"],
       youtube: "", photoFolder: "images/days/day6/", photoMax: 30
     },
     {
-      id: 7, date: "1 September", title: "Follow-up, Evaluation & Farewell", countries: [], icon: "🎉",
-      description: "We talked about Erasmus+ and Youthpass, planned the follow-up, evaluated the exchange and said goodbye at the farewell party.",
-      activities: ["Erasmus+ & Youthpass", "Follow-up & dissemination strategy", "Reflect & Grow: final evaluation", "Final feedback and reflections", "Farewell party"],
+      id: 7, date: "1 September", title: "Reflection & Future Action", countries: [], icon: "🎉",
+      description: "We talked about Erasmus+ and the Youthpass Flower, planned the follow-up and the AI & Youth Ambassadors Network, evaluated the exchange in Reflect & Grow and said goodbye at the Farewell Party.",
+      activities: ["Erasmus+, Youthpass Flower", "Follow-up & Dissemination Strategy (Launch of AI & Youth Ambassadors Network)", "Reflect & Grow: Final Evaluation", "Final Feedback and Reflections", "Farewell Party (Closing Gala)"],
       youtube: "", photoFolder: "images/days/day7/", photoMax: 30
     }
   ],
@@ -264,7 +265,7 @@ window.SITE_DATA = {
       },
       {
         icon: "🗓️", title: "Reuse the programme",
-        text: "Revisit the seven days and their activities, such as the AI Detective, the World Café on AI boundaries or the algorithmic bias court role-play, as ideas for your own sessions.",
+        text: "Revisit the seven days and their activities, such as the AI Detective, the World Café on AI boundaries or The Algorithmic Court role-play on algorithmic bias, as ideas for your own sessions.",
         link: "#programme", buttonText: "See the programme"
       },
       {
