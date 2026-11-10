@@ -59,7 +59,7 @@
 }
 .fb-shell:focus-within .fb-bar::after { transform: scaleX(1); }
 
-/* ---------- 3. FORM + SIDE PANEL (stacked, no side-by-side) ---------- */
+/* ---------- 3. FORM + FLYING-DIGITS PANEL (stacked) ---------- */
 .fb-body { display: grid; }
 .fb-form { display: grid; gap: var(--fb-gap); padding: 22px; align-content: start; min-width: 0; }
 
