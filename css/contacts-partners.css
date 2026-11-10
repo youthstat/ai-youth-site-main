@@ -217,3 +217,10 @@ html:not(.js) #contacts .partner { opacity: 1; }
   background: transparent;
 }
 #contacts .partner ::selection { background: transparent; }
+/* ---------- Менший проміжок між Network і Partners ---------- */
+#contacts.section {
+  padding-top: clamp(40px, 5vw, 64px);
+}
+#contacts .container > .sub-title:first-child {
+  margin-top: 0;
+}
