@@ -2,13 +2,15 @@
    feedback-form.css — feedback card (Contacts section)
    Centered, narrower card + decorative glowing green arrows around it.
    Uses the same colour tokens as the rest of the site.
+   Desktop: arrows scattered around the form.
+   Mobile:  arrows become a tag-cloud above the form.
    ===================================================================== */
 
 /* ---- HOW TO CHANGE THE LOOK (edit these lines) ---- */
 .feedback {
-  --fb-accent: var(--c-green);
-  --fb-gold:   #f5cf79;
-  --fb-error:  #EF4444;
+  --fb-accent: var(--c-green);        /* main green accent              */
+  --fb-gold:   #f5cf79;               /* warm gold accent (dots)        */
+  --fb-error:  #EF4444;               /* error colour                   */
   --fb-radius: 14px;
   --fb-gap:    18px;
 
@@ -17,13 +19,14 @@
   grid-template-columns: 1fr;
   gap: 20px;
 
+  /* centered, narrower card */
   width: 100%;
   max-width: 680px;
   margin-inline: auto;
 
   padding: clamp(22px, 3.5vw, 36px);
-  background: var(--surface-solid);
-  border: 1.5px solid var(--c-green);
+  background: var(--surface-solid);          /* same as .card on site  */
+  border: 1.5px solid var(--c-green);        /* green outline only     */
   border-radius: 22px;
   box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .08);
   overflow: hidden;
@@ -47,6 +50,8 @@
 
 /* ============================================================
    FLOATING GLOWING ARROWS
+   Desktop: scattered around the form
+   Mobile:  wrapping tag-cloud above the form
    ============================================================ */
 .fb-arrow {
   position: absolute;
@@ -92,14 +97,14 @@
 
 /* Base arrow points RIGHT (→). Rotate per position so each one
    looks toward the form. */
-.fb-arrow--tl svg { transform: rotate(45deg); }   /* ↘ down-right  */
-.fb-arrow--tr svg { transform: rotate(135deg); }  /* ↙ down-left   */
-.fb-arrow--l  svg { transform: rotate(0deg); }    /* → right       */
-.fb-arrow--r  svg { transform: rotate(180deg); }  /* ← left        */
-.fb-arrow--bl svg { transform: rotate(-45deg); }  /* ↗ up-right    */
-.fb-arrow--br svg { transform: rotate(-135deg); } /* ↖ up-left     */
+.fb-arrow--tl svg { transform: rotate(45deg); }
+.fb-arrow--tr svg { transform: rotate(135deg); }
+.fb-arrow--l  svg { transform: rotate(0deg); }
+.fb-arrow--r  svg { transform: rotate(180deg); }
+.fb-arrow--bl svg { transform: rotate(-45deg); }
+.fb-arrow--br svg { transform: rotate(-135deg); }
 
-/* Asymmetric placement — organic, not symmetric */
+/* Desktop placement — asymmetric, organic */
 .fb-arrow--tl { top: 4%;   left: 4%;   animation-delay: 0s;   }
 .fb-arrow--tr { top: 12%;  right: 2%;  animation-delay: .5s;  }
 .fb-arrow--l  { top: 40%;  left: 1%;   animation-delay: 1s;   }
@@ -124,16 +129,48 @@
   }
 }
 
-/* Hide arrows when there's no room for them */
-@media (max-width: 1099px) {
-  .fb-arrow { display: none; }
-}
-
-/* Dark theme — slightly brighter pills so they read well */
+/* Dark theme — brighter pills */
 :root[data-theme="dark"] .fb-arrow {
   background: rgba(34, 197, 94, .12);
   border-color: rgba(74, 222, 128, .55);
   color: #4ADE80;
+}
+
+/* ============================================================
+   TABLET & MOBILE (< 1100px)
+   Arrows stop floating and become a tag-cloud above the form.
+   ============================================================ */
+@media (max-width: 1099px) {
+  .feedback-stage {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    padding-block: 0;
+  }
+
+  /* Remove the desktop absolute offsets */
+  .feedback-stage > .fb-arrow {
+    position: static;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    padding: 7px 12px;
+    font-size: .62rem;
+    letter-spacing: .1em;
+    animation-duration: 4s;
+  }
+
+  /* All arrows point right — reads like a prompt list */
+  .feedback-stage > .fb-arrow svg { transform: rotate(0deg); }
+
+  /* Form always occupies its own row */
+  .feedback-stage > .feedback {
+    flex: 0 0 100%;
+    margin-top: 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -265,6 +302,7 @@
 }
 .fb-err:empty { display: none; }
 
+/* honeypot */
 .fb-hp {
   position: absolute;
   left: -9999px;
