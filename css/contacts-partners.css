@@ -1,29 +1,24 @@
 /* =====================================================================
    contacts-partners.css — #contacts section.
-   Partners aligned with the feedback card:
-     white surface · green 1.5px border · 22px radius · Space Grotesk text
+   Partners + Contacts share one card language with the feedback card:
+     white surface · green 1.5px border · 22px radius · soft shadow
      hover = green frame · active = golden frame.
-   Contacts terminal cards kept as before.
+   No terminal, no console, no code highlighting.
    ===================================================================== */
 
 /* ---------- змінні #contacts ---------- */
 #contacts {
-  --cp-bg:    var(--vsc-bg);
   --cp-bg-2:  var(--vsc-bg-alt);
   --cp-line:  var(--vsc-border);
   --cp-text:  var(--vsc-text);
   --cp-muted: var(--vsc-muted);
-  --cp-a:     var(--c-blue);          /* default accent for terminal cards */
-  --cp-glow:  rgba(59,130,246,.14);
-  --cp-shadow: 0 14px 34px rgba(0,0,0,.16);
 
   --cp-green:  var(--c-green);
   --cp-gold:   #f5cf79;
   --cp-radius: 22px;
-}
-:root[data-theme="dark"] #contacts {
-  --cp-glow: rgba(96,165,250,.20);
-  --cp-shadow: 0 14px 34px rgba(0,0,0,.5);
+  --cp-shadow-hover: 0 14px 30px -14px rgba(34, 197, 94, .38);
+  --cp-shadow-base:  0 6px 20px -12px rgba(0, 0, 0, .08);
+  --cp-border-base:  1.5px solid rgba(34, 197, 94, .35);
 }
 
 /* ---------- поява ---------- */
@@ -42,11 +37,11 @@
 }
 
 /* ============================================================
-   PARTNERS — same language as the feedback card
+   PARTNERS
    ============================================================ */
 #contacts .partners {
   list-style: none;
-  margin: 24px 0 52px;                     /* roomy gap before "Feedback & help" */
+  margin: 24px 0 40px;
   padding: 0;
   display: grid;
   gap: 20px;
@@ -62,9 +57,9 @@
   text-align: center;
 
   background: var(--surface-solid);
-  border: 1.5px solid rgba(34, 197, 94, .35);
+  border: var(--cp-border-base);
   border-radius: var(--cp-radius);
-  box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .08);
+  box-shadow: var(--cp-shadow-base);
   overflow: hidden;
   transition:
     transform .25s cubic-bezier(.2,.8,.2,1),
@@ -72,7 +67,6 @@
     box-shadow .25s ease;
 }
 
-/* logo tiles keep a white base so emblems read in both themes */
 #contacts .partner:has(img) { background: #FFFFFF; }
 
 #contacts .partner > a {
@@ -102,7 +96,6 @@
   width: 96px; height: 48px;
 }
 
-/* text-only partner — matches the feedback heading font */
 #contacts .partner:not(:has(img)) {
   font-family: "Space Grotesk", system-ui, sans-serif;
   font-weight: 600;
@@ -112,19 +105,15 @@
   color: var(--cp-green);
 }
 
-/* hover / keyboard focus: gentle lift, green frame, greenish shadow */
 #contacts .partner:hover,
 #contacts .partner:focus-within {
   transform: translateY(-3px);
   border-color: var(--cp-green);
-  box-shadow: 0 14px 30px -14px rgba(34, 197, 94, .38);
+  box-shadow: var(--cp-shadow-hover);
 }
 #contacts .partner:hover img,
-#contacts .partner:focus-within img {
-  transform: scale(1.04);
-}
+#contacts .partner:focus-within img { transform: scale(1.04); }
 
-/* active / keyboard focus-visible: golden frame (feedback accent) */
 #contacts .partner:active,
 #contacts .partner:has(a:active),
 #contacts .partner:has(a:focus-visible) {
@@ -132,103 +121,70 @@
   border-color: var(--cp-gold);
   box-shadow:
     0 0 0 3px rgba(245, 207, 121, .28),
-    0 14px 30px -14px rgba(34, 197, 94, .38);
+    var(--cp-shadow-hover);
 }
 #contacts .partner a:focus-visible { outline: none; }
 
 /* ============================================================
-   CONTACTS — terminal cards (unchanged design)
+   CONTACTS — simple cards (no terminal)
    ============================================================ */
 #contacts .contacts {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin: 0 0 52px;                        /* roomy gap before feedback */
 }
 
 #contacts .contact {
   position: relative;
-  isolation: isolate;
-  display: block;
-  padding: 0;
-  background: var(--cp-bg);
-  border: 1.5px solid var(--cp-line);
-  border-radius: 18px;
-  overflow: hidden;
+  padding: 24px 26px;
+
+  background: var(--surface-solid);
+  border: var(--cp-border-base);
+  border-radius: var(--cp-radius);
+  box-shadow: var(--cp-shadow-base);
+
   transition:
-    transform .3s cubic-bezier(.2,.8,.2,1),
-    box-shadow .3s ease,
-    border-color .3s ease;
-}
-#contacts .contact:hover,
-#contacts .contact:focus-within {
-  transform: translateY(-6px);
-  border-color: var(--cp-a);
-  box-shadow: var(--cp-shadow);
+    transform .25s cubic-bezier(.2,.8,.2,1),
+    border-color .25s ease,
+    box-shadow .25s ease;
 }
 
-/* ---------- TERMINAL ---------- */
-#contacts .term-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: var(--cp-bg-2);
-  border-bottom: 1px solid var(--cp-line);
-  font: 500 .8rem/1 ui-monospace, "JetBrains Mono", monospace;
-}
-#contacts .term-dots { display: inline-flex; gap: 5px; }
-#contacts .term-dots i { display: block; width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
-#contacts .term-dots i:nth-child(2) { background: #ffbd2e; }
-#contacts .term-dots i:nth-child(3) { background: #28c840; }
-#contacts .term-title { color: var(--cp-muted); }
-
-#contacts .term-body {
-  padding: 14px 16px;
-  font: 500 .85rem/1.6 ui-monospace, "JetBrains Mono", monospace;
-  color: var(--cp-text);
-  overflow-x: auto;
-}
-#contacts .code-line { display: flex; gap: 12px; }
-#contacts .ln { color: var(--cp-muted); user-select: none; min-width: 1.5em; text-align: right; }
-#contacts .code { white-space: pre; }
-
-#contacts .tok-p { color: #808080; }
-#contacts .tok-k { color: #0451A5; }
-#contacts .tok-s { color: #A31515; }
-:root[data-theme="dark"] #contacts .tok-p { color: #D4D4D4; }
-:root[data-theme="dark"] #contacts .tok-k { color: #9CDCFE; }
-:root[data-theme="dark"] #contacts .tok-s { color: #CE9178; }
-
-#contacts .term-body a {
-  display: inline;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px dashed currentColor;
-  overflow-wrap: anywhere;
-  vertical-align: baseline;
-}
-#contacts .term-body a:hover,
-#contacts .term-body a:focus-visible {
+#contacts .contact h4 {
+  font-family: "Alpha Lyrae", system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
   color: var(--cp-green);
+  margin: 0 0 14px;
+}
+
+#contacts .contact a {
+  display: block;
+  padding: 6px 0;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: .93rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  overflow-wrap: anywhere;
+  transition: color .2s, border-color .2s;
+}
+#contacts .contact a:hover,
+#contacts .contact a:focus-visible {
+  color: var(--cp-green);
+  border-bottom-color: currentColor;
   outline: none;
 }
 
-#contacts .cursor {
-  display: inline-block;
-  width: 8px; height: 1em;
-  vertical-align: text-bottom;
-  background: currentColor;
-  animation: cp-blink 1s steps(1) infinite;
+#contacts .contact:hover,
+#contacts .contact:focus-within {
+  transform: translateY(-3px);
+  border-color: var(--cp-green);
+  box-shadow: var(--cp-shadow-hover);
 }
-@keyframes cp-blink { 50% { opacity: 0; } }
-
-/* ---------- contact color rotation (3-colour, unchanged) ---------- */
-#contacts .contacts > .contact:nth-child(3n+1) { --cp-a: var(--c-blue); }
-#contacts .contacts > .contact:nth-child(3n+2) { --cp-a: var(--c-orange); }
-#contacts .contacts > .contact:nth-child(3n)   { --cp-a: var(--c-green); }
 
 /* ---------- no-JS / reduced motion ---------- */
 html:not(.js) #contacts .contact,
@@ -240,7 +196,6 @@ html:not(.js) #contacts .partner { opacity: 1; }
   #contacts .contact,
   #contacts .partner,
   #contacts .partner img { transition: none; }
-  #contacts .cursor { animation: none; }
 }
 
 /* ---------- kill blue tap-highlight / selection ---------- */
