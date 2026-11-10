@@ -1,53 +1,48 @@
 /* =====================================================================
    feedback-form.css — comment / help form (Contacts section)
-   Plain card. Digits fly behind the fields and drift away from the cursor.
-   Uses site tokens, so light / dark themes work automatically.
+   Plain card. All text (intro + labels + inputs) in golden #f5cf79.
+   No flying digits — clean, simple layout.
    ===================================================================== */
 
 /* ---- HOW TO CHANGE THE LOOK (edit these lines) ---- */
 .feedback {
   --fb-accent: var(--c-green);       /* focus ring, button                */
   --fb-error:  #EF4444;              /* error colour                      */
-  --fb-text:   #f5cf79;              /* text inside the fields            */
+  --fb-text:   #f5cf79;              /* text colour for intro + fields    */
   --fb-radius: 10px;                 /* roundness of inputs               */
   --fb-gap:    16px;                 /* space between fields              */
   --fb-input-bg: var(--vsc-bg-alt);  /* input background                  */
 
   position: relative;
-  overflow: hidden;                  /* clip the canvas to rounded corners */
   display: grid;
   gap: 22px;
   margin-top: 4px;
-}
-
-/* ---------- 1. INTRO ---------- */
-.feedback-intro { max-width: 68ch; position: relative; z-index: 1; }
-.feedback-intro h4 { font-size: clamp(1.3rem, 3vw, 1.7rem); margin: 0 0 10px; }
-.feedback-intro p  { margin: 0; color: var(--muted); font-size: .95rem; }
-
-/* ---------- 2. BODY: canvas behind, form above ---------- */
-.fb-body {
-  position: relative;
-  display: grid;
-}
-
-/* digits layer — fills the body, ignores pointer events */
-#fb-canvas {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
+  max-width: 100%;
+  grid-column: 1 / -1;               /* if parent is a grid, span all cols */
 }
 
+/* ---------- 1. INTRO (title + description) ---------- */
+.feedback-intro { max-width: 68ch; }
+.feedback-intro h4 {
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  margin: 0 0 10px;
+  color: var(--fb-text);
+}
+.feedback-intro p {
+  margin: 0;
+  font-size: .95rem;
+  color: var(--fb-text);
+}
+
+/* ---------- 2. FORM ---------- */
 .fb-form {
-  position: relative;
-  z-index: 1;
   display: grid;
   gap: var(--fb-gap);
   align-content: start;
   min-width: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* ---------- 3. FIELDS ---------- */
@@ -131,24 +126,4 @@
   .fb-actions .btn::after { transition: none; }
   .js .feedback.is-visible .fb-form > * { animation: none; }
   .fb-actions .btn[disabled], .fb-status { animation: none; }
-}
-/* Force the feedback card + inner form to fill the container width,
-   no matter what parent layout it ends up in. */
-#contacts .feedback {
-  width: 100%;
-  max-width: 100%;
-  margin-inline: 0;
-  grid-column: 1 / -1;   /* if it ever lands in a grid parent */
-}
-
-#contacts .feedback .fb-body,
-#contacts .feedback .fb-form {
-  width: 100%;
-  max-width: 100%;
-  justify-self: stretch;
-}
-
-#contacts .feedback .fb-form > * {
-  width: 100%;
-  max-width: 100%;
 }
