@@ -86,7 +86,6 @@
     });
   };
 
-  /* Окремий, надійний показ (партнери / контакти): низький поріг + страховка по таймеру */
   const showOnScroll = (els, fallbackMs = 2500) => {
     const show = (el) => el.classList.add('is-visible');
     if (!('IntersectionObserver' in window)) { els.forEach(show); return; }
@@ -560,11 +559,20 @@
 .days-carousel { position: relative; }
 .days-carousel .days {
   display: flex !important; grid-template-columns: none !important; gap: 16px; align-items: center !important; position: relative;
-  overflow: hidden !important; padding: 10px 14px 28px;
+  overflow-x: auto !important; overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 10px 14px 28px;
 }
-.days-carousel .days > .day { flex: 0 0 100%; min-width: 0; }
+.days-carousel .days::-webkit-scrollbar { display: none; }
+.days-carousel .days > .day { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
 @media (min-width: 700px)  { .days-carousel .days > .day { flex-basis: calc((100% - 16px) / 2); } }
 @media (min-width: 1100px) { .days-carousel .days > .day { flex-basis: calc((100% - 32px) / 3); } }
+@media (max-width: 699px)  { .days-carousel .days { scroll-snap-type: x mandatory; } }
 .days-carousel .day { align-content: start; height: auto; }
 .days-carousel .day-media { width: 100%; max-width: none; margin: 8px 0 0; }
 .days-carousel .day-media .carousel { width: 100%; max-width: none; margin: 0; border-radius: 12px; max-height: 460px; }
@@ -619,18 +627,37 @@
       list.scrollTo({ left: idx * step(), behavior: animate && !reduceMotion ? 'smooth' : 'auto' });
       update();
     };
+
     prev.addEventListener('click', () => goTo(idx - 1));
     next.addEventListener('click', () => goTo(idx + 1));
+
+    /* Sync `idx` when the user swipes / native-scrolls the day list */
+    let scrollTimer = 0;
+    list.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const s = step();
+        if (!s) return;
+        const newIdx = Math.round(list.scrollLeft / s);
+        const clamped = Math.min(Math.max(newIdx, 0), maxIdx());
+        if (clamped !== idx) { idx = clamped; update(); }
+      }, 80);
+    }, { passive: true });
+
     box.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(idx - 1); }
       if (e.key === 'ArrowRight') { e.preventDefault(); goTo(idx + 1); }
     });
+
     list.addEventListener('focusin', (e) => {
       const c = e.target.closest('.day');
       const i = cards.indexOf(c);
       if (i >= 0 && (i < idx || i >= idx + perView())) goTo(i, false);
     });
+
+    /* Recompute layout on resize, keeping the same logical index */
     window.addEventListener('resize', () => goTo(idx, false));
+
     update();
   };
 
@@ -1106,11 +1133,11 @@
   };
 
   /* ========== 19. CONTACTS & FOOTER ========== */
-const renderContacts = () => {
-  const leadEl = $('#contacts-lead');
-  if (leadEl) leadEl.textContent = D.contactsLead || '';
+  const renderContacts = () => {
+    const leadEl = $('#contacts-lead');
+    if (leadEl) leadEl.textContent = D.contactsLead || '';
 
-    /* --- PARTNERS (без .reveal: окремий показ) --- */
+    /* --- PARTNERS --- */
     const list = $('#partners');
     (D.partners || []).forEach((p, i) => {
       const li = h('li', { class: 'partner' + (p.url ? ' partner-link' : '') });
@@ -1151,7 +1178,6 @@ const renderContacts = () => {
       return card;
     }));
 
-    /* показ партнерів і контактів — не залежить від загального .reveal */
     showOnScroll($$('#contacts .partner, #contacts .contact'));
   };
 
