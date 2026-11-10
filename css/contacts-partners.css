@@ -1,7 +1,9 @@
 /* =====================================================================
-   contacts-partners.css — тільки #contacts + .partners.
-   3 кольори: orange / blue / green. Без градієнтів у фоні карток.
-   Підключати ПІСЛЯ style.css і ide-theme.css.
+   contacts-partners.css — #contacts section.
+   Partners aligned with the feedback card:
+     white surface · green 1.5px border · 22px radius · Space Grotesk text
+     hover = green frame · active = golden frame.
+   Contacts terminal cards kept as before.
    ===================================================================== */
 
 /* ---------- змінні #contacts ---------- */
@@ -11,19 +13,20 @@
   --cp-line:  var(--vsc-border);
   --cp-text:  var(--vsc-text);
   --cp-muted: var(--vsc-muted);
-  --cp-a:     var(--c-blue);          /* дефолтний акцент */
+  --cp-a:     var(--c-blue);          /* default accent for terminal cards */
   --cp-glow:  rgba(59,130,246,.14);
   --cp-shadow: 0 14px 34px rgba(0,0,0,.16);
+
+  --cp-green:  var(--c-green);
+  --cp-gold:   #f5cf79;
+  --cp-radius: 22px;
 }
 :root[data-theme="dark"] #contacts {
   --cp-glow: rgba(96,165,250,.20);
   --cp-shadow: 0 14px 34px rgba(0,0,0,.5);
 }
 
-/* ---------- поява ----------
-   Без JS (html:not(.js)) усе видно одразу.
-   З JS: ховаємо до додавання .is-visible (main.js + таймер-страховка).
-   fill-mode = backwards, щоб після анімації НЕ перебивався :hover transform. */
+/* ---------- поява ---------- */
 @keyframes cp-in {
   from { opacity: 0; transform: translateY(22px) scale(.97); }
   to   { opacity: 1; transform: none; }
@@ -38,81 +41,123 @@
   animation-delay: calc(var(--i, 0) * 80ms);
 }
 
-/* ---------- спільна основа карток ---------- */
-#contacts .contact,
+/* ============================================================
+   PARTNERS — same language as the feedback card
+   ============================================================ */
+#contacts .partners {
+  list-style: none;
+  margin: 24px 0 52px;                     /* roomy gap before "Feedback & help" */
+  padding: 0;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
 #contacts .partner {
-  --mx: 50%; --my: 0%;
-  position: relative; isolation: isolate;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 132px;
+  padding: 24px 18px;
+  text-align: center;
+
+  background: var(--surface-solid);
+  border: 1.5px solid rgba(34, 197, 94, .35);
+  border-radius: var(--cp-radius);
+  box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .08);
+  overflow: hidden;
+  transition:
+    transform .25s cubic-bezier(.2,.8,.2,1),
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+/* logo tiles keep a white base so emblems read in both themes */
+#contacts .partner:has(img) { background: #FFFFFF; }
+
+#contacts .partner > a {
+  display: grid;
+  place-items: center;
+  width: 100%; height: 100%;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+#contacts .partner img {
+  display: block;
+  max-width: 100%;
+  max-height: 72px;
+  width: auto; height: auto;
+  object-fit: contain;
+  filter: none;
+  opacity: 1;
+  mix-blend-mode: normal;
+  background: none;
+  animation: none;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+#contacts .partner img.is-loading {
+  aspect-ratio: auto;
+  width: 96px; height: 48px;
+}
+
+/* text-only partner — matches the feedback heading font */
+#contacts .partner:not(:has(img)) {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--cp-green);
+}
+
+/* hover / keyboard focus: gentle lift, green frame, greenish shadow */
+#contacts .partner:hover,
+#contacts .partner:focus-within {
+  transform: translateY(-3px);
+  border-color: var(--cp-green);
+  box-shadow: 0 14px 30px -14px rgba(34, 197, 94, .38);
+}
+#contacts .partner:hover img,
+#contacts .partner:focus-within img {
+  transform: scale(1.04);
+}
+
+/* active / keyboard focus-visible: golden frame (feedback accent) */
+#contacts .partner:active,
+#contacts .partner:has(a:active),
+#contacts .partner:has(a:focus-visible) {
+  transform: translateY(-3px);
+  border-color: var(--cp-gold);
+  box-shadow:
+    0 0 0 3px rgba(245, 207, 121, .28),
+    0 14px 30px -14px rgba(34, 197, 94, .38);
+}
+#contacts .partner a:focus-visible { outline: none; }
+
+/* ============================================================
+   CONTACTS — terminal cards (unchanged design)
+   ============================================================ */
+#contacts .contacts {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+#contacts .contact {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  padding: 0;
   background: var(--cp-bg);
   border: 1.5px solid var(--cp-line);
   border-radius: 18px;
-  box-shadow: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s;
-}
-#contacts .contact::before,
-#contacts .partner::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(260px circle at var(--mx) var(--my), var(--cp-glow), transparent 70%);
-  opacity: 0; transition: opacity .3s;
-}
-#contacts .contact:hover::before,
-#contacts .partner:hover::before { opacity: 1; }
-
-/* ---------- PARTNERS ---------- */
-#contacts .partners {
-  list-style: none; margin: 0 0 8px; padding: 0;
-  display: grid; gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-}
-#contacts .partner {
-  display: grid; place-items: center;
-  min-height: 112px; padding: 0; overflow: hidden; text-align: center;
-  background: var(--cp-bg);               /* перебиває .partner:has(img){background:#fff} зі style.css */
-}
-#contacts .partner:not(.partner-link),
-#contacts .partner > a { padding: 22px 20px; }
-#contacts .partner > a {
-  display: grid; place-items: center; width: 100%; height: 100%;
-  color: var(--cp-text); text-decoration: none; border: 0;
-}
-/* плитка з логотипом — завжди світла, щоб емблеми були видно в обох темах */
-#contacts .partner:has(img) { background: #FFFFFF; }
-#contacts .partner img {
-  display: block; max-width: 100%; max-height: 72px; width: auto; height: auto;
-  object-fit: contain;
-  filter: none; opacity: 1;               /* без grayscale / затемнення */
-  transition: transform .35s cubic-bezier(.2,.8,.2,1);
-}
-#contacts .partner img.is-loading { aspect-ratio: auto; width: 96px; height: 48px; }
-#contacts .partner:not(:has(img)) {
-  font-weight: 600; font-size: .98rem; line-height: 1.3; color: var(--cp-text);
-}
-
-#contacts .partner:hover,
-#contacts .partner:focus-within {
-  transform: translateY(-6px);
-  border-color: var(--cp-a);
-  box-shadow: var(--cp-shadow);
-}
-#contacts .partner:hover img,
-#contacts .partner:focus-within img { transform: scale(1.06); }
-#contacts .partner a:focus-visible {
-  outline: 2px solid var(--cp-a);
-  outline-offset: -4px;
-  border-radius: 16px;
-}
-
-/* ---------- CONTACTS ---------- */
-#contacts .contacts {
-  display: grid; gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-}
-#contacts .contact {
-  display: block;
-  padding: 0;                              /* перебиває .card{padding:24px} */
   overflow: hidden;
+  transition:
+    transform .3s cubic-bezier(.2,.8,.2,1),
+    box-shadow .3s ease,
+    border-color .3s ease;
 }
 #contacts .contact:hover,
 #contacts .contact:focus-within {
@@ -121,9 +166,11 @@
   box-shadow: var(--cp-shadow);
 }
 
-/* ---------- TERMINAL (contact.json) ---------- */
+/* ---------- TERMINAL ---------- */
 #contacts .term-bar {
-  display: flex; align-items: center; gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 8px 12px;
   background: var(--cp-bg-2);
   border-bottom: 1px solid var(--cp-line);
@@ -145,7 +192,6 @@
 #contacts .ln { color: var(--cp-muted); user-select: none; min-width: 1.5em; text-align: right; }
 #contacts .code { white-space: pre; }
 
-/* підсвітка як у VS Code (Light+ / Dark+) */
 #contacts .tok-p { color: #808080; }
 #contacts .tok-k { color: #0451A5; }
 #contacts .tok-s { color: #A31515; }
@@ -155,7 +201,8 @@
 
 #contacts .term-body a {
   display: inline;
-  padding: 0; margin: 0;
+  padding: 0;
+  margin: 0;
   font: inherit;
   color: inherit;
   text-decoration: none;
@@ -165,24 +212,23 @@
 }
 #contacts .term-body a:hover,
 #contacts .term-body a:focus-visible {
-  color: var(--c-blue);
+  color: var(--cp-green);
   outline: none;
 }
 
 #contacts .cursor {
-  display: inline-block; width: 8px; height: 1em; vertical-align: text-bottom;
-  background: currentColor; animation: cp-blink 1s steps(1) infinite;
+  display: inline-block;
+  width: 8px; height: 1em;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: cp-blink 1s steps(1) infinite;
 }
 @keyframes cp-blink { 50% { opacity: 0; } }
 
-/* ---------- ротація 3 кольорів ---------- */
+/* ---------- contact color rotation (3-colour, unchanged) ---------- */
 #contacts .contacts > .contact:nth-child(3n+1) { --cp-a: var(--c-blue); }
 #contacts .contacts > .contact:nth-child(3n+2) { --cp-a: var(--c-orange); }
 #contacts .contacts > .contact:nth-child(3n)   { --cp-a: var(--c-green); }
-
-#contacts .partners > .partner:nth-child(3n+1) { --cp-a: var(--c-blue); }
-#contacts .partners > .partner:nth-child(3n+2) { --cp-a: var(--c-orange); }
-#contacts .partners > .partner:nth-child(3n)   { --cp-a: var(--c-green); }
 
 /* ---------- no-JS / reduced motion ---------- */
 html:not(.js) #contacts .contact,
@@ -197,76 +243,22 @@ html:not(.js) #contacts .partner { opacity: 1; }
   #contacts .cursor { animation: none; }
 }
 
-/* ---------- ЛОГОТИПИ ПАРТНЕРІВ: завжди яскраві (останнє слово) ---------- */
-#contacts .partners .partner img,
-#contacts .partners .partner:hover img,
-#contacts .partners .partner:focus-within img,
-:root[data-theme="dark"] #contacts .partners .partner img {
-  filter: none !important;
-  -webkit-filter: none !important;
-  opacity: 1 !important;
-  mix-blend-mode: normal !important;
-  background: none !important;       /* прибирає сіре shimmer-тло від .is-loading */
-  animation: none !important;
-}
-#contacts .partners .partner:has(img) { background: #FFFFFF !important; }
-
-/* ---------- ПАРТНЕРИ: без підсвітки, лише збільшення; рамка оранжева при натисканні ---------- */
-#contacts .partners .partner::before { display: none; }          /* прибрано підсвітку-спотлайт */
-
-#contacts .partners .partner,
-#contacts .partners .partner:hover,
-#contacts .partners .partner:focus-within {
-  box-shadow: none;
-  border-color: var(--cp-line);
-  transform: none;
-}
-#contacts .partners .partner { transition: transform .3s cubic-bezier(.2,.8,.2,1), border-color .15s; }
-
-/* hover: тільки збільшення */
-#contacts .partners .partner:hover { transform: scale(1.06); }
-
-/* натискання / фокус з клавіатури: яскрава оранжева рамка */
-#contacts .partners .partner:active,
-#contacts .partners .partner:has(a:active),
-#contacts .partners .partner:has(a:focus-visible) {
-  transform: scale(1.06);
-  border-color: var(--c-orange);
-  box-shadow: 0 0 0 2px var(--c-orange);
-}
-#contacts .partners .partner a:focus-visible { outline: none; }
-
-/* картинка всередині не масштабується окремо */
-#contacts .partners .partner:hover img,
-#contacts .partners .partner:focus-within img { transform: none; }
-
-/* ---------- БЕЗ СИНЬОЇ ПІДСВІТКИ; підсвічується тільки РАМКА ---------- */
+/* ---------- kill blue tap-highlight / selection ---------- */
 #contacts,
-#contacts * {
-  -webkit-tap-highlight-color: transparent;   /* прибирає синє заливання при дотику/кліку */
-}
+#contacts * { -webkit-tap-highlight-color: transparent; }
+
 #contacts .partner,
 #contacts .partner a,
 #contacts .partner img {
   -webkit-user-select: none;
-  user-select: none;                          /* без синього виділення при подвійному кліку */
+  user-select: none;
   -webkit-user-drag: none;
   outline: none;
 }
 #contacts .partner a:focus,
 #contacts .partner a:focus-visible,
-#contacts .partner a:active { outline: none; background: transparent; }
-#contacts .partner ::selection { background: transparent; }
-
-/* синє світіння на картках контактів теж прибране */
-#contacts .contact::before { display: none; }
-
-/* натискання: тільки оранжева рамка, фон плитки не змінюється */
-#contacts .partners .partner:active,
-#contacts .partners .partner:has(a:active),
-#contacts .partners .partner:has(a:focus-visible) {
-  transform: scale(1.06);
-  border-color: var(--c-orange);
-  box-shadow: 0 0 0 1px var(--c-orange);      /* потовщує саму рамку */
-  background: #FFFFFF !important;
+#contacts .partner a:active {
+  outline: none;
+  background: transparent;
 }
+#contacts .partner ::selection { background: transparent; }
