@@ -1,48 +1,120 @@
 /* =====================================================================
-   feedback-form.css — comment / help form in the Contacts section
-   Uses the site tokens (--c-green, --c-orange, --surface-solid ...),
-   so light and dark themes work automatically.
+   feedback-form.css — comment / help form (Contacts section)
+   Layout: intro text on top -> "IDE window" with the form + flying digits.
+   Uses site tokens, so light / dark themes work automatically.
    ===================================================================== */
 
-/* ---- HOW TO CHANGE THE LOOK (edit these 5 lines) ---- */
+/* ---- HOW TO CHANGE THE LOOK (edit these lines) ---- */
 .feedback {
-  --fb-accent: var(--c-green);      /* button, focus ring, success colour   */
-  --fb-error:  #EF4444;             /* error colour                         */
-  --fb-radius: 12px;                /* roundness of inputs                  */
-  --fb-gap:    16px;                /* space between fields                 */
-  --fb-input-bg: var(--bg-alt);     /* input background                     */
+  --fb-accent: var(--c-green);       /* focus, button, success            */
+  --fb-hot:    var(--c-orange);      /* "// " labels, top line, cursor    */
+  --fb-error:  #EF4444;              /* error colour                      */
+  --fb-radius: 10px;                 /* roundness of inputs               */
+  --fb-gap:    16px;                 /* space between fields              */
+  --fb-input-bg: var(--vsc-bg-alt);  /* input background                  */
+
+  display: grid;
+  gap: 22px;
+  margin-top: 4px;
 }
 
-.feedback { display: grid; gap: 24px; margin-top: 4px; }
-@media (min-width: 900px) {
-  .feedback { grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: start; }
+/* ---------- 1. INTRO (text on top) ---------- */
+.feedback-intro { max-width: 68ch; }
+.feedback-intro h4 { font-size: clamp(1.3rem, 3vw, 1.7rem); margin: 0 0 10px; }
+.feedback-intro p  { margin: 0; color: var(--muted); font-size: .95rem; }
+
+/* ---------- 2. "WINDOW" ---------- */
+.fb-shell {
+  border: 1.5px solid var(--vsc-border);
+  border-radius: 16px;
+  background: var(--vsc-bg);
+  overflow: hidden;
+  transition: border-color .3s, box-shadow .3s;
+}
+.fb-shell:focus-within {
+  border-color: var(--fb-accent);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .16);
 }
 
-.feedback-intro h4 { font-size: 1.25rem; margin: 0 0 10px; }
-.feedback-intro p  { margin: 0; color: var(--muted); font-size: .92rem; }
+.fb-bar {
+  position: relative;
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 14px;
+  background: var(--vsc-bg-alt);
+  border-bottom: 1px solid var(--vsc-border);
+  font: 500 .8rem/1 var(--font-mono);
+}
+.fb-dots { display: inline-flex; gap: 5px; }
+.fb-dots i { display: block; width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+.fb-dots i:nth-child(2) { background: #ffbd2e; }
+.fb-dots i:nth-child(3) { background: #28c840; }
+.fb-bar-title { color: var(--vsc-muted); }
+/* line that "types" across the bar while the form is focused */
+.fb-bar::after {
+  content: ""; position: absolute; left: 0; bottom: -1px;
+  width: 100%; height: 2px; background: var(--fb-hot);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+}
+.fb-shell:focus-within .fb-bar::after { transform: scaleX(1); }
 
-.fb-form { display: grid; gap: var(--fb-gap); }
-.fb-row  { display: grid; gap: var(--fb-gap); }
+/* ---------- 3. FORM + SIDE PANEL ---------- */
+.fb-body { display: grid; }
+.fb-form { display: grid; gap: var(--fb-gap); padding: 22px; align-content: start; min-width: 0; }
+
+.fb-side {
+  position: relative; order: -1;
+  min-height: 130px;
+  background: var(--vsc-bg-alt);
+  border-bottom: 1px solid var(--vsc-border);
+  overflow: hidden;
+}
+.fb-side canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fb-side-note {
+  position: absolute; left: 16px; bottom: 12px; z-index: 1; margin: 0;
+  font: 500 .8rem/1.2 var(--font-mono); color: var(--vsc-muted);
+  pointer-events: none;
+}
+.fb-side-note::after {
+  content: ""; display: inline-block; width: 7px; height: 1em; margin-left: 4px;
+  vertical-align: text-bottom; background: var(--fb-hot);
+  animation: fb-blink 1s steps(1) infinite;
+}
+@keyframes fb-blink { 50% { opacity: 0; } }
+
+@media (min-width: 860px) {
+  .fb-body { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .fb-side { order: 0; min-height: 0; border-bottom: 0; border-left: 1px solid var(--vsc-border); }
+}
+
+/* ---------- 4. FIELDS ---------- */
+.fb-row { display: grid; gap: var(--fb-gap); }
 @media (min-width: 600px) { .fb-row { grid-template-columns: 1fr 1fr; } }
 
 .fb-field { display: grid; gap: 6px; }
-.fb-field label { font-weight: 600; font-size: .88rem; }
+.fb-field label {
+  display: flex; align-items: baseline; gap: 6px;
+  font: 600 .82rem/1.2 var(--font-mono);
+}
+.fb-field label::before { content: "//"; color: var(--fb-hot); }
 .fb-opt { font-weight: 400; color: var(--muted); }
+.fb-count { margin-left: auto; font-weight: 400; color: var(--muted); font-size: .75rem; }
 
 .fb-field input,
 .fb-field select,
 .fb-field textarea {
   width: 100%;
   padding: 12px 14px;
-  font: inherit;
-  font-size: .95rem;
+  font: 500 .92rem/1.5 var(--font-mono);
   color: var(--text);
   background: var(--fb-input-bg);
   border: 1px solid var(--border);
   border-radius: var(--fb-radius);
-  transition: border-color .2s, box-shadow .2s;
+  transition: border-color .2s, box-shadow .2s, background .2s;
 }
-.fb-field textarea { resize: vertical; min-height: 120px; }
+.fb-field input::placeholder,
+.fb-field textarea::placeholder { color: var(--muted); opacity: .7; }
+.fb-field textarea { resize: vertical; min-height: 130px; max-height: 360px; }
 .fb-field input:focus,
 .fb-field select:focus,
 .fb-field textarea:focus {
@@ -58,13 +130,41 @@
 /* honeypot: hidden from people, visible to bots */
 .fb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
+/* ---------- 5. BUTTON + STATUS ---------- */
 .fb-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-.fb-actions .btn[disabled] { opacity: .6; cursor: progress; transform: none; }
+.fb-actions .btn::after { content: "→"; transition: transform .25s; }
+.fb-actions .btn:hover::after { transform: translateX(5px); }
+.fb-actions .btn[disabled] {
+  opacity: .65; cursor: progress; transform: none;
+  animation: fb-pulse 1s ease-in-out infinite;
+}
+@keyframes fb-pulse { 50% { opacity: .35; } }
 
 .fb-status { margin: 0; font-size: .92rem; font-weight: 600; }
+.fb-status.is-ok,
+.fb-status.is-error { animation: fb-pop .45s cubic-bezier(.2, .8, .2, 1); }
 .fb-status.is-ok    { color: var(--fb-accent); }
+.fb-status.is-ok::before    { content: "✓ "; }
 .fb-status.is-error { color: var(--fb-error); }
+.fb-status.is-error::before { content: "! "; }
+@keyframes fb-pop { from { opacity: 0; transform: translateY(6px) scale(.96); } }
 
-/* Alpha Lyrae for the title, like the other card headings */
+/* ---------- 6. ENTRANCE (when the card scrolls into view) ---------- */
+@keyframes fb-in { from { opacity: 0; transform: translateY(14px); } }
+.js .feedback.is-visible .fb-form > .fb-row,
+.js .feedback.is-visible .fb-form > .fb-field,
+.js .feedback.is-visible .fb-form > .fb-actions { animation: fb-in .55s cubic-bezier(.2, .8, .2, 1) backwards; }
+.js .feedback.is-visible .fb-form > .fb-row     { animation-delay: .15s; }
+.js .feedback.is-visible .fb-form > .fb-field   { animation-delay: .30s; }
+.js .feedback.is-visible .fb-form > .fb-actions { animation-delay: .45s; }
+
+/* ---------- 7. FONTS (Alpha Lyrae only for title + button) ---------- */
 .feedback-intro h4,
 .fb-actions .btn { font-family: "Alpha Lyrae", system-ui, sans-serif !important; font-weight: 500 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fb-side-note::after { animation: none; }
+  .fb-bar::after, .fb-shell, .fb-actions .btn::after { transition: none; }
+  .js .feedback.is-visible .fb-form > * { animation: none; }
+  .fb-actions .btn[disabled], .fb-status { animation: none; }
+}
