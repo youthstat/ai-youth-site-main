@@ -1,20 +1,16 @@
 /* =====================================================================
-   feedback-form.css — redesigned feedback card (Contacts section)
-   Green + gold accents, mixed typography, more space above.
-   No badge, no glow around the card — plain, clean.
+   feedback-form.css — feedback card (Contacts section)
+   Uses the same colour tokens as the rest of the site (like Contacts).
+   Green outline only — no top gradient stripe.
    ===================================================================== */
 
 /* ---- HOW TO CHANGE THE LOOK (edit these lines) ---- */
 .feedback {
   --fb-accent: var(--c-green);        /* main green accent              */
-  --fb-gold:   #f5cf79;               /* warm gold accent               */
+  --fb-gold:   #f5cf79;               /* warm gold accent (dots)        */
   --fb-error:  #EF4444;               /* error colour                   */
-  --fb-text-strong: #1f1b24;          /* dark text inside inputs        */
-  --fb-text-soft:   #4a4554;          /* softer text for description    */
-  --fb-input-bg:    #f8faf7;          /* light warm-white input bg      */
-  --fb-input-border:#e2e5e0;
-  --fb-radius:      14px;
-  --fb-gap:         20px;
+  --fb-radius: 14px;
+  --fb-gap:    20px;
 
   /* space above — separates it clearly from Partners & Contacts */
   margin-top: clamp(40px, 6vw, 72px);
@@ -25,25 +21,11 @@
   gap: 24px;
 
   padding: clamp(28px, 4vw, 44px);
-  background: #ffffff;
-  border: 1.5px solid rgba(34, 197, 94, .18);
+  background: var(--surface-solid);          /* same as .card on site  */
+  border: 1.5px solid var(--c-green);        /* green outline only     */
   border-radius: 22px;
   box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .08);
   overflow: hidden;
-  isolation: isolate;
-}
-
-/* Thin top stripe (green → gold) — subtle, not a glow */
-.feedback::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 4px;
-  background: linear-gradient(90deg,
-      var(--c-green) 0%,
-      #22C55E 55%,
-      var(--fb-gold) 100%);
-  z-index: 2;
 }
 
 /* ---------- 1. INTRO ---------- */
@@ -67,7 +49,7 @@
   font-family: "Space Grotesk", system-ui, sans-serif;
   font-size: 1rem;
   line-height: 1.65;
-  color: var(--fb-text-soft);
+  color: var(--muted);                        /* site muted token      */
   margin: 0;
 }
 
@@ -113,11 +95,11 @@
   font-weight: 500;
   text-transform: none;
   letter-spacing: 0;
-  color: var(--fb-text-soft);
-  opacity: .7;
+  color: var(--muted);
+  opacity: .8;
 }
 
-/* Inputs */
+/* Inputs — same tokens as the rest of the site */
 .fb-field input,
 .fb-field select,
 .fb-field textarea {
@@ -126,9 +108,9 @@
   font-family: "Inter", system-ui, sans-serif;
   font-size: .95rem;
   line-height: 1.55;
-  color: var(--fb-text-strong);
-  background: var(--fb-input-bg);
-  border: 1.5px solid var(--fb-input-border);
+  color: var(--text);
+  background: var(--vsc-bg-alt);
+  border: 1.5px solid var(--border);
   border-radius: var(--fb-radius);
   transition: border-color .2s, box-shadow .2s, background .2s;
 }
@@ -141,28 +123,27 @@
 
 .fb-field input::placeholder,
 .fb-field textarea::placeholder {
-  color: #b8a97a;
-  opacity: 1;
+  color: var(--muted);
+  opacity: .7;
 }
 
 .fb-field input:hover,
 .fb-field select:hover,
 .fb-field textarea:hover {
-  border-color: #c8d6c4;
+  border-color: rgba(34, 197, 94, .35);
 }
 
 .fb-field input:focus,
 .fb-field select:focus,
 .fb-field textarea:focus {
   outline: none;
-  background: #ffffff;
+  background: var(--vsc-bg);
   border-color: var(--c-green);
   box-shadow: 0 0 0 3px rgba(34, 197, 94, .15);
 }
 
 .fb-field [aria-invalid="true"] {
   border-color: var(--fb-error);
-  background: #fff5f5;
 }
 
 .fb-field [aria-invalid="true"]:focus {
@@ -195,7 +176,7 @@
   margin-top: 6px;
 }
 
-/* Plain green button — no extra glow, matches the rest of the site */
+/* Plain green button, matches the rest of the site */
 .fb-actions .btn {
   font-family: "Alpha Lyrae", system-ui, sans-serif !important;
   font-weight: 500 !important;
@@ -269,38 +250,7 @@
 
 /* ---------- 5. DARK THEME ---------- */
 :root[data-theme="dark"] .feedback {
-  background: #1a1d1f;
-  border-color: rgba(34, 197, 94, .22);
   box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .6);
-}
-:root[data-theme="dark"] .feedback-intro p { color: #c8c9cc; }
-:root[data-theme="dark"] .fb-opt { color: #9a9b9e; }
-
-:root[data-theme="dark"] .fb-field input,
-:root[data-theme="dark"] .fb-field select,
-:root[data-theme="dark"] .fb-field textarea {
-  background: #25282b;
-  border-color: #3a3d40;
-  color: #eae8e0;
-}
-:root[data-theme="dark"] .fb-field input::placeholder,
-:root[data-theme="dark"] .fb-field textarea::placeholder {
-  color: #8a8260;
-}
-:root[data-theme="dark"] .fb-field input:hover,
-:root[data-theme="dark"] .fb-field textarea:hover {
-  border-color: #4a5a4a;
-}
-:root[data-theme="dark"] .fb-field input:focus,
-:root[data-theme="dark"] .fb-field select:focus,
-:root[data-theme="dark"] .fb-field textarea:focus {
-  background: #1f2124;
-  border-color: var(--c-green);
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, .2);
-}
-:root[data-theme="dark"] .fb-field [aria-invalid="true"] {
-  background: #2a1f22;
-  border-color: var(--fb-error);
 }
 
 /* ---------- 6. REDUCED MOTION ---------- */
