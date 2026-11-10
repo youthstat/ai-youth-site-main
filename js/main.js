@@ -556,23 +556,18 @@
   let renderToken = 0;
 
   const DAYS_CSS = `
-.days-carousel { position: relative; }
+.days-carousel { position: relative; overflow: hidden; }
 .days-carousel .days {
   display: flex !important; grid-template-columns: none !important; gap: 16px; align-items: center !important; position: relative;
-  overflow-x: auto !important; overflow-y: hidden !important;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  scroll-snap-type: x proximity;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow: hidden !important;
+  touch-action: pan-y;
   padding: 10px 14px 28px;
+  box-sizing: border-box;
+  max-width: 100%;
 }
-.days-carousel .days::-webkit-scrollbar { display: none; }
-.days-carousel .days > .day { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
+.days-carousel .days > .day { flex: 0 0 100%; min-width: 0; }
 @media (min-width: 700px)  { .days-carousel .days > .day { flex-basis: calc((100% - 16px) / 2); } }
 @media (min-width: 1100px) { .days-carousel .days > .day { flex-basis: calc((100% - 32px) / 3); } }
-@media (max-width: 699px)  { .days-carousel .days { scroll-snap-type: x mandatory; } }
 .days-carousel .day { align-content: start; height: auto; }
 .days-carousel .day-media { width: 100%; max-width: none; margin: 8px 0 0; }
 .days-carousel .day-media .carousel { width: 100%; max-width: none; margin: 0; border-radius: 12px; max-height: 460px; }
@@ -631,18 +626,25 @@
     prev.addEventListener('click', () => goTo(idx - 1));
     next.addEventListener('click', () => goTo(idx + 1));
 
-    /* Sync `idx` when the user swipes / native-scrolls the day list */
-    let scrollTimer = 0;
-    list.addEventListener('scroll', () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        const s = step();
-        if (!s) return;
-        const newIdx = Math.round(list.scrollLeft / s);
-        const clamped = Math.min(Math.max(newIdx, 0), maxIdx());
-        if (clamped !== idx) { idx = clamped; update(); }
-      }, 80);
-    }, { passive: true });
+    /* Swipe via pointer events — works on touch AND desktop, no layout changes */
+    let swipeX0 = null;
+    let swipeY0 = null;
+    list.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      swipeX0 = e.clientX;
+      swipeY0 = e.clientY;
+    });
+    list.addEventListener('pointerup', (e) => {
+      if (swipeX0 === null) return;
+      const dx = e.clientX - swipeX0;
+      const dy = e.clientY - swipeY0;
+      swipeX0 = null;
+      swipeY0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        goTo(idx + (dx < 0 ? 1 : -1));
+      }
+    });
+    list.addEventListener('pointercancel', () => { swipeX0 = null; swipeY0 = null; });
 
     box.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(idx - 1); }
@@ -655,8 +657,18 @@
       if (i >= 0 && (i < idx || i >= idx + perView())) goTo(i, false);
     });
 
-    /* Recompute layout on resize, keeping the same logical index */
-    window.addEventListener('resize', () => goTo(idx, false));
+    /* Debounced resize — ignore mobile address-bar show/hide */
+    let lastWidth = list.clientWidth;
+    let resizeTimer = 0;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const w = list.clientWidth;
+        if (Math.abs(w - lastWidth) < 5) return;
+        lastWidth = w;
+        goTo(idx, false);
+      }, 200);
+    });
 
     update();
   };
