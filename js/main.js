@@ -1125,32 +1125,28 @@
       list.append(li);
     });
 
-    /* --- CONTACTS (terminal) --- */
-    const sp = (cls, t) => h('span', { class: cls, text: t });
-    const line = (n, ...parts) => h('div', { class: 'code-line', style: `--i:${n}` },
-      h('span', { class: 'ln', text: String(n) }), h('span', { class: 'code' }, ...parts));
-
+    /* --- CONTACTS — прості картки (без термінала) --- */
     $('#contacts-grid').append(...(D.contacts || []).map((c, i) => {
-      let n = 0;
-      const rows = [line(++n, sp('tok-p', '{')),
-        line(++n, '  ', sp('tok-k', '"name"'), sp('tok-p', ': '), sp('tok-s', `"${c.name}"`), sp('tok-p', ','))];
+      const card = h('article', { class: 'card contact' });
+      card.style.setProperty('--i', String(i));
+
+      card.append(h('h4', { text: c.name }));
+
       if (c.email) {
-        rows.push(line(++n, '  ', sp('tok-k', '"email"'), sp('tok-p', ': '),
-          h('span', { class: 'tok-s' }, '"', h('a', { href: `mailto:${c.email}`, text: c.email }), '"'),
-          ...(c.phone ? [sp('tok-p', ',')] : [])));
+        card.append(h('a', {
+          href: `mailto:${c.email}`,
+          'aria-label': `Email ${c.name}`,
+          text: c.email
+        }));
       }
       if (c.phone) {
         const telHref = `tel:${String(c.phone).replace(/[^\d+]/g, '')}`;
-        rows.push(line(++n, '  ', sp('tok-k', '"phone"'), sp('tok-p', ': '),
-          h('span', { class: 'tok-s' }, '"', h('a', { href: telHref, text: c.phoneText || c.phone }), '"')));
+        card.append(h('a', {
+          href: telHref,
+          'aria-label': `Call ${c.name}`,
+          text: c.phoneText || c.phone
+        }));
       }
-      rows.push(line(++n, sp('tok-p', '}'), h('span', { class: 'cursor' })));
-      const card = h('article', { class: 'card contact term' },
-        h('div', { class: 'term-bar' },
-          h('span', { class: 'term-dots', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')),
-          h('span', { class: 'term-title', text: 'contact.json' })),
-        h('div', { class: 'term-body' }, rows));
-      card.style.setProperty('--i', String(i));
       return card;
     }));
 
