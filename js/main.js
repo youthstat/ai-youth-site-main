@@ -1106,8 +1106,9 @@
   };
 
   /* ========== 19. CONTACTS & FOOTER ========== */
-  const renderContacts = () => {
-    $('#contacts-lead').textContent = D.contactsLead || '';
+const renderContacts = () => {
+  const leadEl = $('#contacts-lead');
+  if (leadEl) leadEl.textContent = D.contactsLead || '';
 
     /* --- PARTNERS (без .reveal: окремий показ) --- */
     const list = $('#partners');
