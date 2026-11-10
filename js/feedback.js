@@ -31,16 +31,29 @@
     clearErrors();
     say('');
 
-    // simple client-side check
-    const email = form.elements.email.value.trim();
-    const message = form.elements.message.value.trim();
+    // simple client-side check (safe even if a field is missing)
+    const emailEl   = form.elements.email;
+    const messageEl = form.elements.message;
+    const email     = emailEl   ? emailEl.value.trim()   : '';
+    const message   = messageEl ? messageEl.value.trim() : '';
+
     let bad = false;
-    if (!/^\S+@\S+\.\S+$/.test(email)) { fieldError('email', 'Please enter a valid email.'); bad = true; }
-    if (!message) { fieldError('message', 'Please write a message.'); bad = true; }
-    if (bad) { form.querySelector('[aria-invalid]').focus(); return; }
+    if (emailEl && !/^\S+@\S+\.\S+$/.test(email)) {
+      fieldError('email', 'Please enter a valid email.');
+      bad = true;
+    }
+    if (!message) {
+      fieldError('message', 'Please write a message.');
+      bad = true;
+    }
+    if (bad) {
+      const firstBad = form.querySelector('[aria-invalid="true"]');
+      if (firstBad) firstBad.focus();
+      return;
+    }
 
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    btn.textContent = 'Sending...';
     try {
       const res = await fetch(form.action, {
         method: 'POST',
@@ -49,7 +62,7 @@
       });
       if (res.ok) {
         form.reset();
-        say('Thank you! Your message was sent.', 'ok');
+        say('Thank you for filling the form. Your message was sent.', 'ok');
       } else {
         const data = await res.json().catch(() => ({}));
         if (Array.isArray(data.errors) && data.errors.length) {
