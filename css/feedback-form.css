@@ -1,37 +1,143 @@
 /* =====================================================================
    feedback-form.css — feedback card (Contacts section)
-   Uses the same colour tokens as the rest of the site (like Contacts).
-   Green outline only — no badge, no glow, no top stripe.
-   Card is centered and narrower for a lighter look.
+   Centered, narrower card + decorative glowing green arrows around it.
+   Uses the same colour tokens as the rest of the site.
    ===================================================================== */
 
 /* ---- HOW TO CHANGE THE LOOK (edit these lines) ---- */
 .feedback {
-  --fb-accent: var(--c-green);        /* main green accent              */
-  --fb-gold:   #f5cf79;               /* warm gold accent (dots)        */
-  --fb-error:  #EF4444;               /* error colour                   */
+  --fb-accent: var(--c-green);
+  --fb-gold:   #f5cf79;
+  --fb-error:  #EF4444;
   --fb-radius: 14px;
   --fb-gap:    18px;
-
-  /* space above — separates it clearly from Partners & Contacts */
-  margin-top: clamp(40px, 6vw, 72px);
 
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 
-  /* centered, narrower card */
   width: 100%;
   max-width: 680px;
   margin-inline: auto;
 
   padding: clamp(22px, 3.5vw, 36px);
-  background: var(--surface-solid);          /* same as .card on site  */
-  border: 1.5px solid var(--c-green);        /* green outline only     */
+  background: var(--surface-solid);
+  border: 1.5px solid var(--c-green);
   border-radius: 22px;
   box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .08);
   overflow: hidden;
+}
+
+/* ============================================================
+   STAGE — wrapper that hosts the form + floating arrows
+   ============================================================ */
+.feedback-stage {
+  position: relative;
+  width: 100%;
+  margin-top: clamp(40px, 6vw, 72px);
+  /* extra vertical room so arrows above/below don't hit headings */
+  padding-block: 8px;
+}
+
+/* the form itself no longer needs its own top margin — stage has it */
+.feedback-stage .feedback {
+  margin-top: 0;
+}
+
+/* ============================================================
+   FLOATING GLOWING ARROWS
+   ============================================================ */
+.fb-arrow {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+  border-radius: 999px;
+
+  background: rgba(34, 197, 94, .08);
+  border: 1px solid rgba(34, 197, 94, .42);
+  color: var(--c-green);
+
+  font: 700 .68rem/1 "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  pointer-events: none;
+  user-select: none;
+
+  box-shadow:
+    0 0 12px rgba(34, 197, 94, .30),
+    0 0 28px rgba(34, 197, 94, .15),
+    inset 0 1px 0 rgba(255, 255, 255, .18);
+
+  animation: fb-arrow-glow 3.2s ease-in-out infinite;
+}
+
+.fb-arrow svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px rgba(34, 197, 94, .65));
+}
+
+/* Base arrow points RIGHT (→). Rotate per position so each one
+   looks toward the form. */
+.fb-arrow--tl svg { transform: rotate(45deg); }   /* ↘ down-right  */
+.fb-arrow--tr svg { transform: rotate(135deg); }  /* ↙ down-left   */
+.fb-arrow--l  svg { transform: rotate(0deg); }    /* → right       */
+.fb-arrow--r  svg { transform: rotate(180deg); }  /* ← left        */
+.fb-arrow--bl svg { transform: rotate(-45deg); }  /* ↗ up-right    */
+.fb-arrow--br svg { transform: rotate(-135deg); } /* ↖ up-left     */
+
+/* Asymmetric placement — organic, not symmetric */
+.fb-arrow--tl { top: 4%;   left: 4%;   animation-delay: 0s;   }
+.fb-arrow--tr { top: 12%;  right: 2%;  animation-delay: .5s;  }
+.fb-arrow--l  { top: 40%;  left: 1%;   animation-delay: 1s;   }
+.fb-arrow--r  { top: 54%;  right: 3%;  animation-delay: 1.5s; }
+.fb-arrow--bl { bottom: 22%; left: 3%; animation-delay: 2s;   }
+.fb-arrow--br { bottom: 6%;  right: 1%; animation-delay: 2.5s; }
+
+@keyframes fb-arrow-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(34, 197, 94, .26),
+      0 0 22px rgba(34, 197, 94, .14),
+      inset 0 1px 0 rgba(255, 255, 255, .18);
+    transform: translateY(0);
+  }
+  50% {
+    box-shadow:
+      0 0 18px rgba(34, 197, 94, .55),
+      0 0 42px rgba(34, 197, 94, .30),
+      inset 0 1px 0 rgba(255, 255, 255, .22);
+    transform: translateY(-2px);
+  }
+}
+
+/* Hide arrows when there's no room for them */
+@media (max-width: 1099px) {
+  .fb-arrow { display: none; }
+}
+
+/* Dark theme — slightly brighter pills so they read well */
+:root[data-theme="dark"] .fb-arrow {
+  background: rgba(34, 197, 94, .12);
+  border-color: rgba(74, 222, 128, .55);
+  color: #4ADE80;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fb-arrow { animation: none; }
 }
 
 /* ---------- 1. INTRO ---------- */
@@ -105,7 +211,7 @@
   opacity: .8;
 }
 
-/* Inputs — same tokens as the rest of the site */
+/* Inputs */
 .fb-field input,
 .fb-field select,
 .fb-field textarea {
@@ -159,7 +265,6 @@
 }
 .fb-err:empty { display: none; }
 
-/* honeypot */
 .fb-hp {
   position: absolute;
   left: -9999px;
@@ -177,7 +282,6 @@
   margin-top: 4px;
 }
 
-/* Plain green button, matches the rest of the site */
 .fb-actions .btn {
   font-family: "Alpha Lyrae", system-ui, sans-serif !important;
   font-weight: 500 !important;
