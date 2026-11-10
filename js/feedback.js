@@ -1,85 +1,170 @@
 /* =====================================================================
-   feedback.js — sends the Contacts form to Formspree without leaving the page
-   Endpoint is taken from the form's action attribute.
+   ide-theme.css — усе ЗЕЛЕНЕ (жодного синього), відео-плей — СКЛЯНИЙ ЗЕЛЕНИЙ.
+   Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
-(() => {
-  'use strict';
 
-  const form = document.getElementById('feedback-form');
-  if (!form) return;
+/* ---------- 0. ФІНАЛЬНІ АЛІАСИ: усе, що було --blue/--link/--amber → зелений ---------- */
+:root,
+:root[data-theme="dark"] {
+  --blue:  var(--c-green);
+  --link:  var(--c-green);
+  --amber: var(--c-green);
+  accent-color: var(--c-green);
+}
 
-  const btn = document.getElementById('fb-submit');
-  const status = document.getElementById('fb-status');
-  const label = btn.textContent;
+/* ---------- 1. NAV ---------- */
+.site-nav a[aria-current="true"] {
+  background: rgba(43,168,90,.16);
+  color: var(--c-green);
+}
+.site-nav a:hover { background: var(--bg-alt); }
 
-  const say = (text, kind) => {
-    status.textContent = text;
-    status.className = 'fb-status' + (kind ? ` is-${kind}` : '');
-  };
-  const clearErrors = () => {
-    form.querySelectorAll('[data-err]').forEach((el) => { el.textContent = ''; });
-    form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
-  };
-  const fieldError = (name, text) => {
-    const box = form.querySelector(`[data-err="${name}"]`);
-    const input = form.elements[name];
-    if (box) box.textContent = text;
-    if (input) input.setAttribute('aria-invalid', 'true');
-  };
+/* ---------- 2. КНОПКИ — ЗЕЛЕНІ ---------- */
+.btn-primary {
+  background: var(--c-green);
+  color: #052E16;
+  box-shadow: 0 8px 22px rgba(43,168,90,.30);
+}
+.btn-primary:hover { background: #228C4A; }
+:root[data-theme="dark"] .btn-primary:hover { background: #389E5D; }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    clearErrors();
-    say('');
+.btn-outline,
+.card-btn {
+  color: var(--c-green);
+  border-color: var(--c-green);
+}
+.btn-outline:hover,
+.card-btn:hover {
+  background: rgba(43,168,90,.12);
+  border-color: var(--c-green);
+}
 
-    const emailEl   = form.elements.email;
-    const messageEl = form.elements.message;
-    const email     = emailEl   ? emailEl.value.trim()   : '';
-    const message   = messageEl ? messageEl.value.trim() : '';
+.btn-solid   { background: var(--c-green); color: #052E16; }
+.skip-link   { background: var(--c-green); color: #052E16; }
 
-    let bad = false;
-    if (emailEl && !/^\S+@\S+\.\S+$/.test(email)) {
-      fieldError('email', 'Please enter a valid email.');
-      bad = true;
-    }
-    if (!message) {
-      fieldError('message', 'Please write a message.');
-      bad = true;
-    }
-    if (bad) {
-      const firstBad = form.querySelector('[aria-invalid="true"]');
-      if (firstBad) firstBad.focus();
-      return;
-    }
+.car-btn:hover                 { background: var(--c-green); color: #052E16; }
+.days-btn:hover:not(:disabled) { background: var(--c-green); color: #052E16; border-color: var(--c-green); }
+.lb-btn:hover                  { background: var(--c-green); color: #052E16; }
 
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(form)
-      });
-      if (res.ok) {
-        form.reset();
-        say('Thank you for filling the form. Your message was sent.', 'ok');
-      } else {
-        const data = await res.json().catch(() => ({}));
-        if (Array.isArray(data.errors) && data.errors.length) {
-          data.errors.forEach((er) => {
-            if (er.field) fieldError(er.field, er.message);
-          });
-          say(data.errors.map((er) => er.message).join(' '), 'error');
-        } else {
-          say('Something went wrong. Please try again later.', 'error');
-        }
-      }
-    } catch (err) {
-      console.error('[feedback] send failed:', err);
-      say('No connection. Please check your internet and try again.', 'error');
-    } finally {
-      btn.disabled = false;
-      btn.textContent = label;
-    }
-  });
-})();
+/* ---------- 3. HERO ---------- */
+.hero { background: #1E1E1E; }
+.hero-media::after { background: rgba(15,17,23,.65); }
+.hero-desc { color: #D4D4D4; }
+
+.flags-card {
+  background: rgba(30,30,30,.72);
+  border-color: rgba(43,168,90,.35);
+  box-shadow: 0 20px 50px rgba(0,0,0,.45);
+}
+.flag-item { background: rgba(255,255,255,.06); }
+
+/* ---------- 4. КАРТКИ / СТАТИСТИКА ---------- */
+.next-card {
+  background: rgba(43,168,90,.08);
+  border-color: rgba(43,168,90,.35);
+}
+.erasmus-card { border-left-color: var(--c-green); }
+
+.stat-num,
+.stat-dl .stat-num {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: var(--c-green);
+}
+.stat-dl {
+  background: #1E1E1E;
+  border-color: rgba(43,168,90,.35);
+}
+.stat-dl .stat-label { color: #D4D4D4; }
+.dl-target { color: #A0A0A0; }
+
+.dl-bar .bar-fill { background: var(--c-green); }
+.bar-fill         { background: var(--c-green); }
+.bar-fill.is-done { background: var(--c-green); }
+.day::before      { background: var(--c-green); }
+.day-n, .fact-label, .prog-val { color: var(--c-green); }
+
+.donut-seg.seg-a { stroke: var(--c-green); }
+.donut-seg.seg-b { stroke: var(--c-green); }
+.donut-seg.seg-c { stroke: var(--c-green); }
+
+/* ---------- 5. ГАЛЕРЕЯ / ДІАЛОГИ ---------- */
+.gallery-overlay { background: rgba(30,30,30,.82); color: #fff; }
+.gallery-overlay strong { color: var(--c-green); }
+.gallery-overlay span   { color: var(--c-green); }
+.gallery-item.has-more:hover .gallery-overlay { background: rgba(30,30,30,.62); }
+
+.dialog { background: rgba(14,14,15,.78); }
+.lightbox { background: rgba(14,14,15,.95); }
+.vd-title, .lb-count { color: #D4D4D4; }
+.dialog-panel {
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(43,168,90,.18);
+}
+
+.carousel-slide:has(img.is-loading)::after,
+.gallery-item:has(img.is-loading)::before,
+.video-frame.is-loading::after,
+.media-skel::after, .gallery-skel::after,
+.vd-stage.is-loading::after {
+  border-color: rgba(43,168,90,.25);
+  border-top-color: var(--c-green);
+}
+
+/* =====================================================
+   ВІДЕО-КОНТРОЛІ — «СКЛЯНИЙ» ЗЕЛЕНИЙ
+   Напівпрозоре зелене скло з blur, тонким світлим бордером
+   і м'яким внутрішнім підсвітом. Добре видно на будь-якому прев'ю.
+   ===================================================== */
+.play {
+  background: rgba(34, 197, 94, .28);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  color: #FFFFFF;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, .35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .35),
+    inset 0 -1px 0 rgba(0, 0, 0, .12),
+    0 8px 24px rgba(0, 0, 0, .35),
+    0 0 0 6px rgba(34, 197, 94, .14);
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+.video-poster:hover .play {
+  background: rgba(34, 197, 94, .45);
+  transform: scale(1.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .45),
+    inset 0 -1px 0 rgba(0, 0, 0, .12),
+    0 10px 30px rgba(0, 0, 0, .45),
+    0 0 0 8px rgba(34, 197, 94, .22);
+}
+
+.video-expand {
+  background: rgba(34, 197, 94, .28);
+  -webkit-backdrop-filter: blur(8px) saturate(160%);
+  backdrop-filter: blur(8px) saturate(160%);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, .35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .30),
+    0 4px 14px rgba(0, 0, 0, .30);
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+.video-expand:hover,
+.video-expand:focus-visible {
+  background: rgba(34, 197, 94, .45);
+  transform: scale(1.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .40),
+    0 6px 20px rgba(0, 0, 0, .40);
+}
+
+/* ---------- 6. ФУТЕР ---------- */
+.site-footer {
+  background: #1E1E1E;
+  color: #D4D4D4;
+  border-top: 1px solid rgba(43,168,90,.35);
+}
+.disclaimer { color: #858585; }
