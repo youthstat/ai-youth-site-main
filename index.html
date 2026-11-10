@@ -52,6 +52,7 @@
   <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/ide-theme.css">
 <link rel="stylesheet" href="css/contacts-partners.css">
+  <link rel="stylesheet" href="css/feedback-form.css">
 </head>
 <body>
   <a class="skip-link" href="#about">Skip to content</a>
@@ -261,7 +262,55 @@
         <ul class="partners" id="partners"></ul>
         <h3 class="sub-title reveal">Contacts</h3>
         <div class="contacts" id="contacts-grid"></div>
+        <!-- ===== FEEDBACK FORM (Formspree) — paste inside #contacts, right after <div class="contacts" id="contacts-grid"></div> ===== -->
+        <h3 class="sub-title reveal">Feedback &amp; help</h3>
+        <section class="card feedback reveal" aria-labelledby="fb-title">
+          <div class="feedback-intro">
+            <h4 id="fb-title">Want to leave a comment or need help?</h4>
+            <p>Write to us if you would like to share your feedback, have a question, or ran into a problem with the website, the toolkit or the videos. We read every message.</p>
+          </div>
+
+          <form class="fb-form" id="feedback-form" action="https://formspree.io/f/xjywbvyq" method="POST" novalidate>
+            <div class="fb-row">
+              <div class="fb-field">
+                <label for="fb-name">Your name <span class="fb-opt">(optional)</span></label>
+                <input type="text" id="fb-name" name="name" autocomplete="name">
+              </div>
+              <div class="fb-field">
+                <label for="fb-email">Your email</label>
+                <input type="email" id="fb-email" name="email" autocomplete="email" required aria-describedby="fb-email-err">
+                <span class="fb-err" id="fb-email-err" data-err="email"></span>
+              </div>
+            </div>
+
+            <div class="fb-field">
+              <label for="fb-topic">What is it about?</label>
+              <select id="fb-topic" name="topic">
+                <option value="Comment">💬 I want to leave a comment</option>
+                <option value="Help">🆘 I need help</option>
+                <option value="Problem">🐞 Something does not work</option>
+                <option value="Other">✉️ Something else</option>
+              </select>
+            </div>
+
+            <div class="fb-field">
+              <label for="fb-message">Your message</label>
+              <textarea id="fb-message" name="message" rows="5" required aria-describedby="fb-message-err"></textarea>
+              <span class="fb-err" id="fb-message-err" data-err="message"></span>
+            </div>
+
+            <!-- spam trap: real people never see or fill this -->
+            <input type="text" name="_gotcha" class="fb-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="hidden" name="_subject" value="New message from the AI &amp; Youth Ambassadors website">
+
+            <div class="fb-actions">
+              <button type="submit" class="btn btn-primary" id="fb-submit">Send message</button>
+              <p class="fb-status" id="fb-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </section>
       </div>
+      
     </section>
 
   </main>
@@ -311,5 +360,6 @@
 
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/feedback.js"></script>
 </body>
 </html>
