@@ -132,3 +132,23 @@
   .js .feedback.is-visible .fb-form > * { animation: none; }
   .fb-actions .btn[disabled], .fb-status { animation: none; }
 }
+/* Force the feedback card + inner form to fill the container width,
+   no matter what parent layout it ends up in. */
+#contacts .feedback {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  grid-column: 1 / -1;   /* if it ever lands in a grid parent */
+}
+
+#contacts .feedback .fb-body,
+#contacts .feedback .fb-form {
+  width: 100%;
+  max-width: 100%;
+  justify-self: stretch;
+}
+
+#contacts .feedback .fb-form > * {
+  width: 100%;
+  max-width: 100%;
+}
