@@ -1,5 +1,5 @@
 /* =====================================================================
-   ide-theme.css — усе ЗЕЛЕНЕ (жодного синього), відео-плей — БЕЖЕВИЙ.
+   ide-theme.css — усе ЗЕЛЕНЕ (жодного синього), відео-плей — ЗЕЛЕНИЙ.
    Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
    ===================================================================== */
 
@@ -113,33 +113,33 @@
 }
 
 /* =====================================================
-   ВІДЕО-КОНТРОЛІ — БЕЖЕВІ (добре видно на темному прев'ю)
+   ВІДЕО-КОНТРОЛІ — ЗЕЛЕНІ (як решта акцентів сайту)
    ===================================================== */
 .play {
-  background: #E8D5A8;
-  color: #1E1E1E;
+  background: var(--c-green);
+  color: #052E16;
   font-weight: 700;
   box-shadow:
-    0 0 0 6px rgba(232,213,168,.30),
+    0 0 0 6px rgba(34,197,94,.28),
     0 8px 24px rgba(0,0,0,.55);
 }
 .video-poster:hover .play {
-  background: #F2E0BE;
-  color: #1E1E1E;
+  background: #4ADE80;
+  color: #052E16;
   transform: scale(1.1);
   box-shadow:
-    0 0 0 8px rgba(232,213,168,.42),
+    0 0 0 8px rgba(34,197,94,.40),
     0 10px 30px rgba(0,0,0,.6);
 }
 .video-expand {
-  background: #E8D5A8;
-  color: #1E1E1E;
+  background: var(--c-green);
+  color: #052E16;
   box-shadow: 0 4px 14px rgba(0,0,0,.4);
 }
 .video-expand:hover,
 .video-expand:focus-visible {
-  background: #F2E0BE;
-  color: #1E1E1E;
+  background: #4ADE80;
+  color: #052E16;
   transform: scale(1.08);
   box-shadow: 0 6px 20px rgba(0,0,0,.5);
 }
