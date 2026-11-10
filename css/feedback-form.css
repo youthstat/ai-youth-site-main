@@ -2,25 +2,33 @@
    feedback-form.css — feedback card (Contacts section)
    Uses the same colour tokens as the rest of the site (like Contacts).
    Green outline only — no badge, no glow, no top stripe.
+   Card is centered and narrower for a lighter look.
    ===================================================================== */
 
+/* ---- HOW TO CHANGE THE LOOK (edit these lines) ---- */
 .feedback {
-  --fb-accent: var(--c-green);
-  --fb-gold:   #f5cf79;
-  --fb-error:  #EF4444;
+  --fb-accent: var(--c-green);        /* main green accent              */
+  --fb-gold:   #f5cf79;               /* warm gold accent (dots)        */
+  --fb-error:  #EF4444;               /* error colour                   */
   --fb-radius: 14px;
-  --fb-gap:    20px;
+  --fb-gap:    18px;
 
+  /* space above — separates it clearly from Partners & Contacts */
   margin-top: clamp(40px, 6vw, 72px);
 
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 20px;
 
-  padding: clamp(28px, 4vw, 44px);
-  background: var(--surface-solid);
-  border: 1.5px solid var(--c-green);
+  /* centered, narrower card */
+  width: 100%;
+  max-width: 680px;
+  margin-inline: auto;
+
+  padding: clamp(22px, 3.5vw, 36px);
+  background: var(--surface-solid);          /* same as .card on site  */
+  border: 1.5px solid var(--c-green);        /* green outline only     */
   border-radius: 22px;
   box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .08);
   overflow: hidden;
@@ -36,7 +44,7 @@
 .feedback-intro h4 {
   font-family: "Alpha Lyrae", system-ui, sans-serif !important;
   font-weight: 500 !important;
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--c-green);
@@ -45,7 +53,7 @@
 
 .feedback-intro p {
   font-family: "Space Grotesk", system-ui, sans-serif;
-  font-size: 1rem;
+  font-size: .96rem;
   line-height: 1.65;
   color: var(--muted);
   margin: 0;
@@ -54,10 +62,15 @@
 /* ---------- 2. BODY + FORM ---------- */
 .fb-body { position: relative; z-index: 1; }
 
-.fb-form { display: grid; gap: var(--fb-gap); width: 100%; }
-.fb-row  { display: grid; gap: var(--fb-gap); }
+.fb-form {
+  display: grid;
+  gap: var(--fb-gap);
+  width: 100%;
+}
 
-@media (min-width: 640px) {
+.fb-row { display: grid; gap: var(--fb-gap); }
+
+@media (min-width: 560px) {
   .fb-row { grid-template-columns: 1fr 1fr; }
 }
 
@@ -68,7 +81,7 @@
   align-items: center;
   gap: 8px;
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: .72rem;
+  font-size: .7rem;
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -77,8 +90,8 @@
 
 .fb-field label::before {
   content: "";
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--fb-gold);
   flex: none;
@@ -92,13 +105,14 @@
   opacity: .8;
 }
 
+/* Inputs — same tokens as the rest of the site */
 .fb-field input,
 .fb-field select,
 .fb-field textarea {
   width: 100%;
-  padding: 14px 16px;
+  padding: 11px 14px;
   font-family: "Inter", system-ui, sans-serif;
-  font-size: .95rem;
+  font-size: .92rem;
   line-height: 1.55;
   color: var(--text);
   background: var(--vsc-bg-alt);
@@ -108,17 +122,22 @@
 }
 
 .fb-field textarea {
-  min-height: 140px;
-  max-height: 400px;
+  min-height: 110px;
+  max-height: 320px;
   resize: vertical;
 }
 
 .fb-field input::placeholder,
-.fb-field textarea::placeholder { color: var(--muted); opacity: .7; }
+.fb-field textarea::placeholder {
+  color: var(--muted);
+  opacity: .7;
+}
 
 .fb-field input:hover,
 .fb-field select:hover,
-.fb-field textarea:hover { border-color: rgba(34, 197, 94, .35); }
+.fb-field textarea:hover {
+  border-color: rgba(34, 197, 94, .35);
+}
 
 .fb-field input:focus,
 .fb-field select:focus,
@@ -132,19 +151,38 @@
 .fb-field [aria-invalid="true"] { border-color: var(--fb-error); }
 .fb-field [aria-invalid="true"]:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, .15); }
 
-.fb-err { min-height: 1em; font-size: .8rem; font-weight: 500; color: var(--fb-error); }
+.fb-err {
+  min-height: 1em;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--fb-error);
+}
 .fb-err:empty { display: none; }
 
-.fb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+/* honeypot */
+.fb-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
 
-/* ---------- 3. ACTION ---------- */
-.fb-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 6px; }
+/* ---------- 3. ACTION BUTTON + STATUS ---------- */
+.fb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+}
 
+/* Plain green button, matches the rest of the site */
 .fb-actions .btn {
   font-family: "Alpha Lyrae", system-ui, sans-serif !important;
   font-weight: 500 !important;
-  font-size: 1rem;
-  padding: 13px 28px;
+  font-size: .95rem;
+  padding: 11px 24px;
   border-radius: 999px;
   background: var(--c-green);
   color: #ffffff;
@@ -153,39 +191,68 @@
   transition: transform .2s, box-shadow .2s, background .2s;
 }
 
-.fb-actions .btn::after { content: "→"; display: inline-block; margin-left: 8px; transition: transform .25s; }
-.fb-actions .btn:hover  { background: #16A34A; transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(34, 197, 94, .55); }
-.fb-actions .btn:hover::after { transform: translateX(4px); }
-.fb-actions .btn[disabled] { opacity: .65; cursor: progress; transform: none; animation: fb-pulse 1s ease-in-out infinite; }
+.fb-actions .btn::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 8px;
+  transition: transform .25s;
+}
+
+.fb-actions .btn:hover {
+  background: #16A34A;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px rgba(34, 197, 94, .55);
+}
+
+.fb-actions .btn:hover::after {
+  transform: translateX(4px);
+}
+
+.fb-actions .btn[disabled] {
+  opacity: .65;
+  cursor: progress;
+  transform: none;
+  animation: fb-pulse 1s ease-in-out infinite;
+}
 @keyframes fb-pulse { 50% { opacity: .4; } }
 
 .fb-status {
   margin: 0;
   font-family: "Space Grotesk", system-ui, sans-serif;
-  font-size: .95rem;
+  font-size: .92rem;
   font-weight: 500;
   line-height: 1.4;
 }
 
 .fb-status.is-ok,
 .fb-status.is-error { animation: fb-pop .45s cubic-bezier(.2, .8, .2, 1); }
+
 .fb-status.is-ok    { color: var(--c-green); }
 .fb-status.is-ok::before { content: "✓ "; font-weight: 700; }
+
 .fb-status.is-error { color: var(--fb-error); }
 .fb-status.is-error::before { content: "! "; font-weight: 700; }
-@keyframes fb-pop { from { opacity: 0; transform: translateY(6px) scale(.96); } }
+
+@keyframes fb-pop {
+  from { opacity: 0; transform: translateY(6px) scale(.96); }
+}
 
 /* ---------- 4. ENTRANCE ---------- */
 @keyframes fb-in { from { opacity: 0; transform: translateY(14px); } }
+
 .js .feedback.is-visible .fb-form > .fb-row,
 .js .feedback.is-visible .fb-form > .fb-field,
-.js .feedback.is-visible .fb-form > .fb-actions { animation: fb-in .55s cubic-bezier(.2, .8, .2, 1) backwards; }
+.js .feedback.is-visible .fb-form > .fb-actions {
+  animation: fb-in .55s cubic-bezier(.2, .8, .2, 1) backwards;
+}
 .js .feedback.is-visible .fb-form > .fb-row     { animation-delay: .15s; }
 .js .feedback.is-visible .fb-form > .fb-field   { animation-delay: .30s; }
 .js .feedback.is-visible .fb-form > .fb-actions { animation-delay: .45s; }
 
 /* ---------- 5. DARK THEME ---------- */
-:root[data-theme="dark"] .feedback { box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .6); }
+:root[data-theme="dark"] .feedback {
+  box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .6);
+}
 
 /* ---------- 6. REDUCED MOTION ---------- */
 @media (prefers-reduced-motion: reduce) {
