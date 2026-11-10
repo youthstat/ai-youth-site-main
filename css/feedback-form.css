@@ -1,6 +1,7 @@
 /* =====================================================================
    feedback-form.css — comment / help form (Contacts section)
-   Layout: intro text on top -> "IDE window" with the form + flying digits.
+   Layout: intro text on top -> "IDE window" -> flying digits -> form.
+   Everything stacks vertically (single column) at every screen size.
    Uses site tokens, so light / dark themes work automatically.
    ===================================================================== */
 
@@ -58,7 +59,7 @@
 }
 .fb-shell:focus-within .fb-bar::after { transform: scaleX(1); }
 
-/* ---------- 3. FORM + SIDE PANEL ---------- */
+/* ---------- 3. FORM + SIDE PANEL (stacked, no side-by-side) ---------- */
 .fb-body { display: grid; }
 .fb-form { display: grid; gap: var(--fb-gap); padding: 22px; align-content: start; min-width: 0; }
 
@@ -82,14 +83,8 @@
 }
 @keyframes fb-blink { 50% { opacity: 0; } }
 
-@media (min-width: 860px) {
-  .fb-body { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
-  .fb-side { order: 0; min-height: 0; border-bottom: 0; border-left: 1px solid var(--vsc-border); }
-}
-
 /* ---------- 4. FIELDS ---------- */
 .fb-row { display: grid; gap: var(--fb-gap); }
-@media (min-width: 600px) { .fb-row { grid-template-columns: 1fr 1fr; } }
 
 .fb-field { display: grid; gap: 6px; }
 .fb-field label {
