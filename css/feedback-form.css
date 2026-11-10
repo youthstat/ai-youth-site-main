@@ -1,170 +1,195 @@
 /* =====================================================================
-   ide-theme.css — усе ЗЕЛЕНЕ (жодного синього), відео-плей — СКЛЯНИЙ ЗЕЛЕНИЙ.
-   Підключати ПІСЛЯ style.css, ПЕРЕД contacts-partners.css.
+   feedback-form.css — feedback card (Contacts section)
+   Uses the same colour tokens as the rest of the site (like Contacts).
+   Green outline only — no badge, no glow, no top stripe.
    ===================================================================== */
 
-/* ---------- 0. ФІНАЛЬНІ АЛІАСИ: усе, що було --blue/--link/--amber → зелений ---------- */
-:root,
-:root[data-theme="dark"] {
-  --blue:  var(--c-green);
-  --link:  var(--c-green);
-  --amber: var(--c-green);
-  accent-color: var(--c-green);
+.feedback {
+  --fb-accent: var(--c-green);
+  --fb-gold:   #f5cf79;
+  --fb-error:  #EF4444;
+  --fb-radius: 14px;
+  --fb-gap:    20px;
+
+  margin-top: clamp(40px, 6vw, 72px);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  padding: clamp(28px, 4vw, 44px);
+  background: var(--surface-solid);
+  border: 1.5px solid var(--c-green);
+  border-radius: 22px;
+  box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .08);
+  overflow: hidden;
 }
 
-/* ---------- 1. NAV ---------- */
-.site-nav a[aria-current="true"] {
-  background: rgba(43,168,90,.16);
+/* ---------- 1. INTRO ---------- */
+.feedback-intro {
+  position: relative;
+  z-index: 1;
+  max-width: 62ch;
+}
+
+.feedback-intro h4 {
+  font-family: "Alpha Lyrae", system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: var(--c-green);
-}
-.site-nav a:hover { background: var(--bg-alt); }
-
-/* ---------- 2. КНОПКИ — ЗЕЛЕНІ ---------- */
-.btn-primary {
-  background: var(--c-green);
-  color: #052E16;
-  box-shadow: 0 8px 22px rgba(43,168,90,.30);
-}
-.btn-primary:hover { background: #228C4A; }
-:root[data-theme="dark"] .btn-primary:hover { background: #389E5D; }
-
-.btn-outline,
-.card-btn {
-  color: var(--c-green);
-  border-color: var(--c-green);
-}
-.btn-outline:hover,
-.card-btn:hover {
-  background: rgba(43,168,90,.12);
-  border-color: var(--c-green);
+  margin: 0 0 12px;
 }
 
-.btn-solid   { background: var(--c-green); color: #052E16; }
-.skip-link   { background: var(--c-green); color: #052E16; }
-
-.car-btn:hover                 { background: var(--c-green); color: #052E16; }
-.days-btn:hover:not(:disabled) { background: var(--c-green); color: #052E16; border-color: var(--c-green); }
-.lb-btn:hover                  { background: var(--c-green); color: #052E16; }
-
-/* ---------- 3. HERO ---------- */
-.hero { background: #1E1E1E; }
-.hero-media::after { background: rgba(15,17,23,.65); }
-.hero-desc { color: #D4D4D4; }
-
-.flags-card {
-  background: rgba(30,30,30,.72);
-  border-color: rgba(43,168,90,.35);
-  box-shadow: 0 20px 50px rgba(0,0,0,.45);
-}
-.flag-item { background: rgba(255,255,255,.06); }
-
-/* ---------- 4. КАРТКИ / СТАТИСТИКА ---------- */
-.next-card {
-  background: rgba(43,168,90,.08);
-  border-color: rgba(43,168,90,.35);
-}
-.erasmus-card { border-left-color: var(--c-green); }
-
-.stat-num,
-.stat-dl .stat-num {
-  background: none;
-  -webkit-background-clip: border-box;
-  background-clip: border-box;
-  -webkit-text-fill-color: currentColor;
-  color: var(--c-green);
-}
-.stat-dl {
-  background: #1E1E1E;
-  border-color: rgba(43,168,90,.35);
-}
-.stat-dl .stat-label { color: #D4D4D4; }
-.dl-target { color: #A0A0A0; }
-
-.dl-bar .bar-fill { background: var(--c-green); }
-.bar-fill         { background: var(--c-green); }
-.bar-fill.is-done { background: var(--c-green); }
-.day::before      { background: var(--c-green); }
-.day-n, .fact-label, .prog-val { color: var(--c-green); }
-
-.donut-seg.seg-a { stroke: var(--c-green); }
-.donut-seg.seg-b { stroke: var(--c-green); }
-.donut-seg.seg-c { stroke: var(--c-green); }
-
-/* ---------- 5. ГАЛЕРЕЯ / ДІАЛОГИ ---------- */
-.gallery-overlay { background: rgba(30,30,30,.82); color: #fff; }
-.gallery-overlay strong { color: var(--c-green); }
-.gallery-overlay span   { color: var(--c-green); }
-.gallery-item.has-more:hover .gallery-overlay { background: rgba(30,30,30,.62); }
-
-.dialog { background: rgba(14,14,15,.78); }
-.lightbox { background: rgba(14,14,15,.95); }
-.vd-title, .lb-count { color: #D4D4D4; }
-.dialog-panel {
-  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(43,168,90,.18);
+.feedback-intro p {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
 }
 
-.carousel-slide:has(img.is-loading)::after,
-.gallery-item:has(img.is-loading)::before,
-.video-frame.is-loading::after,
-.media-skel::after, .gallery-skel::after,
-.vd-stage.is-loading::after {
-  border-color: rgba(43,168,90,.25);
-  border-top-color: var(--c-green);
+/* ---------- 2. BODY + FORM ---------- */
+.fb-body { position: relative; z-index: 1; }
+
+.fb-form { display: grid; gap: var(--fb-gap); width: 100%; }
+.fb-row  { display: grid; gap: var(--fb-gap); }
+
+@media (min-width: 640px) {
+  .fb-row { grid-template-columns: 1fr 1fr; }
 }
 
-/* =====================================================
-   ВІДЕО-КОНТРОЛІ — «СКЛЯНИЙ» ЗЕЛЕНИЙ
-   Напівпрозоре зелене скло з blur, тонким світлим бордером
-   і м'яким внутрішнім підсвітом. Добре видно на будь-якому прев'ю.
-   ===================================================== */
-.play {
-  background: rgba(34, 197, 94, .28);
-  -webkit-backdrop-filter: blur(10px) saturate(160%);
-  backdrop-filter: blur(10px) saturate(160%);
-  color: #FFFFFF;
+.fb-field { display: grid; gap: 8px; }
+
+.fb-field label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: .72rem;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, .35);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .35),
-    inset 0 -1px 0 rgba(0, 0, 0, .12),
-    0 8px 24px rgba(0, 0, 0, .35),
-    0 0 0 6px rgba(34, 197, 94, .14);
-  transition: transform .2s, background .2s, box-shadow .2s;
-}
-.video-poster:hover .play {
-  background: rgba(34, 197, 94, .45);
-  transform: scale(1.08);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .45),
-    inset 0 -1px 0 rgba(0, 0, 0, .12),
-    0 10px 30px rgba(0, 0, 0, .45),
-    0 0 0 8px rgba(34, 197, 94, .22);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-green);
 }
 
-.video-expand {
-  background: rgba(34, 197, 94, .28);
-  -webkit-backdrop-filter: blur(8px) saturate(160%);
-  backdrop-filter: blur(8px) saturate(160%);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, .35);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .30),
-    0 4px 14px rgba(0, 0, 0, .30);
-  transition: transform .2s, background .2s, box-shadow .2s;
-}
-.video-expand:hover,
-.video-expand:focus-visible {
-  background: rgba(34, 197, 94, .45);
-  transform: scale(1.08);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .40),
-    0 6px 20px rgba(0, 0, 0, .40);
+.fb-field label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fb-gold);
+  flex: none;
 }
 
-/* ---------- 6. ФУТЕР ---------- */
-.site-footer {
-  background: #1E1E1E;
-  color: #D4D4D4;
-  border-top: 1px solid rgba(43,168,90,.35);
+.fb-opt {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
+  opacity: .8;
 }
-.disclaimer { color: #858585; }
+
+.fb-field input,
+.fb-field select,
+.fb-field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: .95rem;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--vsc-bg-alt);
+  border: 1.5px solid var(--border);
+  border-radius: var(--fb-radius);
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.fb-field textarea {
+  min-height: 140px;
+  max-height: 400px;
+  resize: vertical;
+}
+
+.fb-field input::placeholder,
+.fb-field textarea::placeholder { color: var(--muted); opacity: .7; }
+
+.fb-field input:hover,
+.fb-field select:hover,
+.fb-field textarea:hover { border-color: rgba(34, 197, 94, .35); }
+
+.fb-field input:focus,
+.fb-field select:focus,
+.fb-field textarea:focus {
+  outline: none;
+  background: var(--vsc-bg);
+  border-color: var(--c-green);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, .15);
+}
+
+.fb-field [aria-invalid="true"] { border-color: var(--fb-error); }
+.fb-field [aria-invalid="true"]:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, .15); }
+
+.fb-err { min-height: 1em; font-size: .8rem; font-weight: 500; color: var(--fb-error); }
+.fb-err:empty { display: none; }
+
+.fb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- 3. ACTION ---------- */
+.fb-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 6px; }
+
+.fb-actions .btn {
+  font-family: "Alpha Lyrae", system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 1rem;
+  padding: 13px 28px;
+  border-radius: 999px;
+  background: var(--c-green);
+  color: #ffffff;
+  border: 0;
+  box-shadow: 0 6px 16px -8px rgba(34, 197, 94, .5);
+  transition: transform .2s, box-shadow .2s, background .2s;
+}
+
+.fb-actions .btn::after { content: "→"; display: inline-block; margin-left: 8px; transition: transform .25s; }
+.fb-actions .btn:hover  { background: #16A34A; transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(34, 197, 94, .55); }
+.fb-actions .btn:hover::after { transform: translateX(4px); }
+.fb-actions .btn[disabled] { opacity: .65; cursor: progress; transform: none; animation: fb-pulse 1s ease-in-out infinite; }
+@keyframes fb-pulse { 50% { opacity: .4; } }
+
+.fb-status {
+  margin: 0;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: .95rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.fb-status.is-ok,
+.fb-status.is-error { animation: fb-pop .45s cubic-bezier(.2, .8, .2, 1); }
+.fb-status.is-ok    { color: var(--c-green); }
+.fb-status.is-ok::before { content: "✓ "; font-weight: 700; }
+.fb-status.is-error { color: var(--fb-error); }
+.fb-status.is-error::before { content: "! "; font-weight: 700; }
+@keyframes fb-pop { from { opacity: 0; transform: translateY(6px) scale(.96); } }
+
+/* ---------- 4. ENTRANCE ---------- */
+@keyframes fb-in { from { opacity: 0; transform: translateY(14px); } }
+.js .feedback.is-visible .fb-form > .fb-row,
+.js .feedback.is-visible .fb-form > .fb-field,
+.js .feedback.is-visible .fb-form > .fb-actions { animation: fb-in .55s cubic-bezier(.2, .8, .2, 1) backwards; }
+.js .feedback.is-visible .fb-form > .fb-row     { animation-delay: .15s; }
+.js .feedback.is-visible .fb-form > .fb-field   { animation-delay: .30s; }
+.js .feedback.is-visible .fb-form > .fb-actions { animation-delay: .45s; }
+
+/* ---------- 5. DARK THEME ---------- */
+:root[data-theme="dark"] .feedback { box-shadow: 0 6px 20px -12px rgba(0, 0, 0, .6); }
+
+/* ---------- 6. REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .fb-actions .btn::after { transition: none; }
+  .js .feedback.is-visible .fb-form > * { animation: none; }
+  .fb-actions .btn[disabled], .fb-status { animation: none; }
+}
