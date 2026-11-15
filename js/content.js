@@ -312,7 +312,10 @@ window.SITE_DATA = {
     disclaimer:
       "Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Education and Culture Executive Agency (EACEA). Neither the European Union nor EACEA can be held responsible for them."
   },
-  /* firebaseUrl example: "https://your-project-default-rtdb.europe-west1.firebasedatabase.app"  (no trailing slash)
-     Empty = fallback mode (counter visible only in the current browser). */
-  downloads: { startValue: 378, firebaseUrl: "" }
+  /* startValue: the number shown at the start (420).
+     firebaseUrl: paste the Realtime Database URL here (no trailing slash), e.g.
+       "https://your-project-default-rtdb.europe-west1.firebasedatabase.app"
+     Empty = fallback mode (counter visible only in the current browser).
+     In Firebase the node "brochureDownloads" must exist with the number 420. */
+downloads: { startValue: 420, firebaseUrl: "https://stat-b4ce3-default-rtdb.firebaseio.com" }
 };
