@@ -82,7 +82,7 @@ window.SITE_DATA = {
     {
       id: 4, date: "29 August", title: "Community Connection & Intercultural Learning", countries: ["Jordan", "Georgia"], icon: "🚌",
       description: "We took our learning into the town with the Tech in My Town study visit and city quest, interviewing local people and photographing digital traces. After lunch in the city we visited the Vatra Dornei Municipality (Primăria Vatra Dornei), where we gave a short interactive presentation on AI and young people and held an open discussion with the hosts. We then shared our discoveries, reflected on the day and celebrated Jordan and Georgia on the Cultural Night.",
-      activities: ["Study Visit: Tech in My Town (city quest in Vatra Dornei)", "Lunch (in the city)", "Visit to Local Institution: Vatra Dornei Municipality (Primăria Vatra Dornei)", "Tech in My Town: Sharing Discoveries", "Daily Reflection in Learning Families", "Intercultural Evening: Jordan, Georgia"],
+      activities: ["Study Visit: Tech in My Town (city quest in Vatra Dornei)", "Lunch (in the city)", "Visit to Local Institution: Clubul Copiilor Vatra Dornei ", "Tech in My Town: Sharing Discoveries", "Daily Reflection in Learning Families", "Intercultural Evening: Jordan, Georgia"],
       youtube: "", photoFolder: "images/days/day4/", photoMax: 30
     },
     {
@@ -299,7 +299,6 @@ window.SITE_DATA = {
   ],
   contactsLead: "If you have any questions, feel free to reach out.",
   contacts: [
-    { name: "Adrian Cocardan", email: "meisxmaster@yahoo.com", phone: "+40748213791", phoneText: "+40 748 213 791" },
     { name: "Paul Iordache", email: "bmnngo2@gmail.com", phone: "+40756601982", phoneText: "+40 756 601 982" }
   ],
 
